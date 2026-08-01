@@ -116,15 +116,6 @@ a {
 .alur-item:hover .alur-icon { transform: scale(1.1); background: var(--peach-soft); color: var(--navy-dark); }
 .alur-item h5 { font-size: 16px; font-weight: 700; color: var(--navy-dark); margin-bottom: 10px; }
 .alur-item p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
-.alur-line { 
-    position: absolute; 
-    top: 55px; 
-    left: 12.5%; 
-    width: 75%;  
-    height: 2px; 
-    background: #e2e8f0; 
-    z-index: 1; 
-}
 
 /* ── Testimoni ── */
 .testimoni-section { padding: 90px 0; background: #f8f7f5; }

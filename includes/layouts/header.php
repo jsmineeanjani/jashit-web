@@ -11,7 +11,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($page_title) ? $page_title . ' — JASHIT' : 'JASHIT · Jasa Jahit Konveksi' ?></title>
-
+    
     <!-- Favicon JASHIT -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
     
@@ -24,14 +24,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
     <!-- Custom CSS Landing Page -->
     <link href="<?= BASE_URL ?>/assets/css/landing.css" rel="stylesheet">
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-custom" style="position:sticky;top:0;z-index:999;">
     <div class="container">
-       <a class="navbar-brand" href="<?= BASE_URL ?>/public/index.php">
-          <img src="<?= BASE_URL ?>/assets/img/logo_jashit.png" alt="Logo JASHIT" style="height: 55px; width: auto;">
-       </a>
+        <a class="navbar-brand" href="<?= BASE_URL ?>/public/index.php">
+            <img src="<?= BASE_URL ?>/assets/img/logo_jashit.png" alt="Logo JASHIT" style="height: 55px; width: auto;">
+        </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>

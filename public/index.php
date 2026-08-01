@@ -18,14 +18,14 @@ $query_fb = mysqli_query($koneksi, "
     LIMIT 6
 ");
 
-// 1. Panggil Header dari Layouts
+// 1. Panggil Header dari Layouts (yang berisi Navbar & Head)
 require_once '../includes/layouts/header.php'; 
 ?>
 
 <section class="hero-section">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
                 <div class="hero-label">Usaha Jahit Terpercaya</div>
                 <h1 class="hero-title">Seni Jahitan<br>Estetika & <span>Kualitas</span></h1>
                 <p class="hero-desc">Jashit siap menjadi mitra andalan dalam setiap karya busana Anda. Kualitas bukan hanya sekadar janji, tapi sudah terbukti oleh berbagai brand ternama nasional.</p>
@@ -41,13 +41,13 @@ require_once '../includes/layouts/header.php';
 <section id="tentang" class="tentang-section">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-5 mb-5 mb-lg-0">
+            <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right" data-aos-duration="1000">
                 <div class="tentang-image-wrap">
                     <img src="<?= BASE_URL ?>/assets/img/tentang-kami.png" alt="Penjahit Profesional" class="tentang-image">
                     <div class="tentang-accent"></div>
                 </div>
             </div>
-            <div class="col-lg-6 offset-lg-1">
+            <div class="col-lg-6 offset-lg-1" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                 <div class="section-label dark">Profil Usaha</div>
                 <h2 class="section-title mb-4">Menyatukan Estetika dan Kualitas dalam Setiap Jahitan</h2>
                 <p class="section-desc" style="text-align: justify;">Jashit merupakan usaha jahit yang telah melayani berbagai macam pesanan sejak 2010. Berlokasi di Ciputat, Tangerang Selatan, kami mengutamakan kualitas jahitan, ketepatan waktu, dan komunikasi yang baik dengan pelanggan sebagai prinsip utama dalam setiap karya.</p>
@@ -56,7 +56,7 @@ require_once '../includes/layouts/header.php';
                 
                 <div class="mt-4">
                     <span style="font-size:12px; font-weight:700; color:var(--navy-dark); text-transform:uppercase; letter-spacing:1px;">Dipercaya Oleh Brand:</span>
-                    <div class="client-logos">
+                    <div class="client-logos mt-2">
                         <span class="client-tag">Gudang Garam</span>
                         <span class="client-tag">Maheera</span>
                         <span class="client-tag">Khanaan</span>
@@ -71,12 +71,12 @@ require_once '../includes/layouts/header.php';
 <section class="promo-section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
+            <div class="col-lg-10" data-aos="zoom-in" data-aos-duration="800">
                 <div class="promo-box">
                     <div class="promo-badge">PROMO SPESIAL</div>
                     <h3 class="promo-title">Diskon 10% Khusus Pelanggan Baru!</h3>
                     <p class="promo-desc">Dapatkan potongan harga eksklusif sekarang.</p>
-                    <a href="<?= BASE_URL ?>/register.php" class="btn-elegant-dark" style="background:var(--peach-soft); color:var(--navy-dark);">KLAIM PROMO SEKARANG</a>
+                    <a href="<?= BASE_URL ?>/auth/register.php" class="btn-elegant-dark" style="background:var(--peach-soft); color:var(--navy-dark);">KLAIM PROMO SEKARANG</a>
                 </div>
             </div>
         </div>
@@ -86,17 +86,17 @@ require_once '../includes/layouts/header.php';
 <section id="layanan" class="layanan-section">
     <div class="container">
         <div class="row align-items-end mb-5">
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-aos="fade-up">
                 <div class="section-label dark">Layanan Kami</div>
                 <h2 class="section-title">Standar Tinggi,<br>Harga Bersahabat</h2>
             </div>
-            <div class="col-lg-5 offset-lg-1">
+            <div class="col-lg-5 offset-lg-1" data-aos="fade-up" data-aos-delay="200">
                 <p class="section-desc">Kami melayani berbagai jenis kebutuhan jahit dengan standar tinggi. Mulai dari perorangan hingga produksi skala besar.</p>
             </div>
         </div>
         <div class="row g-4">
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="layanan-card">
                     <img src="<?= BASE_URL ?>/assets/img/busana-muslim.jpg" alt="Busana Muslimah" class="layanan-img">
                     <div class="layanan-content">
@@ -106,7 +106,7 @@ require_once '../includes/layouts/header.php';
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="layanan-card">
                     <img src="<?= BASE_URL ?>/assets/img/brand-lokal.jpg" alt="Brand Fashion Lokal" class="layanan-img">
                     <div class="layanan-content">
@@ -116,7 +116,7 @@ require_once '../includes/layouts/header.php';
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                 <div class="layanan-card">
                     <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80" alt="Pakaian Kantor & Seragam" class="layanan-img">
                     <div class="layanan-content">
@@ -126,7 +126,7 @@ require_once '../includes/layouts/header.php';
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
                 <div class="layanan-card">
                     <img src="<?= BASE_URL ?>/assets/img/aksesoris.jpeg" alt="Aksesoris & Rompi" class="layanan-img">
                     <div class="layanan-content">
@@ -136,7 +136,7 @@ require_once '../includes/layouts/header.php';
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
                 <div class="layanan-card">
                     <img src="<?= BASE_URL ?>/assets/img/manekin.jpg" alt="Modifikasi Pakaian" class="layanan-img">
                     <div class="layanan-content">
@@ -146,7 +146,7 @@ require_once '../includes/layouts/header.php';
                 </div>
             </div>
             
-            <div class="col-md-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
                 <div class="layanan-card">
                     <img src="<?= BASE_URL ?>/assets/img/pakaian-khusus.png" alt="Produksi Skala Besar" class="layanan-img">
                     <div class="layanan-content">
@@ -155,8 +155,9 @@ require_once '../includes/layouts/header.php';
                     </div>
                 </div>
             </div>
+            
         </div>
-        <div class="text-center mt-5 pt-3">
+        <div class="text-center mt-5 pt-3" data-aos="zoom-in" data-aos-offset="-50">
             <a href="<?= BASE_URL ?>/public/layanan.php" class="btn-elegant-dark" style="background:var(--navy-dark); color:#fff; padding:12px 32px; font-size:14px; letter-spacing:1px; text-transform:uppercase;">
                 LIHAT DETAIL LAYANAN & HARGA
             </a>
@@ -166,36 +167,34 @@ require_once '../includes/layouts/header.php';
 
 <section id="alur" class="alur-section">
     <div class="container">
-        <div class="text-center mb-5">
+        <div class="text-center mb-5" data-aos="fade-down">
             <div class="section-label dark" style="justify-content:center;">Cara Kerja Kami</div>
             <h2 class="section-title">Alur Pemesanan Jashit</h2>
             <p class="section-desc mx-auto" style="max-width:600px;">Proses yang transparan dan mudah dipantau langsung dari device Anda.</p>
         </div>
-        <div class="row g-4 position-relative">
-            <div class="alur-line d-none d-md-block"></div>
-            
-            <div class="col-md-3">
+        <div class="row g-4 position-relative">  
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                 <div class="alur-item">
                     <div class="alur-icon"><i class="bi bi-chat-dots"></i></div>
                     <h5>1. Konsultasi & Diskusi</h5>
                     <p>Mulai dari diskusi desain, pemilihan bahan berkualitas, hingga penentuan ukuran yang paling pas untuk Anda.</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
                 <div class="alur-item">
                     <div class="alur-icon"><i class="bi bi-clipboard-check"></i></div>
                     <h5>2. Kesepakatan & DP</h5>
                     <p>Setelah bahan dan harga disepakati, Anda bisa melakukan pembayaran uang muka (DP) agar pesanan segera masuk antrean.</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="500">
                 <div class="alur-item">
                     <div class="alur-icon"><i class="bi bi-scissors"></i></div>
                     <h5>3. Proses Produksi</h5>
                     <p>Tim terampil kami memulai proses cutting, penjahitan, hingga tahap finishing & Quality Control (QC).</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="700">
                 <div class="alur-item">
                     <div class="alur-icon"><i class="bi bi-box-seam"></i></div>
                     <h5>4. Selesai</h5>
@@ -208,12 +207,15 @@ require_once '../includes/layouts/header.php';
 
 <section id="testimoni" class="py-5" style="background-color: #f8f9fa;">
     <div class="container">
-        <h2 class="text-center mb-5" style="font-weight: 700; color: var(--navy-dark);">Apa Kata Pelanggan Kami?</h2>
+        <h2 class="text-center mb-5" style="font-weight: 700; color: var(--navy-dark);" data-aos="fade-up">Apa Kata Pelanggan Kami?</h2>
         
         <div class="row g-4 justify-content-center">
             <?php if (mysqli_num_rows($query_fb) > 0): ?>
-                <?php while ($fb = mysqli_fetch_assoc($query_fb)): ?>
-                    <div class="col-md-6 col-lg-4">
+                <?php 
+                $delay = 100; // Inisialisasi delay awal untuk animasi bergantian
+                while ($fb = mysqli_fetch_assoc($query_fb)): 
+                ?>
+                    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="<?= $delay ?>">
                         <div class="card h-100 border-0 shadow-sm" style="border-radius: 12px; padding: 20px;">
                             
                             <div style="color: #f59e0b; font-size: 16px; margin-bottom: 15px;">
@@ -250,9 +252,12 @@ require_once '../includes/layouts/header.php';
 
                         </div>
                     </div>
-                <?php endwhile; ?>
+                <?php 
+                $delay += 150; // Tambah delay 150ms untuk setiap card testimoni berikutnya
+                endwhile; 
+                ?>
             <?php else: ?>
-                <div class="col-12 text-center text-muted">
+                <div class="col-12 text-center text-muted" data-aos="fade-in">
                     <p>Belum ada ulasan yang ditampilkan.</p>
                 </div>
             <?php endif; ?>
@@ -260,10 +265,21 @@ require_once '../includes/layouts/header.php';
     </div>
 </section>
 
-
 <?php require_once '../includes/layouts/footer.php'; ?>
 
-<!-- Eksternal Script JavaScript -->
+<!-- Eksternal Script JavaScript Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AOS Animation JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Inisialisasi AOS saat halaman dimuat
+    AOS.init({
+        once: true,       // Animasi hanya berjalan 1 kali saat di-scroll ke bawah
+        offset: 80,       // Jarak dari bawah layar sebelum animasi dimulai (dalam px)
+        duration: 800,    // Durasi animasi secara default (dalam ms)
+        easing: 'ease-out-cubic' // Gaya perlambatan animasi biar terlihat mulus
+    });
+</script>
 </body>
 </html>

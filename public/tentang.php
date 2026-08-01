@@ -31,7 +31,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <?php require_once '../includes/layouts/header.php'; ?>
 
     <!-- Banner Judul Halaman -->
-    <div class="page-header">
+    <div class="page-header" data-aos="fade-down" data-aos-duration="1000">
         <div class="container">
             <h1 class="page-title">Tentang Kami</h1>
             <p style="color: rgba(255,255,255,0.7); font-size: 14.5px;">Mengenal lebih dekat perjalanan panjang dan dedikasi Jashit.</p>
@@ -43,7 +43,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="container">
             <div class="row align-items-center">
                 <!-- Sisi Kiri: Gambar -->
-                <div class="col-lg-5">
+                <div class="col-lg-5" data-aos="fade-right" data-aos-duration="1000">
                     <div class="tentang-image-wrap">
                         <img src="../assets/img/tentang-jashit.png" alt="Perjalanan Jashit" class="tentang-image">
                         <div class="tentang-accent"></div>
@@ -51,7 +51,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </div>
 
                 <!-- Sisi Kanan: Teks -->
-                <div class="col-lg-6 offset-lg-1">
+                <div class="col-lg-6 offset-lg-1" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <div class="section-label">Perjalanan Kami</div>
                     <h2 class="section-title">Dedikasi Sebuah Karya Sejak 2010</h2>
                     
@@ -77,7 +77,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <!-- Klien/Brand -->
                     <div class="mt-4 pt-2">
                         <span style="font-size:12px; font-weight:700; color:var(--navy-dark); text-transform:uppercase; letter-spacing:1px;">Telah Berkolaborasi Bersama:</span>
-                        <div class="client-logos">
+                        <div class="client-logos mt-2">
                             <span class="client-tag">Brand Butik Lokal</span>
                             <span class="client-tag">Gudang Garam</span>
                             <span class="client-tag">Maheera</span>
@@ -95,5 +95,16 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <!-- Eksternal Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 80,
+            duration: 800,
+            easing: 'ease-out-cubic'
+        });
+    </script>
 </body>
 </html>
