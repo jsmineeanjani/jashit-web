@@ -1,0 +1,150 @@
+/* CSS Dasar & Navbar/Footer */
+:root {
+    --navy-dark: #1e293b;
+    --peach-soft: #f4d3c2;
+    --bg-light: #fcfcfc;
+    --text-main: #334155;
+    --text-muted: #64748b;
+}
+
+body { 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+    background-color: var(--bg-light); 
+    color: var(--text-main); 
+}
+
+a { 
+    text-decoration: none; 
+}
+
+.navbar-custom { background-color: #ffffff; border-bottom: 1px solid #f1f5f9; padding: 15px 0; }
+.navbar-custom .navbar-brand { color: var(--navy-dark); font-weight: 700; letter-spacing: 1px; }
+.navbar-custom .nav-link { color: var(--text-main); font-weight: 500; font-size: 14px; text-transform: uppercase; margin: 0 10px; transition: 0.3s; }
+
+/* Style untuk Menu yang sedang aktif */
+.navbar-custom .nav-link.active-menu {
+    color: var(--navy-dark);
+    font-weight: 600; 
+    border-bottom: 2px solid var(--peach-soft); 
+}
+
+.navbar-custom .nav-link:hover { color: var(--navy-dark); }
+
+.nav-link-login { color: var(--text-main); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+.nav-link-login:hover { color: var(--navy-dark); }
+
+.btn-elegant-dark { background-color: var(--navy-dark); color: #ffffff; padding: 10px 24px; font-size: 13px; font-weight: 600; letter-spacing: 1px; border-radius: 4px; transition: 0.3s; display: inline-block; }
+.btn-elegant-dark:hover { background-color: #0f172a; color: var(--peach-soft); }
+
+/* ── Hero ── */
+.hero-section {
+    min-height: 92vh;
+    background-image: linear-gradient(rgba(30,41,59,0.75), rgba(30,41,59,0.85)), url('../img/hero-jahit.jpg');
+    background-size: cover; background-position: center; background-attachment: fixed;
+    display: flex; align-items: center; color: #fff;
+}
+.hero-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--peach-soft); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.hero-label::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--peach-soft); }
+.hero-title { font-size: clamp(36px, 5vw, 62px); font-weight: 700; line-height: 1.15; margin-bottom: 24px; letter-spacing: -0.5px; }
+.hero-title span { color: var(--peach-soft); }
+.hero-desc { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 36px; max-width: 550px; }
+
+/* ── Section Umum ── */
+.section-label { font-size: 16px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.section-label::before { content: ''; display: inline-block; width: 28px; height: 1px; background: currentColor; }
+.section-title { font-size: clamp(24px, 3vw, 36px); font-weight: 700; color: var(--navy-dark); margin-bottom: 14px; line-height: 1.3; }
+.section-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; }
+
+/* ── Tentang Kami ── */
+.tentang-section { padding: 90px 0; background: #fff; }
+.tentang-image-wrap { position: relative; padding-right: 30px; padding-bottom: 30px; }
+.tentang-image { width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(30,41,59,0.1); }
+.tentang-accent { position: absolute; right: 0; bottom: 0; width: 60%; height: 60%; background: var(--peach-soft); z-index: -1; border-radius: 4px; }
+.client-logos { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+.client-tag { background: #f1f5f9; color: var(--navy-dark); padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 4px; border: 1px solid #e2e8f0; }
+
+/* ── Layanan dengan Gambar ── */
+.layanan-section { padding: 90px 0; background: #f8f7f5; }
+.layanan-card { 
+    border: 1px solid #e2e8f0; 
+    background: #fff; 
+    transition: all 0.4s; 
+    height: 100%; 
+    border-radius: 8px; 
+    position: relative; 
+    top: 0; 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+.layanan-card:hover { 
+    border-color: var(--peach-soft); 
+    box-shadow: 0 15px 30px rgba(30,41,59,0.08); 
+    top: -8px; 
+}
+.layanan-img {
+    width: 100%;
+    height: 220px; 
+    object-fit: cover; 
+    border-bottom: 1px solid #e2e8f0;
+    transition: transform 0.5s;
+}
+.layanan-card:hover .layanan-img {
+    transform: scale(1.05); 
+}
+.layanan-content {
+    padding: 28px;
+    flex-grow: 1; 
+    background: #fff;
+    position: relative;
+    z-index: 2;
+}
+.layanan-card h5 { font-size: 16px; font-weight: 700; color: var(--navy-dark); margin-bottom: 12px; }
+.layanan-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
+/* ── Promo / Diskon ── */
+.promo-section { background: var(--peach-soft); padding: 60px 0; text-align: center; }
+.promo-box { background: var(--navy-dark); color: #fff; border-radius: 8px; padding: 40px; box-shadow: 0 20px 40px rgba(30,41,59,0.15); }
+.promo-badge { background: #fff; color: var(--navy-dark); padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 20px; }
+.promo-title { font-size: 28px; font-weight: 700; margin-bottom: 15px; }
+.promo-desc { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 25px; }
+
+/* ── Alur Pemesanan ── */
+.alur-section { padding: 90px 0; background: #fff; }
+.alur-item { text-align: center; padding: 20px; position: relative; }
+.alur-icon { width: 70px; height: 70px; background: var(--navy-dark); color: var(--peach-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; position: relative; z-index: 2; transition: transform 0.3s; }
+.alur-item:hover .alur-icon { transform: scale(1.1); background: var(--peach-soft); color: var(--navy-dark); }
+.alur-item h5 { font-size: 16px; font-weight: 700; color: var(--navy-dark); margin-bottom: 10px; }
+.alur-item p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+.alur-line { 
+    position: absolute; 
+    top: 55px; 
+    left: 12.5%; 
+    width: 75%;  
+    height: 2px; 
+    background: #e2e8f0; 
+    z-index: 1; 
+}
+
+/* ── Testimoni ── */
+.testimoni-section { padding: 90px 0; background: #f8f7f5; }
+.testimoni-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 30px; height: 100%; position: relative; }
+.testimoni-quote { font-size: 40px; color: var(--peach-soft); position: absolute; top: 15px; right: 25px; opacity: 0.4; line-height: 1; }
+.testimoni-stars { color: #fbbf24; font-size: 14px; margin-bottom: 15px; }
+.testimoni-text { font-size: 14px; color: var(--text-main); line-height: 1.8; font-style: italic; margin-bottom: 20px; }
+.testimoni-user { display: flex; align-items: center; gap: 15px; }
+.user-avatar { width: 45px; height: 45px; background: var(--navy-dark); color: var(--peach-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+.user-info h6 { font-size: 14px; font-weight: 700; color: var(--navy-dark); margin: 0 0 3px 0; }
+.user-info span { font-size: 12px; color: var(--text-muted); }
+
+/* ── Footer ── */
+.footer { background: var(--navy-dark); color: rgba(255,255,255,0.6); padding: 60px 0 24px; }
+.footer-brand { font-size: 22px; font-weight: 700; letter-spacing: 2px; color: #fff; margin-bottom: 12px; }
+.footer-desc { font-size: 13px; line-height: 1.7; max-width: 280px; }
+.footer-heading { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-bottom: 16px; }
+.footer-links { list-style: none; padding: 0; margin: 0; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a { font-size: 13.5px; color: rgba(255,255,255,0.6); transition: 0.2s; }
+.footer-links a:hover { color: var(--peach-soft); padding-left: 5px; }
+.footer-contact { font-size: 13.5px; line-height: 2.2; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 50px; padding-top: 24px; font-size: 12px; text-align: center; }

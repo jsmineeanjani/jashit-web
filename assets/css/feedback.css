@@ -1,0 +1,48 @@
+/* assets/css/feedback.css */
+.card-table-wrap { 
+    background: #fff; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 6px; 
+    padding: 24px; 
+}
+table.dataTable thead th { 
+    background-color: #f8fafc; 
+    color: #64748b; 
+    font-size: 11px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    border-bottom: 1px solid #e2e8f0 !important; 
+    padding: 14px 15px; 
+}
+table.dataTable tbody td { 
+    vertical-align: middle; 
+    font-size: 14px; 
+    color: #334155; 
+    border-bottom: 1px solid #f1f5f9; 
+    padding: 16px 15px; 
+}
+.dataTables_wrapper .row:first-child { 
+    align-items: center; 
+    margin-bottom: 20px; 
+}
+div.dataTables_filter { 
+    text-align: left !important; 
+}
+div.dataTables_filter input { 
+    width: 250px; 
+    display: inline-block; 
+    margin-left: 0; 
+    margin-right: 10px; 
+}
+div.dataTables_length { 
+    text-align: right !important; 
+}
+div.dataTables_length select { 
+    width: auto; 
+    display: inline-block; 
+    margin: 0 8px; 
+}
+.star-rating { 
+    color: #f59e0b; 
+    font-size: 14px; 
+}

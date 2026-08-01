@@ -1,0 +1,425 @@
+/* ============================================
+   JASHIT — Global Stylesheet
+   Tema: Simple, Elegant, Calm
+   ============================================ */
+
+:root {
+    --navy-dark:  #1e293b;
+    --navy-mid:   #334155;
+    --peach-soft: #f4d3c2;
+    --peach-mid:  #e8b89e;
+    --bg-light:   #fcfcfc;
+    --bg-soft:    #f8f7f5;
+    --text-main:  #334155;
+    --text-muted: #94a3b8;
+    --border:     #e2e8f0;
+}
+
+/* ── Base ─────────────────────────────────── */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ── Navbar Public ────────────────────────── */
+.navbar-custom {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+}
+
+.navbar-custom .navbar-brand {
+    color: var(--navy-dark);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.navbar-custom .nav-link {
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    transition: color 0.2s;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+    color: var(--navy-dark);
+}
+
+.nav-link-login {
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+.nav-link-login:hover {
+    color: var(--navy-dark);
+}
+
+/* ── Buttons ──────────────────────────────── */
+.btn-elegant-dark {
+    background-color: var(--navy-dark);
+    color: #ffffff;
+    border: 1px solid var(--navy-dark);
+    border-radius: 0;
+    padding: 9px 24px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.25s;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn-elegant-dark:hover {
+    background-color: #0f172a;
+    color: var(--peach-soft);
+    border-color: #0f172a;
+}
+
+.btn-elegant-outline {
+    background-color: transparent;
+    color: var(--navy-dark);
+    border: 1px solid var(--navy-dark);
+    border-radius: 0;
+    padding: 9px 24px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.25s;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn-elegant-outline:hover {
+    background-color: var(--navy-dark);
+    color: #ffffff;
+}
+
+.btn-elegant-peach {
+    background-color: var(--peach-soft);
+    color: var(--navy-dark);
+    border: 1px solid var(--peach-mid);
+    border-radius: 0;
+    padding: 9px 24px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.25s;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.btn-elegant-peach:hover {
+    background-color: var(--peach-mid);
+    color: var(--navy-dark);
+}
+
+/* ── Flash Message ────────────────────────── */
+.alert-flash {
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border-left: 4px solid;
+}
+
+.alert-flash-success {
+    background-color: #f0fdf4;
+    border-color: #22c55e;
+    color: #15803d;
+}
+
+.alert-flash-error {
+    background-color: #fef2f2;
+    border-color: #ef4444;
+    color: #b91c1c;
+}
+
+/* ── Auth Pages (Login & Register) ───────── */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-soft);
+    padding: 40px 16px;
+}
+
+.auth-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.auth-logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--navy-dark);
+    margin-bottom: 6px;
+}
+
+.auth-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+.form-label-elegant {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--navy-mid);
+    margin-bottom: 6px;
+}
+
+.form-control-elegant {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text-main);
+    background-color: #fff;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+
+.form-control-elegant:focus {
+    outline: none;
+    border-color: var(--navy-dark);
+    box-shadow: none;
+}
+
+.form-control-elegant::placeholder {
+    color: #cbd5e1;
+}
+
+/* ── Dashboard Layout ─────────────────────── */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    background-color: var(--navy-dark);
+    color: #fff;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-brand {
+    padding: 24px 24px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-role {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--peach-soft);
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+}
+
+.sidebar-nav {
+    padding: 16px 0;
+    flex: 1;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    transition: all 0.2s;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-nav a:hover {
+    color: #fff;
+    background-color: rgba(255,255,255,0.06);
+}
+
+.sidebar-nav a.active {
+    color: #fff;
+    background-color: rgba(255,255,255,0.08);
+    border-left-color: var(--peach-soft);
+}
+
+.sidebar-nav a i {
+    font-size: 15px;
+    width: 18px;
+}
+
+.sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+}
+
+.dashboard-main {
+    flex: 1;
+    background-color: var(--bg-soft);
+    overflow-y: auto;
+}
+
+.dashboard-topbar {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-topbar .page-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--navy-dark);
+    margin: 0;
+}
+
+.dashboard-content {
+    padding: 28px;
+}
+
+/* ── Stat Cards ───────────────────────────── */
+.stat-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+}
+
+.stat-card .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.stat-card .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1;
+}
+
+.stat-card .stat-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* ── Table Elegant ────────────────────────── */
+.table-elegant {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.table-elegant thead th {
+    background-color: var(--navy-dark);
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.table-elegant tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
+    vertical-align: middle;
+}
+
+.table-elegant tbody tr:hover {
+    background-color: #f8f7f5;
+}
+
+/* ── Badge Status ─────────────────────────── */
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-menunggu      { background:#fef9c3; color:#854d0e; }
+.status-konfirmasi    { background:#dbeafe; color:#1e40af; }
+.status-cutting       { background:#fce7f3; color:#9d174d; }
+.status-jahit         { background:#ede9fe; color:#5b21b6; }
+.status-finishing     { background:#ffedd5; color:#9a3412; }
+.status-qc            { background:#d1fae5; color:#065f46; }
+.status-siap_kirim    { background:#cffafe; color:#155e75; }
+.status-selesai       { background:#dcfce7; color:#15803d; }
+.status-dibatalkan    { background:#fee2e2; color:#991b1b; }
+
+/* ── Section Card ─────────────────────────── */
+.section-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+}
+
+.section-card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.section-card-header h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--navy-dark);
+}
+
+.section-card-body {
+    padding: 20px;
+}
