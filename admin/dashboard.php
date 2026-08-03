@@ -86,6 +86,7 @@ $page_title = 'Dashboard Admin';
     <title><?= htmlspecialchars($page_title) ?> — JASHIT</title>
 
     <!-- Bootstrap & Icons -->
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 

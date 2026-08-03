@@ -29,6 +29,8 @@ $result = mysqli_query($koneksi, $query);
 <head>
     <meta charset="UTF-8">
     <title>Manajemen User — Admin JASHIT</title>
+    <!-- Favicon -->
+     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
