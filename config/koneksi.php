@@ -8,7 +8,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');          
-define('DB_NAME', 'jashit');
+define('DB_NAME', 'jashit_db');
 define('DB_CHARSET', 'utf8mb4');
 
 // Buat koneksi menggunakan mysqli
