@@ -1,0 +1,75 @@
+/* Styling Khusus Tabel Kelola Layanan Admin */
+.card-table-wrap { 
+    background: #fff; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 6px; 
+    padding: 24px; 
+}
+
+table.dataTable thead th { 
+    background-color: #f8fafc; 
+    color: #64748b; 
+    font-size: 11px; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    border-bottom: 1px solid #e2e8f0 !important; 
+    padding: 14px 15px; 
+}
+
+table.dataTable tbody td { 
+    vertical-align: middle; 
+    font-size: 14px; 
+    color: #334155; 
+    border-bottom: 1px solid #f1f5f9; 
+    padding: 16px 15px; 
+}
+
+div.dataTables_filter input { 
+    width: 250px; 
+    display: inline-block; 
+    margin-left: 0; 
+    margin-right: 10px; 
+}
+
+.img-thumb { 
+    width: 50px; 
+    height: 50px; 
+    object-fit: cover; 
+    border-radius: 8px; 
+    border: 1px solid #e2e8f0; 
+}
+
+.img-placeholder { 
+    width: 50px; 
+    height: 50px; 
+    background: #f1f5f9; 
+    border-radius: 8px; 
+    border: 1px dashed #cbd5e1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #94a3b8; 
+}
+/* =========================================
+   Styling Khusus Halaman Form Layanan
+   ========================================= */
+.form-card-layanan {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    max-width: 900px;
+    padding: 30px;
+}
+
+.btn-submit-layanan {
+    background-color: var(--navy-dark);
+    color: #fff;
+    border: none;
+    letter-spacing: 0.5px;
+    transition: opacity 0.3s ease;
+}
+
+.btn-submit-layanan:hover {
+    opacity: 0.9;
+    color: #fff;
+}

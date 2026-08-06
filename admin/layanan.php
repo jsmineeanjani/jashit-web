@@ -35,19 +35,16 @@ $result = mysqli_query($koneksi, $query);
     <meta charset="UTF-8">
     <title>Layanan Jashit — Admin JASHIT</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
+    
+    <!-- Eksternal CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-    <style>
-        .card-table-wrap { background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 24px; }
-        table.dataTable thead th { background-color: #f8fafc; color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #e2e8f0 !important; padding: 14px 15px; }
-        table.dataTable tbody td { vertical-align: middle; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; padding: 16px 15px; }
-        div.dataTables_filter input { width: 250px; display: inline-block; margin-left: 0; margin-right: 10px; }
-        .img-thumb { width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 1px solid #e2e8f0; }
-        .img-placeholder { width: 50px; height: 50px; background: #f1f5f9; border-radius: 8px; border: 1px dashed #cbd5e1; display:flex; align-items:center; justify-content:center; color: #94a3b8; }
-    </style>
+    <link href="<?= BASE_URL ?>/assets/css/layanan_admin.css" rel="stylesheet">
 </head>
 <body style="background-color: #f8f7f5;">
 <div class="dashboard-wrapper">
@@ -151,35 +148,15 @@ $result = mysqli_query($koneksi, $query);
     </div>
 </div>
 
+<!-- Eksternal Script -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#tabelLayanan').DataTable({
-            "language": { "search": "", "searchPlaceholder": "Cari layanan..." },
-            "ordering": false 
-        });
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/layanan_admin.js"></script>
 
-        $(document).on('click', '.btn-hapus', function(e) {
-            e.preventDefault();
-            const href = $(this).attr('href');
-            Swal.fire({
-                title: 'Hapus Layanan?',
-                text: "Layanan ini beserta gambarnya akan dihapus permanen.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                cancelButtonColor: '#64748b',
-                confirmButtonText: 'Ya, Hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) window.location.href = href;
-            });
-        });
-    });
-</script>
 </body>
 </html>

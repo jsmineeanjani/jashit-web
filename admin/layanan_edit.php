@@ -95,9 +95,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Edit Layanan — Admin JASHIT</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
+    
+    <!-- Eksternal CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>/assets/css/layanan_admin.css" rel="stylesheet">
 </head>
 <body style="background-color: #f8f7f5;">
 <div class="dashboard-wrapper">
@@ -115,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-danger"><i class="bi bi-exclamation-circle me-2"></i><?= $error ?></div>
             <?php endif; ?>
 
-            <div class="section-card shadow-sm p-4" style="background:#fff; border-radius:8px; max-width: 900px;">
+            <div class="form-card-layanan shadow-sm">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="row mb-3">
                         <div class="col-md-7">
@@ -124,7 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="col-md-5">
                             <label class="form-label fw-bold small">Kategori <span class="text-danger">*</span></label>
-                            <select name="kategori" id="kategori" class="form-select" required onchange="sesuaikanForm()">
+                            <!-- onchange dihapus, sudah dihandle oleh JS -->
+                            <select name="kategori" id="kategori" class="form-select" required>
                                 <option value="Jahit Baru" <?= $layanan['kategori'] === 'Jahit Baru' ? 'selected' : '' ?>>Jahit Baru</option>
                                 <option value="Permak" <?= $layanan['kategori'] === 'Permak' ? 'selected' : '' ?>>Permak</option>
                                 <option value="Bahan/Material" <?= $layanan['kategori'] === 'Bahan/Material' ? 'selected' : '' ?>>Bahan/Material</option>
@@ -171,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 py-3 fw-bold" style="background-color: var(--navy-dark); border:none; letter-spacing:0.5px;">
+                    <button type="submit" class="btn btn-submit-layanan w-100 py-3 fw-bold">
                         <i class="bi bi-save me-1"></i> SIMPAN PERUBAHAN
                     </button>
                 </form>
@@ -180,63 +186,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<script>
-    function sesuaikanForm() {
-        const kategori = document.getElementById('kategori').value;
-        
-        const labelNama = document.getElementById('label_nama');
-        const inputNama = document.getElementById('input_nama');
-        const labelHarga = document.getElementById('label_harga');
-        const kolomHarga = document.getElementById('kolom_harga');
-        const kolomEstimasi = document.getElementById('kolom_estimasi');
-        const inputEstimasi = document.getElementById('estimasi_hari');
-
-        if (kategori === 'Bahan/Material') {
-            labelNama.innerHTML = 'Nama Bahan <span class="text-danger">*</span>';
-            inputNama.placeholder = 'Contoh: Kain Katun Jepang';
-            
-            labelHarga.innerHTML = 'Harga Per Meter (Rp)';
-            kolomEstimasi.classList.add('d-none');
-            kolomHarga.classList.remove('col-md-6');
-            kolomHarga.classList.add('col-md-12');
-            
-            if(inputEstimasi.value === '' || inputEstimasi.value > 0) {
-                 inputEstimasi.value = '0';
-            }
-            
-        } else if (kategori === 'Aksesoris') {
-            labelNama.innerHTML = 'Nama Aksesoris <span class="text-danger">*</span>';
-            inputNama.placeholder = 'Contoh: Tote Bag, Topi Custom';
-            
-            labelHarga.innerHTML = 'Harga Satuan (Rp)';
-            kolomEstimasi.classList.add('d-none');
-            kolomHarga.classList.remove('col-md-6');
-            kolomHarga.classList.add('col-md-12');
-            
-            if(inputEstimasi.value === '' || inputEstimasi.value > 0) {
-                 inputEstimasi.value = '0';
-            }
-            
-        } else {
-            labelNama.innerHTML = 'Nama Layanan <span class="text-danger">*</span>';
-            inputNama.placeholder = 'Contoh: Jahit Kemeja Batik Pria';
-            
-            labelHarga.innerHTML = 'Harga Mulai (Rp)';
-            kolomEstimasi.classList.remove('d-none');
-            kolomHarga.classList.remove('col-md-12');
-            kolomHarga.classList.add('col-md-6');
-            
-            if (inputEstimasi.value === '0') {
-                inputEstimasi.value = '';
-            }
-        }
-    }
-
-    // Jalankan otomatis saat halaman pertama kali diload agar menyesuaikan kategori bawaan dari database
-    document.addEventListener("DOMContentLoaded", function() {
-        sesuaikanForm();
-    });
-</script>
+<!-- Eksternal Script -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/layanan_form.js"></script>
 </body>
 </html>
