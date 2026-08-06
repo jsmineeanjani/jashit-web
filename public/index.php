@@ -75,7 +75,7 @@ require_once '../includes/layouts/header.php';
                 <div class="promo-box">
                     <div class="promo-badge">PROMO SPESIAL</div>
                     <h3 class="promo-title">Diskon 10% Khusus Pelanggan Baru!</h3>
-                    <p class="promo-desc">Dapatkan potongan harga eksklusif sekarang.</p>
+                    <p class="promo-desc">Dapatkan potongan harga eksklusif.</p>
                     <a href="<?= BASE_URL ?>/auth/register.php" class="btn-elegant-dark" style="background:var(--peach-soft); color:var(--navy-dark);">KLAIM PROMO SEKARANG</a>
                 </div>
             </div>
