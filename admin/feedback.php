@@ -43,19 +43,19 @@ $result = mysqli_query($koneksi, $query);
     <!-- Memanggil file CSS Feedback Eksternal -->
     <link href="<?= BASE_URL ?>/assets/css/feedback.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="feedback-page-bg">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content dashboard-content-pad">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Kelola Feedback</h1>
+                <h1 class="page-title page-title-sm">Kelola Feedback</h1>
             </div>
 
             <?php if(isset($_SESSION['flash_success'])): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                <div class="alert alert-success alert-dismissible fade show alert-sm" role="alert">
                     <i class="bi bi-check-circle me-2"></i> <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
@@ -80,9 +80,9 @@ $result = mysqli_query($koneksi, $query);
                         ?>
                             <tr>
                                 <td><?= $no++ ?></td>
-                                <td style="font-weight: 600; color: var(--navy-dark);">
+                                <td class="feedback-cell-name">
                                     <?= htmlspecialchars($row['nama_pelanggan'] ?? 'Pelanggan Jashit') ?>
-                                    <div style="font-size: 11px; color: #94a3b8; font-weight: 400; margin-top: 3px;">
+                                    <div class="feedback-cell-date">
                                         <?= date('d M Y', strtotime($row['created_at'] ?? 'now')) ?>
                                     </div>
                                 </td>
@@ -95,27 +95,27 @@ $result = mysqli_query($koneksi, $query);
                                         }
                                         ?>
                                     </div>
-                                    <div style="font-size: 13px; line-height: 1.5; color: #475569;">
+                                    <div class="feedback-comment-text">
                                         "<?= htmlspecialchars($row['komentar']) ?>"
                                     </div>
                                 </td>
                                 <td class="text-center">
                                     <?php if(($row['status'] ?? 'menunggu') == 'ditampilkan'): ?>
-                                        <span class="badge bg-success" style="font-size: 11px; padding: 5px 10px;">DITAMPILKAN</span>
+                                        <span class="badge bg-success feedback-status-badge">DITAMPILKAN</span>
                                     <?php elseif(($row['status'] ?? 'menunggu') == 'disembunyikan'): ?>
-                                        <span class="badge bg-secondary" style="font-size: 11px; padding: 5px 10px;">DISEMBUNYIKAN</span>
+                                        <span class="badge bg-secondary feedback-status-badge">DISEMBUNYIKAN</span>
                                     <?php else: ?>
-                                        <span class="badge bg-warning text-dark" style="font-size: 11px; padding: 5px 10px;">BARU</span>
+                                        <span class="badge bg-warning text-dark feedback-status-badge">BARU</span>
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
                                     <?php if(($row['status'] ?? 'menunggu') == 'ditampilkan'): ?>
                                         <a href="feedback.php?action=sembunyi&id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-secondary me-1" title="Sembunyikan dari Landing Page">
-                                            <i class="bi bi-eye-slash"></i> Sembunyikan
+                                            <i class="bi bi-eye-slash"></i> 
                                         </a>
                                     <?php else: ?>
                                         <a href="feedback.php?action=tampil&id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-success me-1" title="Tampilkan di Landing Page">
-                                            <i class="bi bi-eye"></i> Tampilkan
+                                            <i class="bi bi-eye"></i> 
                                         </a>
                                     <?php endif; ?>
                                     

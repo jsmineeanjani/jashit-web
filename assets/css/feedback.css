@@ -1,4 +1,6 @@
 /* assets/css/feedback.css */
+
+/* ── Tabel & Wrapper (bawaan) ─────────────────────────────────── */
 .card-table-wrap { 
     background: #fff; 
     border: 1px solid #e2e8f0; 
@@ -45,4 +47,46 @@ div.dataTables_length select {
 .star-rating { 
     color: #f59e0b; 
     font-size: 14px; 
+}
+
+/* ── Pengganti inline style yang sebelumnya nempel di feedback.php ─ */
+.feedback-page-bg {
+    background-color: #f8f7f5;
+}
+
+.dashboard-content-pad {
+    padding: 24px 32px;
+}
+
+.page-title-sm {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.alert-sm {
+    font-size: 14px;
+}
+
+.feedback-cell-name {
+    font-weight: 600;
+    color: var(--navy-dark);
+}
+
+.feedback-cell-date {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 400;
+    margin-top: 3px;
+}
+
+.feedback-comment-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #475569;
+}
+
+.feedback-status-badge {
+    font-size: 11px;
+    padding: 5px 10px;
 }
