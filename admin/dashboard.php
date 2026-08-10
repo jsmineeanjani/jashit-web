@@ -94,7 +94,7 @@ $page_title = 'Dashboard Admin';
     <link href="<?= BASE_URL ?>/assets/css/style.css"           rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/dashboard_admin.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="dash-body-bg">
 
 <div class="dashboard-wrapper">
 
@@ -105,13 +105,13 @@ $page_title = 'Dashboard Admin';
         <?php require_once '../includes/topbar_admin.php'; ?>
 
         <!-- ── Page Header ──────────────────────────────────── -->
-        <div class="d-flex justify-content-between align-items-center" style="padding: 24px 32px 10px;">
-            <h1 style="font-size: 22px; font-weight: 700; color: #1e293b; margin: 0;">Dashboard Overview</h1>
-            <span style="font-size: 14px; color: #94a3b8;"><?= date('l, d M Y') ?></span>
+        <div class="d-flex justify-content-between align-items-center dash-header-row">
+            <h1 class="dash-page-heading">Dashboard Overview</h1>
+            <span class="dash-date-label"><?= date('l, d M Y') ?></span>
         </div>
 
         <!-- ── Konten Utama ──────────────────────────────────── -->
-        <div class="dashboard-content" style="padding: 15px 32px 30px;">
+        <div class="dashboard-content dashboard-content-dash">
 
             <?php if (function_exists('showFlash')) echo showFlash(); ?>
 
@@ -120,21 +120,19 @@ $page_title = 'Dashboard Admin';
             <div id="alertFeedbackBaru"
                  class="alert alert-feedback-baru alert-dismissible fade show d-flex align-items-center shadow-sm mb-4"
                  role="alert">
-                <i class="bi bi-star-fill me-3 pulse-icon" style="font-size: 24px; color: #f59e0b;"></i>
-                <div style="flex-grow: 1;">
-                    <h6 class="mb-1" style="font-weight: 700; color: #b45309;">Ada Ulasan Baru!</h6>
-                    <span style="font-size: 14px;">
+                <i class="bi bi-star-fill me-3 pulse-icon alert-feedback-icon"></i>
+                <div class="flex-grow-1">
+                    <h6 class="mb-1 alert-feedback-title">Ada Ulasan Baru!</h6>
+                    <span class="alert-feedback-text">
                         Anda memiliki <strong><?= $total_feedback_baru ?> feedback pelanggan baru</strong>
                         yang menunggu untuk dimoderasi.
                     </span>
                 </div>
                 <a href="<?= BASE_URL ?>/admin/feedback.php"
-                   class="btn btn-sm ms-3"
-                   style="background-color: #f59e0b; color: white; font-weight: 600; padding: 8px 16px; white-space: nowrap;">
+                   class="btn btn-sm ms-3 btn-feedback-action">
                     Tinjau Sekarang
                 </a>
-                <button type="button" class="btn-close ms-3" data-bs-dismiss="alert" aria-label="Close"
-                        style="position: static;"></button>
+                <button type="button" class="btn-close ms-3 btn-close-static" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php endif; ?>
 
@@ -160,8 +158,8 @@ $page_title = 'Dashboard Admin';
                 </div>
                 <div class="col-md-4 col-12">
                     <div class="stat-card-clean accent-orange">
-                        <div class="stat-label-clean" style="color: #ea580c;">Perlu Verifikasi</div>
-                        <div class="stat-value-clean" style="color: #ea580c;"><?= $total_verifikasi ?></div>
+                        <div class="stat-label-clean">Perlu Verifikasi</div>
+                        <div class="stat-value-clean"><?= $total_verifikasi ?></div>
                         <div class="stat-sub-clean">
                             <i class="bi bi-wallet2 icon-red"></i> Cek bukti transfer
                         </div>
@@ -172,20 +170,19 @@ $page_title = 'Dashboard Admin';
             <!-- ── Tabel Pesanan Terbaru ─────────────────────── -->
             <div class="row">
                 <div class="col-12">
-                    <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+                    <div class="dash-table-card">
 
-                        <div class="d-flex justify-content-between align-items-center" style="padding: 20px;">
-                            <h5 style="margin: 0; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                        <div class="d-flex justify-content-between align-items-center dash-table-card-header">
+                            <h5 class="dash-table-card-title">
                                 Pesanan Terbaru & Butuh Tindakan
                             </h5>
-                            <a href="<?= BASE_URL ?>/admin/pesanan.php"
-                               style="font-size: 13px; color: var(--navy-dark); text-decoration: none; font-weight: 600;">
+                            <a href="<?= BASE_URL ?>/admin/pesanan.php" class="dash-link-view-all">
                                 Lihat semua &rarr;
                             </a>
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-hover table-dark-header mb-0" style="min-width: 900px;">
+                            <table class="table table-hover table-dark-header mb-0 dash-table-min-width">
                                 <thead>
                                     <tr>
                                         <th>Kode</th>
@@ -200,8 +197,8 @@ $page_title = 'Dashboard Admin';
                                 <tbody>
                                 <?php if (empty($pesanan_terbaru)): ?>
                                     <tr>
-                                        <td colspan="7" style="text-align: center; color: #94a3b8; padding: 60px 20px;">
-                                            <i class="bi bi-inbox" style="font-size: 32px; display: block; margin-bottom: 10px; color: #cbd5e1;"></i>
+                                        <td colspan="7" class="dash-empty-state">
+                                            <i class="bi bi-inbox dash-empty-icon"></i>
                                             Belum ada data pesanan
                                         </td>
                                     </tr>
@@ -227,20 +224,20 @@ $page_title = 'Dashboard Admin';
                                     <tr class="<?= $perluVerifikasi ? 'row-perlu-verifikasi' : '' ?>">
                                         <td>
                                             <a href="<?= BASE_URL ?>/admin/pesanan_detail.php?id=<?= $p['id'] ?>"
-                                               style="color: var(--navy-dark); font-weight: 700; font-size: 13px; text-decoration: none;">
+                                               class="dash-order-code-link">
                                                 <?= htmlspecialchars($p['kode_pesanan']) ?>
                                             </a>
-                                            <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">
+                                            <div class="dash-order-subtext">
                                                 <?= htmlspecialchars($p['jenis_pakaian']) ?>
                                             </div>
                                         </td>
-                                        <td style="font-weight: 600;">
+                                        <td class="dash-cell-name">
                                             <?= htmlspecialchars($p['nama_pelanggan']) ?>
                                         </td>
-                                        <td style="font-size: 13px; color: #64748b;">
+                                        <td class="dash-cell-muted-sm">
                                             <?= date('d M Y', strtotime($p['tanggal_pesan'])) ?>
                                         </td>
-                                        <td style="font-size: 13px; font-weight: 600;">
+                                        <td class="dash-cell-price">
                                             Rp <?= number_format($p['total_harga'] ?? 0, 0, ',', '.') ?>
                                         </td>
                                         <td>
@@ -277,9 +274,9 @@ $page_title = 'Dashboard Admin';
                 </div>
             </div>
 
-        </div><!-- end dashboard-content -->
-    </div><!-- end dashboard-main -->
-</div><!-- end dashboard-wrapper -->
+        </div>
+    </div>
+</div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
