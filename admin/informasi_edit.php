@@ -75,21 +75,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/informasi.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="page-informasi">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content dashboard-content-pad">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Edit Data Diskon</h1>
+                <h1 class="page-title page-title-sm">Edit Data Diskon</h1>
                 <a href="informasi.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Kembali</a>
             </div>
 
             <div class="form-card-wrap shadow-sm">
                 <?php if ($error): ?>
-                    <div class="alert alert-danger" style="font-size: 14px;">
+                    <div class="alert alert-danger alert-sm">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i><?= $error ?>
                     </div>
                 <?php endif; ?>
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label form-label-custom">Kode Promo <span class="text-muted fw-normal">(Boleh kosong untuk pengguna baru)</span></label>
-                            <input type="text" name="kode_promo" class="form-control" value="<?= htmlspecialchars($_POST['kode_promo'] ?? $diskon['kode_promo']) ?>" placeholder="Cth: LEBARAN10" style="text-transform: uppercase;">
+                            <input type="text" name="kode_promo" class="form-control input-uppercase" value="<?= htmlspecialchars($_POST['kode_promo'] ?? $diskon['kode_promo']) ?>" placeholder="Cth: LEBARAN10">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label form-label-custom">Besaran Diskon (%) <span class="text-danger">*</span></label>
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="row mb-1">
                         <div class="col-12">
-                            <label class="form-label-custom" style="color: #475569;">
+                            <label class="form-label-custom label-note">
                                 Periode Berlaku <span class="text-xs fw-normal">(Kosongkan jika berlaku selamanya)</span>
                             </label>
                         </div>

@@ -1,75 +1,172 @@
-/* Styling Khusus Tabel Kelola Layanan Admin */
-.card-table-wrap { 
-    background: #fff; 
-    border: 1px solid #e2e8f0; 
-    border-radius: 6px; 
-    padding: 24px; 
+/* =========================================
+   Layout Umum Halaman Layanan
+   (layanan.php, layanan_tambah.php, layanan_edit.php)
+   ========================================= */
+body.layanan-page {
+    background-color: #f8f7f5;
 }
 
-table.dataTable thead th { 
-    background-color: #f8fafc; 
-    color: #64748b; 
-    font-size: 11px; 
-    font-weight: 700; 
-    text-transform: uppercase; 
-    border-bottom: 1px solid #e2e8f0 !important; 
-    padding: 14px 15px; 
+.layanan-content {
+    padding: 24px 32px;
 }
 
-table.dataTable tbody td { 
-    vertical-align: middle; 
-    font-size: 14px; 
-    color: #334155; 
-    border-bottom: 1px solid #f1f5f9; 
-    padding: 16px 15px; 
+.layanan-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
 }
 
-div.dataTables_filter input { 
-    width: 250px; 
-    display: inline-block; 
-    margin-left: 0; 
-    margin-right: 10px; 
+.alert-layanan {
+    font-size: 14px;
 }
 
-.img-thumb { 
-    width: 50px; 
-    height: 50px; 
-    object-fit: cover; 
-    border-radius: 8px; 
-    border: 1px solid #e2e8f0; 
+/* =========================================
+   Styling Khusus Tabel Kelola Layanan Admin
+   (layanan.php)
+   ========================================= */
+.card-table-wrap {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 24px;
 }
 
-.img-placeholder { 
-    width: 50px; 
-    height: 50px; 
-    background: #f1f5f9; 
-    border-radius: 8px; 
-    border: 1px dashed #cbd5e1; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: #94a3b8; 
+table.dataTable thead th {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 14px 15px;
 }
+
+table.dataTable tbody td {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px 15px;
+}
+
+div.dataTables_filter input {
+    width: 250px;
+    display: inline-block;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.img-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.img-placeholder {
+    width: 50px;
+    height: 50px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.btn-tambah-layanan {
+    background-color: var(--navy-dark) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-tambah-layanan:hover,
+.btn-tambah-layanan:focus,
+.btn-tambah-layanan:active {
+    background-color: var(--navy-dark) !important;
+    opacity: 0.85 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.layanan-name {
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-size: 15px;
+}
+
+.text-meta {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.layanan-harga {
+    font-weight: 700;
+    color: #10b981;
+    font-size: 14px;
+}
+
+.harga-satuan {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.badge-status {
+    font-size: 11px;
+}
+
+.btn-aksi-sm {
+    padding: 4px 8px;
+}
+
 /* =========================================
    Styling Khusus Halaman Form Layanan
+   (layanan_tambah.php & layanan_edit.php)
    ========================================= */
 .form-card-layanan {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
-    max-width: 900px;
+    max-width: 950px;
     padding: 30px;
+}
+
+.form-text-sm {
+    font-size: 11px;
+}
+
+.img-preview-current {
+    max-height: 80px;
+    border-radius: 6px;
+    margin-top: 5px;
 }
 
 .btn-submit-layanan {
     background-color: var(--navy-dark);
     color: #fff;
-    border: none;
+    border: 1px solid var(--navy-dark);
     letter-spacing: 0.5px;
-    transition: opacity 0.3s ease;
+    transition: filter 0.3s ease, background-color 0.3s ease;
 }
 
-.btn-submit-layanan:hover {
-    opacity: 0.9;
+.btn-submit-layanan:hover,
+.btn-submit-layanan:focus,
+.btn-submit-layanan:active,
+.btn-submit-layanan:focus-visible {
+    background-color: var(--navy-dark);
+    border-color: var(--navy-dark);
     color: #fff;
+    filter: brightness(0.85);
+    box-shadow: none;
+}
+
+.btn-submit-layanan:active {
+    filter: brightness(0.75);
 }

@@ -1,14 +1,18 @@
 $(document).ready(function() {
-    // Inisialisasi DataTables
-    $('#tabelDiskon').DataTable({
-        "dom": "<'row mb-3'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6 d-flex justify-content-end'l>>" +
-               "<'row'<'col-sm-12'tr>>" +
-               "<'row mt-3'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-        "language": { 
-            "search": "", 
-            "searchPlaceholder": "Cari diskon..." 
-        },
-        "ordering": false 
+
+    // Live Search Kartu Diskon (pengganti search bawaan DataTables)
+    $('#cariDiskon').on('keyup', function() {
+        const keyword = $(this).val().toLowerCase().trim();
+        let adaHasil = false;
+
+        $('.diskon-coupon-card').each(function() {
+            const teks = $(this).text().toLowerCase();
+            const cocok = teks.includes(keyword);
+            $(this).toggle(cocok);
+            if (cocok) adaHasil = true;
+        });
+
+        $('#diskonNoResult').toggle(!adaHasil && keyword !== '');
     });
 
     // Konfirmasi Hapus Data dengan SweetAlert2
@@ -32,4 +36,5 @@ $(document).ready(function() {
             }
         });
     });
+
 });

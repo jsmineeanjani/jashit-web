@@ -26,106 +26,123 @@ $result = mysqli_query($koneksi, $query);
     <!-- Eksternal CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/informasi.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="page-informasi">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content dashboard-content-pad">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Informasi Diskon</h1>
-                <a href="informasi_tambah.php" class="btn btn-sm" style="background-color: var(--navy-dark); color: #fff; border: none; padding: 8px 16px; font-weight: 600;">
+                <h1 class="page-title page-title-sm">Informasi Diskon</h1>
+                <a href="informasi_tambah.php" class="btn btn-sm btn-add-diskon">
                     <i class="bi bi-plus-lg me-1"></i> Tambah Diskon
                 </a>
             </div>
 
             <?php if(isset($_SESSION['flash_success'])): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                <div class="alert alert-success alert-dismissible fade show alert-sm" role="alert">
                     <i class="bi bi-check-circle me-2"></i> <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>
 
-            <div class="card-table-wrap shadow-sm">
-                <table id="tabelDiskon" class="table table-hover w-100 mb-0">
-                    <thead>
-                        <tr>
-                            <th width="5%">NO</th>
-                            <th width="35%">JUDUL</th>
-                            <th width="30%">PERIODE BERLAKU</th>
-                            <th width="15%" class="text-center">STATUS</th>
-                            <th width="15%" class="text-center">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        if ($result && mysqli_num_rows($result) > 0): 
-                            $no = 1;
-                            while ($row = mysqli_fetch_assoc($result)): 
-                        ?>
-                            <tr>
-                                <td><?= $no++ ?></td>
-                                <td>
-                                    <div style="font-weight: 700; color: var(--navy-dark); margin-bottom: 6px;">
-                                        <?= htmlspecialchars($row['judul']) ?>
-                                    </div>
+            <?php if ($result && mysqli_num_rows($result) > 0): ?>
+                <div class="diskon-search-wrap">
+                    <i class="bi bi-search diskon-search-icon"></i>
+                    <input type="text" id="cariDiskon" class="form-control diskon-search-input" placeholder="Cari diskon...">
+                </div>
+
+                <div id="diskonNoResult" class="diskon-coupon-empty diskon-hidden">
+                    <i class="bi bi-search"></i>
+                    Tidak ada diskon yang cocok dengan pencarian
+                </div>
+
+                <div class="diskon-coupon-list">
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <div class="diskon-coupon-card">
+
+                            <!-- Kotak Nilai Diskon -->
+                            <div class="diskon-coupon-value">
+                                <div class="diskon-coupon-value-number"><?= (int)$row['diskon_persen'] ?>%</div>
+                                <div class="diskon-coupon-value-label">OFF</div>
+                            </div>
+
+                            <!-- Isi -->
+                            <div class="diskon-coupon-body">
+                                <div class="diskon-coupon-meta">
                                     <?php if($row['target_pelanggan'] == 'pengguna_baru'): ?>
-                                        <span class="badge bg-info text-dark" style="font-size: 10px; letter-spacing: 0.5px;"><i class="bi bi-stars me-1"></i> PENGGUNA BARU</span>
+                                        <span><i class="bi bi-stars me-1"></i>Pengguna Baru</span>
                                     <?php else: ?>
-                                        <span class="badge bg-light text-dark border" style="font-size: 10px; letter-spacing: 0.5px;">SEMUA PELANGGAN</span>
+                                        <span>Semua Pelanggan</span>
                                     <?php endif; ?>
-                                </td>
-                                <td>
-                                    <div style="font-size: 13px; color: #475569;">
-                                        <i class="bi bi-calendar-event me-1"></i> 
+
+                                    <?php if (!empty($row['kode_promo'])): ?>
+                                        <span class="diskon-coupon-meta-sep">&bull;</span>
+                                        <span>Kode: <?= htmlspecialchars($row['kode_promo']) ?></span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <h3 class="diskon-coupon-title"><?= htmlspecialchars($row['judul']) ?></h3>
+
+                                <div class="diskon-coupon-footer">
+                                    <span>
+                                        <i class="bi bi-calendar-event me-1"></i>
                                         <?php 
                                         if (empty($row['tgl_mulai']) && empty($row['tgl_selesai'])) {
-                                            echo '<span style="font-weight: 600;">Berlaku Selamanya</span>';
+                                            echo '<span class="diskon-periode-selamanya">Berlaku Selamanya</span>';
                                         } else {
                                             $mulai = !empty($row['tgl_mulai']) ? date('d M Y', strtotime($row['tgl_mulai'])) : '...';
                                             $selesai = !empty($row['tgl_selesai']) ? date('d M Y', strtotime($row['tgl_selesai'])) : 'Seterusnya';
-                                            echo $mulai . ' <span class="text-muted mx-1">-</span> ' . $selesai;
+                                            echo $mulai . ' &ndash; ' . $selesai;
                                         }
                                         ?>
-                                    </div>
+                                    </span>
                                     <?php 
                                         if (!empty($row['tgl_selesai'])) {
                                             $sekarang = date('Y-m-d');
                                             if ($sekarang > $row['tgl_selesai']) {
-                                                echo '<small class="text-danger mt-1 d-block" style="font-size:11px; font-weight:600;">(Sudah Kedaluwarsa)</small>';
+                                                echo '<span class="text-danger diskon-expired-note"><i class="bi bi-exclamation-circle me-1"></i>Sudah Kedaluwarsa</span>';
                                             }
                                         }
                                     ?>
-                                </td>
-                                <td class="text-center">
-                                    <?php if($row['status'] == 'aktif'): ?>
-                                        <span class="badge bg-success" style="font-size: 11px; padding: 5px 10px; letter-spacing: 0.5px;">AKTIF</span>
-                                    <?php else: ?>
-                                        <span class="badge bg-secondary" style="font-size: 11px; padding: 5px 10px; letter-spacing: 0.5px;">NONAKTIF</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="text-center">
-                                    <a href="informasi_edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-secondary me-1" title="Edit Data">
+                                </div>
+                            </div>
+
+                            <!-- Status & Aksi -->
+                            <div class="diskon-coupon-actions">
+                                <?php if($row['status'] == 'aktif'): ?>
+                                    <span class="badge bg-success diskon-status-badge">AKTIF</span>
+                                <?php else: ?>
+                                    <span class="badge bg-secondary diskon-status-badge">NONAKTIF</span>
+                                <?php endif; ?>
+
+                                <div class="diskon-coupon-btns">
+                                    <a href="informasi_edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-secondary" title="Edit Data">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
                                     <a href="informasi.php?hapus=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger btn-hapus" title="Hapus Permanen">
                                         <i class="bi bi-trash"></i>
                                     </a>
-                                </td>
-                            </tr>
-                        <?php endwhile; endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            <?php else: ?>
+                <div class="diskon-coupon-empty">
+                    <i class="bi bi-tag"></i>
+                    Belum ada informasi diskon
+                </div>
+            <?php endif; ?>
             
         </div>
     </div>
@@ -134,8 +151,6 @@ $result = mysqli_query($koneksi, $query);
 <!-- Eksternal Script -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
 <!-- Custom Script -->

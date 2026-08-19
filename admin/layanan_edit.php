@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mysqli_stmt_bind_param($stmt, 'sssiissi', $nama_layanan, $kategori, $deskripsi, $harga, $estimasi_hari, $status, $gambar_nama, $id);
 
             if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['flash_success'] = 'Data layanan/item berhasil diperbarui!';
+                $_SESSION['flash_success'] = 'Data layanan berhasil diperbarui!';
                 header('Location: layanan.php');
                 exit();
             } else {
@@ -104,15 +104,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/layanan_admin.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="layanan-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content layanan-content">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Edit Layanan / Item</h1>
+                <h1 class="layanan-page-title">Edit Layanan</h1>
                 <a href="layanan.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Kembali</a>
             </div>
 
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-danger"><i class="bi bi-exclamation-circle me-2"></i><?= $error ?></div>
             <?php endif; ?>
 
-            <div class="form-card-layanan shadow-sm">
+            <div class="form-card-layanan shadow-sm mx-auto">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="row mb-3">
                         <div class="col-md-7">
@@ -159,12 +159,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="col-md-8">
                             <label class="form-label fw-bold small">Ganti Gambar (Opsional)</label>
                             <input type="file" name="gambar" class="form-control" accept=".jpg, .jpeg, .png, .webp">
-                            <div class="form-text" style="font-size: 11px;">Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, PNG, WEBP. Maks: 2MB.</div>
+                            <div class="form-text form-text-sm">Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, PNG, WEBP. Maks: 2MB.</div>
                             
                             <?php if (!empty($layanan['gambar'])): ?>
                                 <div class="mt-2">
                                     <span class="badge bg-secondary">Gambar saat ini:</span><br>
-                                    <img src="<?= BASE_URL ?>/assets/img/layanan/<?= $layanan['gambar'] ?>" alt="Gambar Layanan" style="max-height: 80px; border-radius: 6px; margin-top: 5px;">
+                                    <img src="<?= BASE_URL ?>/assets/img/layanan/<?= $layanan['gambar'] ?>" alt="Gambar Layanan" class="img-preview-current">
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -190,6 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Custom Script -->
-<script src="<?= BASE_URL ?>/assets/js/layanan_form.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/layanan_admin.js"></script>
 </body>
 </html>

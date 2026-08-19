@@ -3,139 +3,100 @@ require_once '../config/config.php';
 require_once '../includes/auth.php';
 requireRole('pelanggan');
 
-$user_id = $_SESSION['user_id'];
+$user_id = (int) $_SESSION['user_id'];
 
-// 1. Ambil data notifikasi pelanggan ini (sebelum di-update agar ketahuan mana yang baru)
-$query = "SELECT * FROM notifikasi WHERE user_id = $user_id ORDER BY created_at DESC";
-$result = mysqli_query($koneksi, $query);
+// 1. Otomatis tandai semua notifikasi menjadi "Sudah Dibaca" saat halaman ini dibuka
+mysqli_query($koneksi, "UPDATE notifikasi SET is_read = 1 WHERE user_id = $user_id");
 
-$notifikasi_list = [];
-while($row = mysqli_fetch_assoc($result)) {
-    $notifikasi_list[] = $row;
-}
-
-// 2. Ubah semua notifikasi menjadi "Sudah Dibaca" (is_read = 1) saat halaman ini dibuka
-mysqli_query($koneksi, "UPDATE notifikasi SET is_read = 1 WHERE user_id = $user_id AND is_read = 0");
-
+// 2. Ambil semua riwayat notifikasi dari database
+$query = mysqli_query($koneksi, "SELECT * FROM notifikasi WHERE user_id = $user_id ORDER BY created_at DESC");
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Notifikasi — JASHIT</title>
+    <title>Semua Notifikasi — JASHIT</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
+    
+    <!-- Eksternal CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-    <style>
-        .notif-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .notif-card:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-        }
-        /* Style untuk notifikasi yang BELUM dibaca */
-        .notif-baru {
-            background: #f0fdf4 !important; /* Warna hijau sangat muda (Soft Green) */
-            border-color: #bbf7d0 !important;
-        }
-        .notif-baru::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background-color: #10b981; /* Garis hijau di pinggir kiri */
-        }
-        .notif-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-        .icon-promo { background: #fef08a; color: #ca8a04; }
-        .icon-bayar { background: #dbeafe; color: #2563eb; }
-        .icon-umum { background: #f1f5f9; color: #64748b; }
-    </style>
+    <link href="<?= BASE_URL ?>/assets/css/notifikasi_bell.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="bg-light">
 <div class="dashboard-wrapper">
-    <?php require_once '../includes/sidebar_pelanggan.php'; ?>
+    
+    <?php require_once '../includes/sidebar_pelanggan.php'; ?> 
+    
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_pelanggan.php'; ?>
 
         <div class="dashboard-content" style="padding: 24px 32px;">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 24px; font-weight: 800; color: var(--navy-dark); margin: 0;">Kotak Masuk Notifikasi</h1>
+                <h1 class="page-title fs-5 fw-bold mb-0">Semua Notifikasi</h1>
+                <a href="javascript:history.back()" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left"></i> Kembali
+                </a>
             </div>
+            
+            <div class="notif-page-card shadow-sm p-0">
+                <?php if (mysqli_num_rows($query) > 0): ?>
+                    <div class="list-group list-group-flush">
+                        <?php 
+                        while ($row = mysqli_fetch_assoc($query)): 
+                            $judul_lower = strtolower($row['judul']);
+                            $target_url  = $row['url'] ?? '';
 
-            <div class="row">
-                <div class="col-lg-8">
-                    <?php if (count($notifikasi_list) > 0): ?>
-                        <?php foreach ($notifikasi_list as $notif): 
-                            
-                            // Deteksi tipe notif dari judulnya untuk menentukan Ikon
-                            $judul_lower = strtolower($notif['judul']);
-                            if (strpos($judul_lower, 'promo') !== false || strpos($judul_lower, 'diskon') !== false) {
-                                $icon_class = 'icon-promo';
-                                $icon_bi = 'bi-tags-fill';
-                            } elseif (strpos($judul_lower, 'pembayaran') !== false) {
-                                $icon_class = 'icon-bayar';
-                                $icon_bi = 'bi-wallet2';
-                            } else {
-                                $icon_class = 'icon-umum';
-                                $icon_bi = 'bi-bell-fill';
+                            // Logika Pintar: Tentukan link tujuan berdasarkan judul notifikasi
+                            if (empty($target_url)) {
+                                if (strpos($judul_lower, 'promo') !== false || strpos($judul_lower, 'diskon') !== false) {
+                                    $target_url = BASE_URL . '/pelanggan/promo.php'; 
+                                } elseif (strpos($judul_lower, 'pembayaran') !== false || strpos($judul_lower, 'pesanan') !== false) {
+                                    $target_url = BASE_URL . '/pelanggan/tracking.php'; 
+                                } else {
+                                    $target_url = '#'; 
+                                }
                             }
 
-                            // Cek apakah pesan ini baru dibaca saat ini
-                            $is_baru = ($notif['is_read'] == 0) ? 'notif-baru' : '';
+                            // Tentukan Ikon berdasarkan isi
+                            if (strpos($judul_lower, 'promo') !== false || strpos($judul_lower, 'diskon') !== false) {
+                                $icon_bg = '#fef08a'; $icon_color = '#ca8a04'; $icon_bi = 'bi-tags-fill';
+                            } elseif (strpos($judul_lower, 'pembayaran') !== false) {
+                                $icon_bg = '#dbeafe'; $icon_color = '#2563eb'; $icon_bi = 'bi-wallet2';
+                            } else {
+                                $icon_bg = '#f1f5f9'; $icon_color = '#64748b'; $icon_bi = 'bi-bell-fill';
+                            }
                         ?>
-                            <div class="notif-card <?= $is_baru ?>">
-                                <div class="d-flex align-items-start gap-3">
-                                    <div class="notif-icon <?= $icon_class ?> flex-shrink-0">
-                                        <i class="bi <?= $icon_bi ?>"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="d-flex justify-content-between align-items-center mb-1">
-                                            <h6 class="mb-0 fw-bold text-dark" style="font-size: 16px;">
-                                                <?= htmlspecialchars($notif['judul']) ?>
-                                                <?php if($notif['is_read'] == 0): ?>
-                                                    <span class="badge bg-danger ms-2" style="font-size: 10px;">BARU</span>
-                                                <?php endif; ?>
-                                            </h6>
-                                            <span class="text-muted" style="font-size: 12px;">
-                                                <i class="bi bi-clock me-1"></i><?= date('d M Y, H:i', strtotime($notif['created_at'])) ?>
-                                            </span>
-                                        </div>
-                                        <p class="mb-0 text-secondary" style="font-size: 14px; line-height: 1.5;">
-                                            <?= nl2br(htmlspecialchars($notif['pesan'])) ?>
-                                        </p>
-                                    </div>
+                            <a href="<?= $target_url ?>" class="list-group-item list-group-item-action d-flex gap-3 py-3 notif-page-item">
+                                <div class="notif-page-icon" style="background-color: <?= $icon_bg ?>; color: <?= $icon_color ?>;">
+                                    <i class="bi <?= $icon_bi ?>"></i>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="alert text-center py-5" style="background-color: #fff; border: 1px dashed #cbd5e1; border-radius: 12px;">
-                            <i class="bi bi-envelope-open fs-1 text-muted d-block mb-3"></i>
-                            <h6 class="fw-bold text-dark">Belum ada notifikasi</h6>
-                            <p class="text-muted small mb-0">Semua pemberitahuan tentang pesanan dan promo akan muncul di sini.</p>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                                <div class="w-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="mb-0 fw-bold notif-page-title"><?= htmlspecialchars($row['judul']) ?></h6>
+                                        <small class="text-muted notif-page-time">
+                                            <i class="bi bi-clock me-1"></i><?= date('d M Y, H:i', strtotime($row['created_at'])) ?>
+                                        </small>
+                                    </div>
+                                    <p class="mb-0 text-secondary notif-page-desc">
+                                        <?= htmlspecialchars($row['pesan']) ?>
+                                    </p>
+                                </div>
+                            </a>
+                        <?php endwhile; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="notif-page-empty">
+                        <i class="bi bi-bell-slash text-muted"></i>
+                        <p class="mt-3 text-muted fw-bold mb-1">Belum ada riwayat notifikasi.</p>
+                        <p class="text-muted" style="font-size: 13px;">Semua pemberitahuan pesanan dan promo akan muncul di sini.</p>
+                    </div>
+                <?php endif; ?>
             </div>
-
+            
         </div>
     </div>
 </div>

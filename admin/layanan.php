@@ -46,22 +46,22 @@ $result = mysqli_query($koneksi, $query);
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/layanan_admin.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="layanan-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content layanan-content">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Layanan Jashit</h1>
-                <a href="layanan_tambah.php" class="btn btn-sm" style="background-color: var(--navy-dark); color: #fff; border: none; padding: 8px 16px; font-weight: 600;">
+                <h1 class="layanan-page-title">Layanan Jashit</h1>
+                <a href="layanan_tambah.php" class="btn btn-sm btn-tambah-layanan">
                     <i class="bi bi-plus-lg me-1"></i> Tambah Layanan
                 </a>
             </div>
 
             <?php if(isset($_SESSION['flash_success'])): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                <div class="alert alert-success alert-dismissible fade show alert-layanan" role="alert">
                     <i class="bi bi-check-circle me-2"></i> <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
@@ -96,10 +96,10 @@ $result = mysqli_query($koneksi, $query);
                                         <?php endif; ?>
                                         
                                         <div>
-                                            <div style="font-weight: 700; color: var(--navy-dark); font-size: 15px;">
+                                            <div class="layanan-name">
                                                 <?= htmlspecialchars($row['nama_layanan']) ?>
                                             </div>
-                                            <div style="font-size: 12px; color: #64748b; margin-top: 2px;">
+                                            <div class="text-meta">
                                                 <?= htmlspecialchars(substr($row['deskripsi'], 0, 40)) ?>...
                                             </div>
                                         </div>
@@ -109,32 +109,32 @@ $result = mysqli_query($koneksi, $query);
                                     <span class="badge bg-light text-dark border"><?= htmlspecialchars($row['kategori']) ?></span>
                                 </td>
                                 <td>
-                                    <div style="font-weight: 700; color: #10b981; font-size: 14px;">
+                                    <div class="layanan-harga">
                                         Rp <?= number_format($row['harga'], 0, ',', '.') ?>
                                         <?php if ($row['kategori'] === 'Bahan/Material'): ?>
-                                            <span style="font-size: 11px; font-weight: 600; color: #64748b;">/ Meter</span>
+                                            <span class="harga-satuan">/ Meter</span>
                                         <?php endif; ?>
                                     </div>
                                     
                                     <?php if ($row['kategori'] !== 'Bahan/Material' && $row['kategori'] !== 'Aksesoris'): ?>
-                                        <div style="font-size: 12px; color: #64748b; margin-top: 2px;">
+                                        <div class="text-meta">
                                             <i class="bi bi-clock-history"></i> <?= htmlspecialchars($row['estimasi_hari']) ?> Hari
                                         </div>
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
                                     <?php if(strtolower($row['status']) == 'aktif'): ?>
-                                        <span class="badge bg-success" style="font-size: 11px;">Aktif</span>
+                                        <span class="badge bg-success badge-status">Aktif</span>
                                     <?php else: ?>
-                                        <span class="badge bg-secondary" style="font-size: 11px;">Nonaktif</span>
+                                        <span class="badge bg-secondary badge-status">Nonaktif</span>
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="layanan_edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-secondary" title="Edit" style="padding: 4px 8px;">
+                                        <a href="layanan_edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-secondary btn-aksi-sm" title="Edit">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
-                                        <a href="layanan.php?hapus=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger btn-hapus" title="Hapus" style="padding: 4px 8px;">
+                                        <a href="layanan.php?hapus=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger btn-hapus btn-aksi-sm" title="Hapus">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </div>

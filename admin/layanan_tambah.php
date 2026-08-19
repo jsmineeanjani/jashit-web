@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $deskripsi     = trim($_POST['deskripsi']);
     $harga         = (int)($_POST['harga'] ?? 0);
     
-    // PERBAIKAN: Pastikan estimasi_hari dikonversi menjadi integer (angka)
     $estimasi_hari = (int)($_POST['estimasi_hari'] ?? 0);
     $status        = trim($_POST['status']);
     
@@ -57,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                       VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($koneksi, $query);
             
-            // PERBAIKAN: Ubah bind_param menjadi 'sssiiss' karena estimasi_hari sekarang pasti Integer (i)
             mysqli_stmt_bind_param($stmt, 'sssiiss', $nama_layanan, $kategori, $deskripsi, $harga, $estimasi_hari, $status, $gambar_nama);
 
             if (mysqli_stmt_execute($stmt)) {
@@ -77,19 +75,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Tambah Layanan — Admin JASHIT</title>
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
+    
+    <!-- Eksternal CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>/assets/css/layanan_admin.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="layanan-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content layanan-content">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Tambah Layanan / Item</h1>
+                <h1 class="layanan-page-title">Tambah Layanan</h1>
                 <a href="layanan.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Kembali</a>
             </div>
 
@@ -97,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-danger"><i class="bi bi-exclamation-circle me-2"></i><?= $error ?></div>
             <?php endif; ?>
 
-            <div class="section-card shadow-sm p-4" style="background:#fff; border-radius:8px; max-width: 900px;">
+            <div class="form-card-layanan shadow-sm mx-auto">
                 <form action="" method="POST" enctype="multipart/form-data">
                     <div class="row mb-3">
                         <div class="col-md-7">
@@ -106,7 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="col-md-5">
                             <label class="form-label fw-bold small">Kategori <span class="text-danger">*</span></label>
-                            <select name="kategori" id="kategori" class="form-select" required onchange="sesuaikanForm()">
+                            <!-- onchange dihapus, sudah dihandle oleh JS -->
+                            <select name="kategori" id="kategori" class="form-select" required>
                                 <option value="">-- Pilih Kategori --</option>
                                 <option value="Jahit Baru">Jahit Baru</option>
                                 <option value="Permak">Permak</option>
@@ -136,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="col-md-8">
                             <label class="form-label fw-bold small">Gambar Referensi / Contoh</label>
                             <input type="file" name="gambar" class="form-control" accept=".jpg, .jpeg, .png, .webp">
-                            <div class="form-text" style="font-size: 11px;">Format: JPG, PNG, WEBP. Maks: 2MB.</div>
+                            <div class="form-text form-text-sm">Format: JPG, PNG, WEBP. Maks: 2MB.</div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-bold small">Status</label>
@@ -147,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 py-3 fw-bold" style="background-color: var(--navy-dark); border:none; letter-spacing:0.5px;">
+                    <button type="submit" class="btn btn-submit-layanan w-100 py-3 fw-bold">
                         <i class="bi bi-save me-1"></i> SIMPAN DATA
                     </button>
                 </form>
@@ -156,54 +160,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<script>
-    function sesuaikanForm() {
-        const kategori = document.getElementById('kategori').value;
-        
-        const labelNama = document.getElementById('label_nama');
-        const inputNama = document.getElementById('input_nama');
-        const labelHarga = document.getElementById('label_harga');
-        const kolomHarga = document.getElementById('kolom_harga');
-        const kolomEstimasi = document.getElementById('kolom_estimasi');
-        const inputEstimasi = document.getElementById('estimasi_hari');
-
-        if (kategori === 'Bahan/Material') {
-            labelNama.innerHTML = 'Nama Bahan <span class="text-danger">*</span>';
-            inputNama.placeholder = 'Contoh: Kain Katun Jepang';
-            
-            labelHarga.innerHTML = 'Harga Per Meter (Rp)';
-            kolomEstimasi.classList.add('d-none');
-            kolomHarga.classList.remove('col-md-6');
-            kolomHarga.classList.add('col-md-12');
-            
-            inputEstimasi.value = '0';
-
-        } else if (kategori === 'Aksesoris') {
-            labelNama.innerHTML = 'Nama Aksesoris <span class="text-danger">*</span>';
-            inputNama.placeholder = 'Contoh: Tote Bag, Topi Custom';
-            
-            labelHarga.innerHTML = 'Harga Satuan (Rp)';
-            kolomEstimasi.classList.add('d-none');
-            kolomHarga.classList.remove('col-md-6');
-            kolomHarga.classList.add('col-md-12');
-            
-            inputEstimasi.value = '0';
-
-        } else {
-            labelNama.innerHTML = 'Nama Layanan <span class="text-danger">*</span>';
-            inputNama.placeholder = 'Contoh: Jahit Kemeja Batik Pria';
-            
-            labelHarga.innerHTML = 'Harga Mulai (Rp)';
-            kolomEstimasi.classList.remove('d-none');
-            kolomHarga.classList.remove('col-md-12');
-            kolomHarga.classList.add('col-md-6');
-            
-            if (inputEstimasi.value === '0') {
-                inputEstimasi.value = '';
-            }
-        }
-    }
-</script>
+<!-- Eksternal Script -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/layanan_admin.js"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_store_result($stmt);
 
         if (mysqli_stmt_num_rows($stmt) > 0) {
-            $error = 'Nomor HP/WhatsApp sudah terdaftar. Gunakan nomor lain atau silakan login.';
+            $error = 'Nomor Telp sudah terdaftar. Gunakan nomor lain atau silakan login.';
             mysqli_stmt_close($stmt);
         } else {
             mysqli_stmt_close($stmt);

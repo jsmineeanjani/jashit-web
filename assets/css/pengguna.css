@@ -1,0 +1,177 @@
+/* =========================================
+   Layout Umum Halaman Manajemen User
+   (dipakai di pengguna.php, pengguna_tambah.php, pengguna_edit.php)
+   ========================================= */
+body.pengguna-page {
+    background-color: #f8f7f5;
+}
+
+.pengguna-content {
+    padding: 24px 32px;
+}
+
+.pengguna-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.alert-pengguna {
+    font-size: 14px;
+}
+
+/* =========================================
+   Styling Khusus Tabel Manajemen User
+   (pengguna.php)
+   ========================================= */
+.card-table-wrap {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 24px;
+}
+
+.btn-tambah-user {
+    background-color: var(--navy-dark) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-tambah-user:hover,
+.btn-tambah-user:focus,
+.btn-tambah-user:active {
+    background-color: var(--navy-dark) !important;
+    opacity: 0.85 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+table.dataTable thead th {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 14px 15px;
+}
+
+table.dataTable tbody td {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px 15px;
+}
+
+.dataTables_wrapper .row:first-child {
+    align-items: center;
+    margin-bottom: 20px;
+}
+div.dataTables_filter { text-align: left !important; }
+div.dataTables_filter input { width: 250px; display: inline-block; margin-left: 0; margin-right: 10px; }
+div.dataTables_length { text-align: right !important; }
+div.dataTables_length select { width: auto; display: inline-block; margin: 0 8px; }
+
+.badge-role {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    font-weight: 600;
+}
+
+.badge-anda {
+    font-size: 9px;
+}
+
+.badge-member-status {
+    font-size: 10px;
+}
+
+.user-name-cell {
+    font-weight: 600;
+    color: var(--navy-dark);
+}
+
+.user-email {
+    margin-bottom: 3px;
+}
+
+.user-phone {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.btn-hapus-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Kustomisasi font SweetAlert */
+div:where(.swal2-container) {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* =========================================
+   Styling Khusus Form Tambah & Edit User
+   (pengguna_tambah.php & pengguna_edit.php)
+   ========================================= */
+.form-card-pengguna {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.form-label-custom {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.role-note {
+    font-size: 11px;
+}
+
+/* Tombol Simpan (Navy) - pengguna_tambah.php */
+button.btn-submit-pengguna {
+    background-color: var(--navy-dark) !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+button.btn-submit-pengguna:hover,
+button.btn-submit-pengguna:focus,
+button.btn-submit-pengguna:active {
+    background-color: var(--navy-dark) !important;
+    opacity: 0.85 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Tombol Update (Orange) - pengguna_edit.php */
+button.btn-update-pengguna {
+    background-color: #ea580c !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+button.btn-update-pengguna:hover,
+button.btn-update-pengguna:focus,
+button.btn-update-pengguna:active {
+    background-color: #c2410c !important;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}

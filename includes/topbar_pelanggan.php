@@ -1,3 +1,5 @@
+<link href="<?= BASE_URL ?>/assets/css/notifikasi_bell.css" rel="stylesheet">
+
 <header class="admin-topbar">
     <div class="topbar-left">
         <div class="topbar-brand">
@@ -12,6 +14,25 @@
     </div>
     
     <div class="topbar-right">
+
+        <!-- Bell Notifikasi -->
+        <div class="notif-bell-wrap">
+            <button type="button" id="btnNotifBell" class="notif-bell-btn" title="Notifikasi">
+                <i class="bi bi-bell-fill"></i>
+                <span id="notifBadgeCount" class="notif-badge-count d-none">0</span>
+            </button>
+
+            <div id="notifDropdownPanel" class="notif-dropdown-panel">
+                <div class="notif-dropdown-header">Notifikasi</div>
+                <div id="notifListWrap" class="notif-list-wrap">
+                    <div class="notif-empty">Memuat notifikasi...</div>
+                </div>
+                <div class="notif-dropdown-footer">
+                    <a href="<?= BASE_URL ?>/pelanggan/notifikasi.php">Lihat Semua Notifikasi</a>
+                </div>
+            </div>
+        </div>
+
         <div class="dropdown">
             <a href="#" class="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 <?= htmlspecialchars($_SESSION['user_nama'] ?? 'Admin') ?> 
@@ -55,6 +76,7 @@
     .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
     .brand-text strong { font-size: 16px; color: #1e293b; font-weight: 700; letter-spacing: 0.5px; }
     .brand-text span { font-size: 11.5px; color: #64748b; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
     .user-dropdown {
         font-size: 14px; font-weight: 600; color: #475569; text-decoration: none;
         display: flex; align-items: center; gap: 5px; transition: color 0.3s;
@@ -88,3 +110,8 @@
     </div>
   </div>
 </div>
+
+<script>
+    const NOTIF_BASE_URL = "<?= BASE_URL ?>";
+</script>
+<script src="<?= BASE_URL ?>/assets/js/notifikasi_bell.js"></script>

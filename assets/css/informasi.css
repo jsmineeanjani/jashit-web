@@ -1,4 +1,9 @@
-/* Styling Khusus Tabel Informasi Diskon */
+/* =========================================
+   Styling Khusus Halaman Informasi Diskon
+   (dipakai di: informasi.php, informasi_tambah.php, informasi_edit.php)
+   ========================================= */
+
+/* ── Tabel Diskon (informasi.php) ─────────────────────────────── */
 .card-table-wrap { 
     background: #fff; 
     border: 1px solid #e2e8f0; 
@@ -54,15 +59,165 @@ div.dataTables_length select {
 div:where(.swal2-container) { 
     font-family: 'Segoe UI', system-ui, sans-serif; 
 }
+
+/* =========================================
+   Kartu Kupon Diskon (ganti tampilan tabel lama)
+   ========================================= */
+.diskon-coupon-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.diskon-coupon-card {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    transition: box-shadow 0.2s ease;
+}
+
+.diskon-coupon-card:hover {
+    box-shadow: 0 6px 18px rgba(30, 41, 59, 0.06);
+}
+
+.diskon-coupon-value {
+    flex: 0 0 110px;
+    border-right: 2px dashed #cbd5e1;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.diskon-coupon-value-number {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--navy-dark);
+    line-height: 1;
+    word-break: break-word;
+}
+
+.diskon-coupon-value-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+
+.diskon-coupon-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+}
+
+.diskon-coupon-meta {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.diskon-coupon-meta-sep {
+    color: #cbd5e1;
+}
+
+.diskon-coupon-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.diskon-coupon-footer {
+    font-size: 12.5px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.diskon-coupon-actions {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.diskon-coupon-btns {
+    display: flex;
+    gap: 6px;
+}
+
+.diskon-coupon-empty {
+    text-align: center;
+    color: #94a3b8;
+    padding: 60px 20px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.diskon-coupon-empty i {
+    font-size: 32px;
+    display: block;
+    margin-bottom: 10px;
+    color: #cbd5e1;
+}
+
+/* ── Search Box Kartu Diskon ──────────────────────────────────── */
+.diskon-search-wrap {
+    position: relative;
+    max-width: 320px;
+    margin-bottom: 20px;
+}
+
+.diskon-search-input {
+    padding-left: 36px;
+}
+
+.diskon-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.diskon-hidden {
+    display: none;
+}
+
 /* =========================================
    Styling Khusus Halaman Form (Tambah/Edit)
    ========================================= */
 .form-card-wrap {
-    max-width: 650px;
-    background: #fff;
+    background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 30px;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .form-label-custom {
@@ -87,6 +242,97 @@ div:where(.swal2-container) {
     color: white;
 }
 
+.btn-submit-custom.btn-navy {
+    background-color: var(--navy-dark);
+}
+
+.btn-submit-custom.btn-navy:hover {
+    background-color: #0f172a;
+}
+
 .text-xs {
     font-size: 11px;
+}
+
+/* ── Pengganti inline style umum (body, header, alert) ─────────── */
+.page-informasi {
+    background-color: #f8f7f5;
+}
+
+.dashboard-content-pad {
+    padding: 24px 32px;
+}
+
+.page-title-sm {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.alert-sm {
+    font-size: 14px;
+}
+
+.label-note {
+    color: #475569;
+}
+
+.input-uppercase {
+    text-transform: uppercase;
+}
+
+/* ── Tombol "Tambah Diskon" di informasi.php ───────────────────── */
+.btn-add-diskon {
+    background-color: var(--navy-dark);
+    color: #fff;
+    border: 1px solid var(--navy-dark);
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: filter 0.2s ease;
+}
+
+.btn-add-diskon:hover,
+.btn-add-diskon:focus,
+.btn-add-diskon:active {
+    background-color: var(--navy-dark);
+    border-color: var(--navy-dark);
+    color: #fff;
+    filter: brightness(0.85);
+    box-shadow: none;
+}
+
+.btn-add-diskon:active {
+    filter: brightness(0.75);
+}
+
+/* ── Sel & elemen tabel diskon ─────────────────────────────────── */
+.diskon-judul {
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 6px;
+}
+
+.diskon-target-badge {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.diskon-periode {
+    font-size: 13px;
+    color: #475569;
+}
+
+.diskon-periode-selamanya {
+    font-weight: 600;
+}
+
+.diskon-expired-note {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.diskon-status-badge {
+    font-size: 11px;
+    padding: 5px 10px;
+    letter-spacing: 0.5px;
 }
