@@ -63,10 +63,15 @@ if (isset($_GET['tolak'])) {
 }
 
 // Ambil data transaksi beserta kode pesanan dan nama pelanggan
-$query = "SELECT t.*, p.kode_pesanan, u.nama AS nama_pelanggan, u.no_hp 
+// CATATAN: p.deskripsi & p.user_id ikut diambil untuk fallback nama pelanggan
+// walk-in (lihat blok fallback di bawah), dan JOIN ke users diubah jadi
+// LEFT JOIN supaya transaksi walk-in (yang p.user_id-nya nomor HP, bukan ID
+// user asli) tetap muncul di list, bukan hilang karena INNER JOIN gagal match.
+$query = "SELECT t.*, p.kode_pesanan, p.deskripsi AS pesanan_deskripsi, p.user_id AS pesanan_user_id, 
+          u.nama AS nama_pelanggan, u.no_hp 
           FROM transaksi t
           JOIN pesanan p ON t.pesanan_id = p.id
-          JOIN users u ON p.user_id = u.id
+          LEFT JOIN users u ON p.user_id = u.id
           ORDER BY t.status_verifikasi ASC, t.tanggal_bayar DESC"; // Yang "Menunggu" ditaruh paling atas
 $result = mysqli_query($koneksi, $query);
 ?>
@@ -137,6 +142,16 @@ $result = mysqli_query($koneksi, $query);
                         <?php 
                         if ($result && mysqli_num_rows($result) > 0): 
                             while ($row = mysqli_fetch_assoc($result)): 
+
+                                // FALLBACK NAMA PELANGGAN WALK-IN (sama seperti di pesanan_detail.php)
+                                $nama_pelanggan_tampil = $row['nama_pelanggan'];
+                                if (empty($nama_pelanggan_tampil)) {
+                                    if (preg_match('/\[Pelanggan Walk-in:\s*(.+?)\]/i', (string)$row['pesanan_deskripsi'], $m)) {
+                                        $nama_pelanggan_tampil = trim($m[1]);
+                                    } else {
+                                        $nama_pelanggan_tampil = 'Pelanggan Walk-in';
+                                    }
+                                }
                         ?>
                             <tr>
                                 <td>
@@ -152,7 +167,7 @@ $result = mysqli_query($koneksi, $query);
                                         <?= htmlspecialchars($row['kode_pesanan']) ?>
                                     </a>
                                     <div style="font-size: 12px; color: #475569; margin-top: 2px;">
-                                        <?= htmlspecialchars($row['nama_pelanggan']) ?>
+                                        <?= htmlspecialchars($nama_pelanggan_tampil) ?>
                                     </div>
                                 </td>
                                 <td>

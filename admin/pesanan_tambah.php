@@ -88,11 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $deskripsi        = trim($_POST['deskripsi'] ?? '');
     $deskripsi_final  = "[Pelanggan Walk-in: " . $nama_pelanggan . "]\n" . $deskripsi;
     
-    $total_harga      = (int)$_POST['total_harga'];
-    $dp_dibayar       = (int)$_POST['dp_dibayar'];
-    $sisa_tagihan     = $total_harga - $dp_dibayar;
-    $tanggal_deadline = $_POST['tanggal_deadline'];
-    $tanggal_pesan    = date('Y-m-d');
+    $total_harga        = (int)$_POST['total_harga'];
+    $dp_dibayar         = (int)$_POST['dp_dibayar'];
+    $sisa_tagihan       = $total_harga - $dp_dibayar;
+    $tanggal_deadline   = $_POST['tanggal_deadline'];
+    $tanggal_pesan      = date('Y-m-d');
+    $metode_pembayaran  = trim($_POST['metode_pembayaran'] ?? '');
 
     if ($dp_dibayar <= 0) {
         $status_pembayaran = 'belum_bayar';
@@ -102,28 +103,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status_pembayaran = 'dp';
     }
 
-    if (empty($user_id) || empty($nama_pelanggan) || empty($jenis_pakaian) || $total_harga <= 0 || $jumlah <= 0) {
-        $error = 'Isi nama, nomor telepon, jenis pakaian, rincian jumlah, dan total harga dengan benar.';
-    } else {
-        $query = "INSERT INTO pesanan (
-            kode_pesanan, user_id, jenis_pakaian, jumlah, deskripsi, 
-            ukuran, warna, bahan, total_harga, dp_dibayar, 
-            sisa_tagihan, status_pembayaran, tanggal_pesan, tanggal_deadline, status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'menunggu_konfirmasi')";
-        
-        $stmt = mysqli_prepare($koneksi, $query);
-        mysqli_stmt_bind_param($stmt, 'sssissssiiisss', 
-            $kode_pesanan, $user_id, $jenis_pakaian, $jumlah, $deskripsi_final,
-            $ukuran, $warna, $bahan, $total_harga, $dp_dibayar,
-            $sisa_tagihan, $status_pembayaran, $tanggal_pesan, $tanggal_deadline
-        );
+    // ---------------------------------------------------------------
+    // UPLOAD FOTO BUKTI PEMBAYARAN 
+    // Dipakai kalau admin menerima pembayaran walk-in di tempat dan
+    // ingin memfoto bukti 
+    // ---------------------------------------------------------------
+    $bukti_pembayaran_nama = NULL;
 
-        if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['flash_success'] = 'Pesanan baru berhasil dicatat!';
-            header('Location: pesanan.php');
-            exit();
+    if (isset($_FILES['bukti_pembayaran']) && $_FILES['bukti_pembayaran']['error'] === UPLOAD_ERR_OK) {
+        $file_tmp  = $_FILES['bukti_pembayaran']['tmp_name'];
+        $file_name = $_FILES['bukti_pembayaran']['name'];
+        $file_size = $_FILES['bukti_pembayaran']['size'];
+        $file_ext  = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        $allowed_ext = ['jpg', 'jpeg', 'png', 'webp'];
+
+        if (!in_array($file_ext, $allowed_ext)) {
+            $error = 'Format foto bukti pembayaran harus JPG, PNG, atau WEBP!';
+        } elseif ($file_size > 2000000) {
+            $error = 'Ukuran foto bukti pembayaran maksimal 2MB!';
         } else {
-            $error = 'Gagal menyimpan pesanan.';
+            $bukti_pembayaran_nama = 'bukti_' . time() . '_' . rand(100, 999) . '.' . $file_ext;
+            $upload_path = '../assets/img/bukti/' . $bukti_pembayaran_nama;
+
+            if (!is_dir('../assets/img/bukti/')) {
+                mkdir('../assets/img/bukti/', 0777, true);
+            }
+
+            if (!move_uploaded_file($file_tmp, $upload_path)) {
+                $error = 'Gagal mengunggah foto bukti pembayaran ke folder server.';
+                $bukti_pembayaran_nama = NULL;
+            }
+        }
+    }
+
+    if (empty($error)) {
+        if (empty($user_id) || empty($nama_pelanggan) || empty($jenis_pakaian) || $total_harga <= 0 || $jumlah <= 0) {
+            $error = 'Isi nama, nomor telepon, jenis pakaian, rincian jumlah, dan total harga dengan benar.';
+        } elseif ($dp_dibayar > 0 && empty($metode_pembayaran)) {
+            $error = 'Pilih metode pembayaran karena ada nominal DP/pembayaran yang diterima.';
+        } else {
+            $query = "INSERT INTO pesanan (
+                kode_pesanan, user_id, jenis_pakaian, jumlah, deskripsi, 
+                ukuran, warna, bahan, total_harga, dp_dibayar, 
+                sisa_tagihan, status_pembayaran, tanggal_pesan, tanggal_deadline, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'menunggu_konfirmasi')";
+            
+            $stmt = mysqli_prepare($koneksi, $query);
+            mysqli_stmt_bind_param($stmt, 'sssissssiiisss', 
+                $kode_pesanan, $user_id, $jenis_pakaian, $jumlah, $deskripsi_final,
+                $ukuran, $warna, $bahan, $total_harga, $dp_dibayar,
+                $sisa_tagihan, $status_pembayaran, $tanggal_pesan, $tanggal_deadline
+            );
+
+            if (mysqli_stmt_execute($stmt)) {
+                // ---------------------------------------------------------------
+                // CATAT KE TABEL TRANSAKSI kalau ada pembayaran diterima di tempat
+                // (Cash/Transfer/QRIS langsung ke admin saat pesanan dibuat).
+                // ---------------------------------------------------------------
+                if ($dp_dibayar > 0) {
+                    $new_pesanan_id   = mysqli_insert_id($koneksi);
+                    $jenis_pembayaran = ($sisa_tagihan <= 0) ? 'Pelunasan' : 'DP';
+                    $tanggal_bayar    = date('Y-m-d H:i:s');
+
+                    $stmt_trx = mysqli_prepare($koneksi, "INSERT INTO transaksi (pesanan_id, nominal, jenis_pembayaran, metode_pembayaran, status_verifikasi, tanggal_bayar, bukti_pembayaran) VALUES (?, ?, ?, ?, 'Terverifikasi', ?, ?)");
+                    mysqli_stmt_bind_param($stmt_trx, 'iissss', $new_pesanan_id, $dp_dibayar, $jenis_pembayaran, $metode_pembayaran, $tanggal_bayar, $bukti_pembayaran_nama);
+                    mysqli_stmt_execute($stmt_trx);
+                }
+
+                $_SESSION['flash_success'] = 'Pesanan baru berhasil dicatat!';
+                header('Location: pesanan.php');
+                exit();
+            } else {
+                $error = 'Gagal menyimpan pesanan.';
+            }
         }
     }
 }
@@ -154,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="alert alert-danger" style="font-size: 14px;"><i class="bi bi-exclamation-triangle me-2"></i><?= $error ?></div>
             <?php endif; ?>
 
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="section-card shadow-sm p-4 mb-4" style="background:#fff; border-radius:8px; border: 1px solid #e2e8f0;">
@@ -254,7 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="row mb-3" id="area_warna_bahan">
                                 <div class="col-md-6 mb-3 mb-md-0" id="bungkus_warna_umum">
-                                    <label class="form-label fw-bold small">Warna Kain Umum</label>
+                                    <label class="form-label fw-bold small">Warna Kain</label>
                                     <input type="text" name="warna" class="form-control" placeholder="Contoh: Putih, Hitam">
                                 </div>
                                 <div class="col-md-6" id="bungkus_bahan_kain">
@@ -276,12 +329,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Total Harga Keseluruhan (Rp) <span class="text-danger">*</span></label>
-                                <input type="number" name="total_harga" id="total_harga" class="form-control form-control-lg fw-bold text-primary" placeholder="0" required oninput="hitungSisa()">
+                                <input type="number" name="total_harga" id="total_harga" class="form-control form-control-lg fw-bold text-primary" placeholder="0" required oninput="hitungTotalHargaOtomatis()">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">DP Dibayar (Rp)</label>
-                                <input type="number" name="dp_dibayar" id="dp_dibayar" class="form-control" placeholder="0" value="0" oninput="hitungSisa()">
+                                <label class="form-label fw-bold small">DP / Pembayaran Diterima (Rp)</label>
+                                <input type="number" name="dp_dibayar" id="dp_dibayar" class="form-control" placeholder="0" value="0" oninput="hitungSisa(); toggleMetodeBayar();">
+                            </div>
+
+                            <div class="mb-3" id="area_metode_pembayaran">
+                                <label class="form-label fw-bold small">Metode Pembayaran <span class="text-danger">*</span></label>
+                                <select name="metode_pembayaran" id="metode_pembayaran" class="form-select">
+                                    <option value="">-- Pilih Metode --</option>
+                                    <option value="Cash">Cash / Tunai</option>
+                                    <option value="Transfer Bank">Transfer Bank</option>
+                                    <option value="QRIS">QRIS</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Foto Bukti Pembayaran <span class="text-muted fw-normal">(Opsional)</span></label>
+                                <input type="file" name="bukti_pembayaran" class="form-control" accept="image/*" capture="environment">
+                                <div class="form-text" style="font-size: 11px;">
+                                    Format JPG/PNG/WEBP, maks 2MB.
+                                </div>
                             </div>
 
                             <div class="mb-4">
@@ -311,6 +382,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const sisaInput = document.getElementById('sisa_tagihan');
     const jenisSelect = document.getElementById('jenis_pakaian');
     const inputJumlahIndividu = document.getElementById('jumlah_individu');
+    const metodeBayarSelect = document.getElementById('metode_pembayaran');
 
     // =========================================================================
     // LOGIKA PERHITUNGAN OTOMATIS
@@ -351,6 +423,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const dp = parseInt(dpInput.value) || 0;
         const sisa = total - dp;
         sisaInput.value = sisa < 0 ? 0 : sisa;
+    }
+
+    // Wajibkan pilih metode pembayaran kalau ada nominal DP diisi
+    function toggleMetodeBayar() {
+        const dp = parseInt(dpInput.value) || 0;
+        if (dp > 0) {
+            metodeBayarSelect.setAttribute('required', 'required');
+        } else {
+            metodeBayarSelect.removeAttribute('required');
+        }
     }
 
     function toggleSkalaPesanan() {

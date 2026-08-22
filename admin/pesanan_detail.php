@@ -13,7 +13,7 @@ $id = (int)$_GET['id'];
 $query = "SELECT p.*, u.nama AS nama_pelanggan, u.no_hp, u.email, 
           (SELECT status_verifikasi FROM transaksi t WHERE t.pesanan_id = p.id ORDER BY t.id DESC LIMIT 1) as status_transaksi 
           FROM pesanan p 
-          JOIN users u ON p.user_id = u.id 
+          LEFT JOIN users u ON p.user_id = u.id 
           WHERE p.id = $id LIMIT 1";
 $result = mysqli_query($koneksi, $query);
 $pesanan = mysqli_fetch_assoc($result);
@@ -21,6 +21,29 @@ $pesanan = mysqli_fetch_assoc($result);
 if (!$pesanan) {
     echo "<script>alert('Data pesanan tidak ditemukan!'); window.location.href='pesanan.php';</script>";
     exit;
+}
+
+// -----------------------------------------------------------------------------
+// FALLBACK PELANGGAN WALK-IN: kolom u.nama/u.no_hp akan NULL kalau pesanan
+// dibuat lewat pesanan_tambah.php untuk nomor HP yang belum terdaftar sebagai
+// user (lihat pesanan_tambah.php: user_id diisi nomor HP langsung untuk kasus ini).
+$nama_pelanggan_tampil = $pesanan['nama_pelanggan'];
+$deskripsi_tampil      = $pesanan['deskripsi'];
+$no_hp_tampil          = $pesanan['no_hp'];
+
+if (empty($nama_pelanggan_tampil)) {
+    if (preg_match('/\[Pelanggan Walk-in:\s*(.+?)\]/i', (string)$pesanan['deskripsi'], $m)) {
+        $nama_pelanggan_tampil = trim($m[1]);
+        // Bersihkan tag walk-in dari deskripsi supaya tidak tampil dobel di nota
+        $deskripsi_tampil = trim(preg_replace('/\[Pelanggan Walk-in:.*?\]\s*/i', '', (string)$pesanan['deskripsi']));
+    } else {
+        $nama_pelanggan_tampil = 'Pelanggan Walk-in';
+    }
+}
+
+if (empty($no_hp_tampil)) {
+    // Untuk walk-in, p.user_id menyimpan nomor HP langsung
+    $no_hp_tampil = $pesanan['user_id'];
 }
 
 // -----------------------------------------------------------------------------
@@ -132,8 +155,8 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="detail-label mb-1">Ditagihkan Kepada:</div>
-                        <div class="detail-value" style="font-size: 16px;"><?= htmlspecialchars($pesanan['nama_pelanggan']) ?></div>
-                        <div style="font-size: 13px; color: #475569;"><i class="bi bi-telephone"></i> <?= htmlspecialchars($pesanan['no_hp']) ?></div>
+                        <div class="detail-value" style="font-size: 16px;"><?= htmlspecialchars($nama_pelanggan_tampil) ?></div>
+                        <div style="font-size: 13px; color: #475569;"><i class="bi bi-telephone"></i> <?= htmlspecialchars($no_hp_tampil) ?></div>
                     </div>
                     <div class="col-md-6 text-md-end mt-3 mt-md-0">
                         <div class="row text-start text-md-end">
@@ -189,7 +212,7 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                                 <td>
                                     <div style="font-weight: 700; color: var(--navy-dark); font-size: 15px;"><?= htmlspecialchars($pesanan['jenis_pakaian']) ?></div>
                                     <div style="font-size: 12px; color: #64748b; margin-top: 4px; font-style: italic;">
-                                        "<?= htmlspecialchars($pesanan['deskripsi'] ?: 'Tidak ada catatan tambahan') ?>"
+                                        "<?= htmlspecialchars($deskripsi_tampil ?: 'Tidak ada catatan tambahan') ?>"
                                     </div>
                                 </td>
                                 <td class="align-middle" style="font-size: 13px; color: #475569;">
@@ -216,7 +239,7 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                                     </div>
                                     
                                     <!-- Menampilkan variabel $warna_tampil yang sudah diekstrak cerdas -->
-                                    <div><strong>Warna Umum:</strong> <span class="text-dark fw-bold text-capitalize"><?= htmlspecialchars($warna_tampil) ?></span></div>
+                                    <div><strong>Warna:</strong> <span class="text-dark fw-bold text-capitalize"><?= htmlspecialchars($warna_tampil) ?></span></div>
                                     <?php if(!$is_bahan): ?>
                                         <div><strong>Bahan Kain:</strong> <span class="text-dark fw-bold"><?= htmlspecialchars($pesanan['bahan'] ?: '-') ?></span></div>
                                     <?php endif; ?>

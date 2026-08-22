@@ -15,6 +15,7 @@ $result = mysqli_query($koneksi, $query);
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/assets/img/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
 
     <!-- Custom CSS -->
@@ -84,7 +85,7 @@ $result = mysqli_query($koneksi, $query);
                                        title="<?= htmlspecialchars($row['deskripsi'] ?? 'Dapatkan penawaran spesial ini untuk pesanan jahitan Anda.') ?>"></i>
                                 </div>
                             </div>
-                            <a href="katalog.php" class="promo-strip-btn">Klaim Promo</a>
+                            <a href="katalog.php?promo=<?= urlencode($row['judul']) ?>" class="promo-strip-btn btn-klaim-promo" data-nama-promo="<?= htmlspecialchars($row['judul']) ?>">Klaim Promo</a>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -100,8 +101,35 @@ $result = mysqli_query($koneksi, $query);
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
 <!-- Custom Script -->
 <script src="<?= BASE_URL ?>/assets/js/promo.js"></script>
+
+<!-- Notifikasi sukses saat tombol Klaim Promo diklik -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-klaim-promo').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const tujuan = this.getAttribute('href');
+                const namaPromo = this.getAttribute('data-nama-promo');
+
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Promo berhasil diklaim!',
+                    text: namaPromo,
+                    showConfirmButton: false,
+                    timer: 1800,
+                    timerProgressBar: true
+                }).then(function () {
+                    window.location.href = tujuan;
+                });
+            });
+        });
+    });
+</script>
 </body>
 </html>
