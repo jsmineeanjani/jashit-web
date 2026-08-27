@@ -17,14 +17,10 @@ requireRole('pelanggan');
 </head>
 <body style="background-color: #f8f7f5;">
 <div class="dashboard-wrapper">
-
-    <?php require_once '../includes/sidebar_pelanggan.php'; ?>
-
+ <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_pelanggan.php'; ?>
-
+        <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
         <div class="dashboard-content" style="padding: 24px 32px;">
-            
             <div class="mb-4">
                 <h1 class="page-title" style="font-size: 24px; font-weight: 700; color: var(--navy-dark); margin: 0;">Konsultasi Layanan</h1>
                 <p class="text-muted" style="font-size: 14px; margin-top: 5px;">Hubungi tim Jashit untuk diskusi lebih lanjut</p>

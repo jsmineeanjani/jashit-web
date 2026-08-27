@@ -44,10 +44,10 @@ $result_pesanan = mysqli_query($koneksi, $query_pesanan);
 </head>
 <body style="background-color: #f8f7f5;">
 <div class="dashboard-wrapper">
-    <?php require_once '../includes/sidebar_pelanggan.php'; ?>
+    <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_pelanggan.php'; ?>
+        <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
 
         <div class="dashboard-content" style="padding: 24px 32px;">
             <div class="mb-4">

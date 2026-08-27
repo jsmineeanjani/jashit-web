@@ -190,28 +190,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>/assets/css/pesanan_admin.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="pesanan-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_admin.php'; ?>
+        <?php require_once '../includes/layouts/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content pesanan-content">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Buat Pesanan Baru</h1>
+                <h1 class="pesanan-page-title">Buat Pesanan Baru</h1>
                 <a href="pesanan.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Kembali</a>
             </div>
 
             <?php if ($error): ?>
-                <div class="alert alert-danger" style="font-size: 14px;"><i class="bi bi-exclamation-triangle me-2"></i><?= $error ?></div>
+                <div class="alert alert-danger alert-pesanan"><i class="bi bi-exclamation-triangle me-2"></i><?= $error ?></div>
             <?php endif; ?>
 
             <form action="" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-lg-7">
-                        <div class="section-card shadow-sm p-4 mb-4" style="background:#fff; border-radius:8px; border: 1px solid #e2e8f0;">
-                            <h5 class="mb-4" style="font-weight:700; color:var(--navy-dark); font-size:16px; border-bottom: 2px solid #f1f5f9; padding-bottom:10px;">Informasi Pakaian</h5>
+                        <div class="section-card shadow-sm p-4 mb-4 pesanan-section-card">
+                            <h5 class="mb-4 pesanan-section-title">Informasi Pakaian</h5>
                             
                             <div class="row mb-3">
                                 <div class="col-md-4">
@@ -253,8 +254,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
 
-                            <div id="area_tipe_individu" class="p-3 mb-4" style="background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px;">
-                                <h6 class="fw-bold mb-3" style="color: var(--navy-dark); font-size: 14px;">Rincian Pesanan Individu</h6>
+                            <div id="area_tipe_individu" class="p-3 mb-4 pesanan-subcard">
+                                <h6 class="fw-bold mb-3 pesanan-subcard-title">Rincian Pesanan Individu</h6>
                                 <div class="row mb-3">
                                     <div class="col-md-4">
                                         <label class="form-label fw-bold small">Jumlah (Pcs)</label>
@@ -276,18 +277,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
                                     <div id="area_custom" class="d-none">
                                         <div class="row g-2">
-                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_ld" class="form-control" placeholder="L.Dada (cm)" style="font-size: 12px;"></div>
-                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_lp" class="form-control" placeholder="L.Pinggang" style="font-size: 12px;"></div>
-                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_pb" class="form-control" placeholder="P.Baju (cm)" style="font-size: 12px;"></div>
-                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_pl" class="form-control" placeholder="P.Lengan (cm)" style="font-size: 12px;"></div>
+                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_ld" class="form-control input-xs-font" placeholder="L.Dada (cm)"></div>
+                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_lp" class="form-control input-xs-font" placeholder="L.Pinggang"></div>
+                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_pb" class="form-control input-xs-font" placeholder="P.Baju (cm)"></div>
+                                            <div class="col-6 col-md-3"><input type="number" name="ukuran_pl" class="form-control input-xs-font" placeholder="P.Lengan (cm)"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div id="area_tipe_massal" class="d-none p-3 mb-4" style="background-color: #fff; border: 1px solid #e2e8f0; border-radius: 8px;">
+                            <div id="area_tipe_massal" class="d-none p-3 mb-4 pesanan-subcard">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h6 class="fw-bold mb-0" style="color: var(--navy-dark); font-size: 14px;">Rincian Produksi Massal</h6>
+                                    <h6 class="fw-bold mb-0 pesanan-subcard-title">Rincian Produksi Massal</h6>
                                     <span class="badge bg-secondary" id="badge_total_massal">Total: 0 Pcs</span>
                                 </div>
                                 
@@ -324,8 +325,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="col-lg-5">
-                        <div class="section-card shadow-sm p-4 mb-4" style="background:#fff; border-radius:8px; border: 1px solid #e2e8f0; position: sticky; top: 20px;">
-                            <h5 class="mb-4" style="font-weight:700; color:var(--navy-dark); font-size:16px; border-bottom: 2px solid #f1f5f9; padding-bottom:10px;">Pembayaran & Waktu</h5>
+                        <div class="section-card shadow-sm p-4 mb-4 pesanan-section-card pesanan-section-card-sticky">
+                            <h5 class="mb-4 pesanan-section-title">Pembayaran & Waktu</h5>
                             
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Total Harga Keseluruhan (Rp) <span class="text-danger">*</span></label>
@@ -341,7 +342,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label class="form-label fw-bold small">Metode Pembayaran <span class="text-danger">*</span></label>
                                 <select name="metode_pembayaran" id="metode_pembayaran" class="form-select">
                                     <option value="">-- Pilih Metode --</option>
-                                    <option value="Cash">Cash / Tunai</option>
+                                    <option value="Cash">Cash</option>
                                     <option value="Transfer Bank">Transfer Bank</option>
                                     <option value="QRIS">QRIS</option>
                                 </select>
@@ -350,7 +351,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Foto Bukti Pembayaran <span class="text-muted fw-normal">(Opsional)</span></label>
                                 <input type="file" name="bukti_pembayaran" class="form-control" accept="image/*" capture="environment">
-                                <div class="form-text" style="font-size: 11px;">
+                                <div class="form-text helper-text-xs">
                                     Format JPG/PNG/WEBP, maks 2MB.
                                 </div>
                             </div>
@@ -365,7 +366,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="date" name="tanggal_deadline" class="form-control" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm" style="background-color: var(--navy-dark); border:none; letter-spacing:0.5px;">
+                            <button type="submit" class="btn w-100 py-3 fw-bold shadow-sm btn-simpan-pesanan">
                                 <i class="bi bi-save me-1"></i> SIMPAN PESANAN
                             </button>
                         </div>
@@ -376,132 +377,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<script>
-    const totalInput = document.getElementById('total_harga');
-    const dpInput = document.getElementById('dp_dibayar');
-    const sisaInput = document.getElementById('sisa_tagihan');
-    const jenisSelect = document.getElementById('jenis_pakaian');
-    const inputJumlahIndividu = document.getElementById('jumlah_individu');
-    const metodeBayarSelect = document.getElementById('metode_pembayaran');
-
-    // =========================================================================
-    // LOGIKA PERHITUNGAN OTOMATIS
-    // =========================================================================
-    function hitungTotalHargaOtomatis() {
-        // Dapatkan elemen option yang saat ini sedang dipilih
-        const selectedOption = jenisSelect.options[jenisSelect.selectedIndex];
-        
-        // Tarik angka dari atribut data-harga (jika kosong, anggap 0)
-        const hargaSatuan = parseInt(selectedOption.getAttribute('data-harga')) || 0;
-        
-        // Cari tahu sedang mode apa (Individu atau Massal)
-        const tipe = document.querySelector('input[name="tipe_pesanan"]:checked').value;
-        let qtyTotal = 1;
-
-        if (tipe === 'individu') {
-            qtyTotal = parseInt(inputJumlahIndividu.value) || 1;
-        } else {
-            // Jika massal, hitung jumlah dari semua form qty massal
-            let totalMassal = 0;
-            document.querySelectorAll('.massal-qty').forEach(input => {
-                totalMassal += parseInt(input.value) || 0;
-            });
-            qtyTotal = totalMassal > 0 ? totalMassal : 1;
-        }
-
-        // Hitung total dan pasang di input total_harga
-        const kalkulasi = hargaSatuan * qtyTotal;
-        totalInput.value = kalkulasi;
-        
-        // Jangan lupa panggil hitungSisa agar kolom sisa tagihan juga otomatis berubah
-        hitungSisa();
-    }
-    // =========================================================================
-
-    function hitungSisa() {
-        const total = parseInt(totalInput.value) || 0;
-        const dp = parseInt(dpInput.value) || 0;
-        const sisa = total - dp;
-        sisaInput.value = sisa < 0 ? 0 : sisa;
-    }
-
-    // Wajibkan pilih metode pembayaran kalau ada nominal DP diisi
-    function toggleMetodeBayar() {
-        const dp = parseInt(dpInput.value) || 0;
-        if (dp > 0) {
-            metodeBayarSelect.setAttribute('required', 'required');
-        } else {
-            metodeBayarSelect.removeAttribute('required');
-        }
-    }
-
-    function toggleSkalaPesanan() {
-        const tipe = document.querySelector('input[name="tipe_pesanan"]:checked').value;
-        const areaIndividu = document.getElementById('area_tipe_individu');
-        const areaMassal = document.getElementById('area_tipe_massal');
-        const bungkusWarna = document.getElementById('bungkus_warna_umum');
-        const bungkusBahan = document.getElementById('bungkus_bahan_kain');
-
-        if (tipe === 'individu') {
-            areaIndividu.classList.remove('d-none');
-            areaMassal.classList.add('d-none');
-            bungkusWarna.classList.remove('d-none');
-            bungkusBahan.className = 'col-md-6';
-            ubahMetodeUkuranIndividu(); 
-        } else {
-            areaIndividu.classList.add('d-none');
-            areaMassal.classList.remove('d-none');
-            bungkusWarna.classList.add('d-none');
-            bungkusBahan.className = 'col-md-12';
-            kalkulasiQtyMassal();
-        }
-        
-        // Trigger perhitungan harga saat ganti tipe
-        hitungTotalHargaOtomatis();
-    }
-
-    function ubahMetodeUkuranIndividu() {
-        const metode = document.getElementById('metode_ukuran_individu').value;
-        document.getElementById('area_standar').classList.add('d-none');
-        document.getElementById('area_custom').classList.add('d-none');
-
-        if (metode === 'standar') {
-            document.getElementById('area_standar').classList.remove('d-none');
-        } else if (metode === 'custom') {
-            document.getElementById('area_custom').classList.remove('d-none');
-        }
-    }
-
-    function tambahBarisMassal() {
-        const container = document.getElementById('container_massal');
-        const barisBaru = document.createElement('div');
-        barisBaru.className = 'row g-1 mb-2 baris-massal';
-        barisBaru.innerHTML = `
-            <div class="col-4"><input type="text" name="massal_ukuran[]" class="form-control form-control-sm" placeholder="Ukuran"></div>
-            <div class="col-4"><input type="text" name="massal_warna[]" class="form-control form-control-sm" placeholder="Warna"></div>
-            <div class="col-3"><input type="number" name="massal_qty[]" class="form-control form-control-sm massal-qty" placeholder="Qty" min="1" oninput="kalkulasiQtyMassal()"></div>
-            <div class="col-1"><button type="button" class="btn btn-sm btn-outline-danger w-100" onclick="hapusBaris(this)"><i class="bi bi-trash"></i></button></div>
-        `;
-        container.appendChild(barisBaru);
-    }
-
-    function hapusBaris(btn) {
-        btn.closest('.baris-massal').remove();
-        kalkulasiQtyMassal();
-    }
-
-    function kalkulasiQtyMassal() {
-        let total = 0;
-        const inputs = document.querySelectorAll('.massal-qty');
-        inputs.forEach(input => {
-            total += parseInt(input.value) || 0;
-        });
-        document.getElementById('badge_total_massal').innerText = "Total: " + total + " Pcs";
-        
-        // Trigger perhitungan harga setiap kali ngetik Qty massal
-        hitungTotalHargaOtomatis();
-    }
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/pesanan_admin.js"></script>
 </body>
 </html>

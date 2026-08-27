@@ -148,9 +148,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body style="background-color: #f8f7f5;">
 <div class="dashboard-wrapper">
-    <?php require_once '../includes/sidebar_owner.php'; ?>
+    <?php require_once '../includes/layouts/sidebar_owner.php'; ?>
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_owner.php'; ?>
+        <?php require_once '../includes/layouts/topbar_owner.php'; ?>
 
         <div class="dashboard-content" style="padding: 28px 32px;">
             <div class="mb-4">

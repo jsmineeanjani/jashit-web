@@ -229,10 +229,9 @@ $json_data_year  = json_encode($data_year);
 </head>
 <body>
 <div class="dashboard-wrapper">
-    <?php require_once '../includes/sidebar_owner.php'; ?>
-
+    <?php require_once '../includes/layouts/sidebar_owner.php'; ?>
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_owner.php'; ?>
+        <?php require_once '../includes/layouts/topbar_owner.php'; ?>
 
         <div class="dashboard-content" style="padding: 24px 28px;">
 

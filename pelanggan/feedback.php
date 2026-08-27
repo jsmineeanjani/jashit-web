@@ -99,16 +99,12 @@ mysqli_stmt_close($stmt_f);
 </head>
 <body>
 <div class="dashboard-wrapper">
-    <?php require_once '../includes/sidebar_pelanggan.php'; ?>
+    <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     <div class="dashboard-main">
-        <div class="dashboard-topbar">
-            <h1 class="page-title">Feedback & Ulasan</h1>
-        </div>
+        <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
         <div class="dashboard-content">
             <?= showFlash() ?>
-
             <div class="row g-4">
-
                 <div class="col-lg-5">
                     <div class="section-card">
                         <div class="section-card-header">

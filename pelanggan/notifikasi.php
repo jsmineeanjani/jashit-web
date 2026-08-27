@@ -29,10 +29,9 @@ $query = mysqli_query($koneksi, "SELECT * FROM notifikasi WHERE user_id = $user_
 <body class="bg-light">
 <div class="dashboard-wrapper">
     
-    <?php require_once '../includes/sidebar_pelanggan.php'; ?> 
-    
+  <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_pelanggan.php'; ?>
+        <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
 
         <div class="dashboard-content" style="padding: 24px 32px;">
             <div class="d-flex justify-content-between align-items-center mb-4">

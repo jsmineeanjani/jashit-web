@@ -23,9 +23,9 @@ $result = mysqli_query($koneksi, $query);
 </head>
 <body class="promo-page-bg">
 <div class="dashboard-wrapper">
-    <?php require_once '../includes/sidebar_pelanggan.php'; ?>
+    <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     <div class="dashboard-main">
-        <?php require_once '../includes/topbar_pelanggan.php'; ?>
+        <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
 
         <div class="dashboard-content dashboard-content-pad">
             
