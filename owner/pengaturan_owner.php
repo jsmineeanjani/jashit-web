@@ -91,84 +91,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-    <style>
-        .setting-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 28px 32px;
-            margin-bottom: 24px;
-        }
-        .setting-card h6 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--navy-dark);
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .form-label { font-size: 13px; font-weight: 600; color: #475569; }
-        .form-control {
-            font-size: 14px;
-            border-color: #e2e8f0;
-            border-radius: 8px;
-            padding: 10px 14px;
-        }
-        .form-control:focus {
-            border-color: var(--navy-dark);
-            box-shadow: 0 0 0 3px rgba(15,23,42,0.08);
-        }
-        .btn-save {
-            background: var(--navy-dark);
-            color: #fff;
-            font-weight: 700;
-            font-size: 14px;
-            padding: 10px 28px;
-            border: none;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-        .btn-save:hover { background: #0f172a; color: #fff; }
-
-        .pw-toggle {
-            cursor: pointer;
-            border-left: none;
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            color: #94a3b8;
-        }
-        .pw-toggle:hover { color: var(--navy-dark); }
-        .input-group .form-control { border-right: none; }
-        .input-group .form-control:focus { border-right: none; box-shadow: none; }
-        .input-group:focus-within .form-control,
-        .input-group:focus-within .pw-toggle {
-            border-color: var(--navy-dark);
-        }
-    </style>
+    <link href="<?= BASE_URL ?>/assets/css/pengaturan.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="pengaturan-owner-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_owner.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/layouts/topbar_owner.php'; ?>
 
-        <div class="dashboard-content" style="padding: 28px 32px;">
+        <div class="dashboard-content pengaturan-owner-content">
             <div class="mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 800; color: var(--navy-dark); margin: 0;">
+                <h1 class="pengaturan-owner-title">
                     Pengaturan Akun
                 </h1>
                 <p class="text-muted small mt-1 mb-0">Kelola informasi profil dan keamanan akun Anda.</p>
             </div>
 
             <?php if ($success): ?>
-                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2" style="border-radius: 10px;">
+                <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-2 rounded-3">
                     <i class="bi bi-check-circle-fill"></i>
                     <span><?= $success ?></span>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>
             <?php if ($error): ?>
-                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2" style="border-radius: 10px;">
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-2 rounded-3">
                     <i class="bi bi-exclamation-circle-fill"></i>
                     <span><?= $error ?></span>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
@@ -196,8 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Role</label>
-                                <input type="text" class="form-control" value="Owner" disabled
-                                       style="background:#f8fafc; color:#94a3b8;">
+                                <input type="text" class="form-control input-role-disabled" value="Owner" disabled>
                             </div>
                             <button type="submit" class="btn btn-save mt-2">
                                 <i class="bi bi-floppy me-1"></i> Simpan Perubahan
@@ -269,74 +215,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// Toggle show/hide password
-function togglePw(id, btn) {
-    const input = document.getElementById(id);
-    const icon  = btn.querySelector('i');
-    if (input.type === 'password') {
-        input.type = 'text';
-        icon.className = 'bi bi-eye-slash';
-    } else {
-        input.type = 'password';
-        icon.className = 'bi bi-eye';
-    }
-}
 
-// Cek kecocokan password konfirmasi
-document.getElementById('pw_konfirmasi').addEventListener('input', function () {
-    const baru     = document.getElementById('pw_baru').value;
-    const konfirm  = this.value;
-    const msg      = document.getElementById('pw_match_msg');
-    msg.style.display = konfirm.length > 0 ? 'block' : 'none';
-    if (konfirm === baru) {
-        msg.textContent = '✓ Password cocok';
-        msg.style.color = '#16a34a';
-    } else {
-        msg.textContent = '✗ Password tidak cocok';
-        msg.style.color = '#dc2626';
-    }
-});
-
-// Indikator kekuatan password
-document.getElementById('pw_baru').addEventListener('input', function () {
-    const val  = this.value;
-    const wrap = document.getElementById('pw_strength_wrap');
-    const bar  = document.getElementById('pw_strength_bar');
-    const lbl  = document.getElementById('pw_strength_label');
-
-    wrap.style.display = val.length > 0 ? 'block' : 'none';
-
-    let score = 0;
-    if (val.length >= 6)  score++;
-    if (val.length >= 10) score++;
-    if (/[A-Z]/.test(val)) score++;
-    if (/[0-9]/.test(val)) score++;
-    if (/[^A-Za-z0-9]/.test(val)) score++;
-
-    const levels = [
-        { pct: '20%', color: '#ef4444', label: 'Sangat Lemah' },
-        { pct: '40%', color: '#f97316', label: 'Lemah' },
-        { pct: '60%', color: '#eab308', label: 'Cukup' },
-        { pct: '80%', color: '#22c55e', label: 'Kuat' },
-        { pct: '100%', color: '#16a34a', label: 'Sangat Kuat' },
-    ];
-    const lvl = levels[Math.min(score - 1, 4)] || levels[0];
-    bar.style.width           = lvl.pct;
-    bar.style.backgroundColor = lvl.color;
-    lbl.textContent           = lvl.label;
-    lbl.style.color           = lvl.color;
-});
-
-// Validasi sebelum submit
-document.getElementById('formPassword').addEventListener('submit', function (e) {
-    const baru    = document.getElementById('pw_baru').value;
-    const konfirm = document.getElementById('pw_konfirmasi').value;
-    if (baru !== konfirm) {
-        e.preventDefault();
-        alert('Konfirmasi password tidak cocok!');
-    }
-});
-</script>
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/pengaturan.js"></script>
 </body>
 </html>

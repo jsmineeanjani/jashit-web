@@ -61,12 +61,6 @@ if (isset($_GET['tolak'])) {
     header("Location: transaksi.php");
     exit;
 }
-
-// Ambil data transaksi beserta kode pesanan dan nama pelanggan
-// CATATAN: p.deskripsi & p.user_id ikut diambil untuk fallback nama pelanggan
-// walk-in (lihat blok fallback di bawah), dan JOIN ke users diubah jadi
-// LEFT JOIN supaya transaksi walk-in (yang p.user_id-nya nomor HP, bukan ID
-// user asli) tetap muncul di list, bukan hilang karena INNER JOIN gagal match.
 $query = "SELECT t.*, p.kode_pesanan, p.deskripsi AS pesanan_deskripsi, p.user_id AS pesanan_user_id, 
           u.nama AS nama_pelanggan, u.no_hp 
           FROM transaksi t
@@ -86,41 +80,29 @@ $result = mysqli_query($koneksi, $query);
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-    <style>
-        .card-table-wrap { background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 24px; }
-        table.dataTable thead th { background-color: #f8fafc; color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #e2e8f0 !important; padding: 14px 15px; }
-        table.dataTable tbody td { vertical-align: middle; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; padding: 16px 15px; }
-        .dataTables_wrapper .row:first-child { align-items: center; margin-bottom: 20px; }
-        div.dataTables_filter { text-align: left !important; }
-        div.dataTables_filter input { width: 250px; display: inline-block; margin-left: 0; margin-right: 10px; }
-        div.dataTables_length { text-align: right !important; }
-        div.dataTables_length select { width: auto; display: inline-block; margin: 0 8px; }
-        
-        .bukti-img { width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1; cursor: pointer; transition: 0.2s; }
-        .bukti-img:hover { transform: scale(1.1); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    </style>
+    <link href="<?= BASE_URL ?>/assets/css/transaksi.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="transaksi-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/layouts/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content transaksi-content">
             <div class="mb-4">
-                <h1 class="page-title" style="font-size: 22px; font-weight: 700; margin: 0;">Verifikasi Pembayaran</h1>
-                <p class="text-muted" style="font-size: 13px; margin-top: 5px; margin-bottom: 0;">Cek dan validasi bukti transfer/QRIS yang diunggah pelanggan.</p>
+                <h1 class="transaksi-page-title">Verifikasi Pembayaran</h1>
+                <p class="text-muted transaksi-page-subtitle">Cek dan validasi bukti transfer/QRIS yang diunggah pelanggan.</p>
             </div>
 
             <?php if(isset($_SESSION['flash_success'])): ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                <div class="alert alert-success alert-dismissible fade show alert-transaksi" role="alert">
                     <i class="bi bi-check-circle me-2"></i> <?= $_SESSION['flash_success']; unset($_SESSION['flash_success']); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             <?php endif; ?>
             
             <?php if(isset($_SESSION['flash_error'])): ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="font-size: 14px;">
+                <div class="alert alert-danger alert-dismissible fade show alert-transaksi" role="alert">
                     <i class="bi bi-x-circle me-2"></i> <?= $_SESSION['flash_error']; unset($_SESSION['flash_error']); ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
@@ -155,28 +137,28 @@ $result = mysqli_query($koneksi, $query);
                         ?>
                             <tr>
                                 <td>
-                                    <div style="font-weight: 600; color: #1e293b; font-size: 13px;">
+                                    <div class="transaksi-waktu">
                                         <?= date('d M Y', strtotime($row['tanggal_bayar'])) ?>
                                     </div>
-                                    <div style="font-size: 11px; color: #64748b;">
+                                    <div class="transaksi-jam">
                                         <?= date('H:i', strtotime($row['tanggal_bayar'])) ?> WIB
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="pesanan_detail.php?id=<?= $row['pesanan_id'] ?>" style="font-weight: 700; color: var(--navy-dark); font-family: monospace; font-size: 14px; text-decoration: none;">
+                                    <a href="pesanan_detail.php?id=<?= $row['pesanan_id'] ?>" class="transaksi-kode">
                                         <?= htmlspecialchars($row['kode_pesanan']) ?>
                                     </a>
-                                    <div style="font-size: 12px; color: #475569; margin-top: 2px;">
+                                    <div class="transaksi-nama-pelanggan">
                                         <?= htmlspecialchars($nama_pelanggan_tampil) ?>
                                     </div>
                                 </td>
                                 <td>
-                                    <div style="font-weight: 700; color: #10b981; font-size: 15px;">
+                                    <div class="transaksi-nominal">
                                         Rp <?= number_format($row['nominal'], 0, ',', '.') ?>
                                     </div>
-                                    <div style="font-size: 11px; margin-top: 3px;">
+                                    <div class="transaksi-metode">
                                         <span class="badge bg-light text-dark border me-1"><?= htmlspecialchars($row['jenis_pembayaran']) ?></span>
-                                        <span style="color: #64748b;"><i class="bi bi-wallet2"></i> <?= htmlspecialchars($row['metode_pembayaran']) ?></span>
+                                        <span class="transaksi-metode-icon"><i class="bi bi-wallet2"></i> <?= htmlspecialchars($row['metode_pembayaran']) ?></span>
                                     </div>
                                 </td>
                                 <td class="text-center">
@@ -208,7 +190,7 @@ $result = mysqli_query($koneksi, $query);
                                             </a>
                                         </div>
                                     <?php else: ?>
-                                        <span style="font-size: 12px; color: #94a3b8; font-style: italic;">Selesai diverifikasi</span>
+                                        <span class="transaksi-selesai-note">Selesai diverifikasi</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -227,65 +209,7 @@ $result = mysqli_query($koneksi, $query);
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#tabelTransaksi').DataTable({
-            "dom": "<'row mb-3'<'col-sm-12 col-md-6'f><'col-sm-12 col-md-6 d-flex justify-content-end'l>>" +
-                   "<'row'<'col-sm-12'tr>>" +
-                   "<'row mt-3'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            "language": { "search": "", "searchPlaceholder": "Cari kode / nama..." },
-            "ordering": false // Dimatikan agar urutan SQL (Menunggu di atas) tidak rusak
-        });
-
-        // Konfirmasi Terima
-        $(document).on('click', '.btn-terima', function(e) {
-            e.preventDefault();
-            const href = $(this).attr('href');
-            Swal.fire({
-                title: 'Verifikasi Pembayaran?',
-                text: "Apakah anda yakin bukti ini sudah valid?.",
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonColor: '#10b981',
-                cancelButtonColor: '#64748b',
-                confirmButtonText: 'Ya, Verifikasi!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) window.location.href = href;
-            });
-        });
-
-        // Konfirmasi Tolak
-        $(document).on('click', '.btn-tolak', function(e) {
-            e.preventDefault();
-            const href = $(this).attr('href');
-            Swal.fire({
-                title: 'Tolak Pembayaran?',
-                text: "Pelanggan harus mengunggah ulang bukti pembayaran yang valid.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#ef4444',
-                cancelButtonColor: '#64748b',
-                confirmButtonText: 'Ya, Tolak!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) window.location.href = href;
-            });
-        });
-    });
-
-    // Fungsi popup gambar bukti bayar
-    function lihatBukti(urlGambar) {
-        Swal.fire({
-            imageUrl: urlGambar,
-            imageAlt: 'Bukti Pembayaran',
-            showConfirmButton: false,
-            showCloseButton: true,
-            customClass: {
-                popup: 'p-2'
-            }
-        });
-    }
-</script>
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/transaksi.js"></script>
 </body>
 </html>

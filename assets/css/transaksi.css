@@ -1,0 +1,124 @@
+/* =========================================
+   Layout Umum Halaman Transaksi
+   ========================================= */
+body.transaksi-page {
+    background-color: #f8f7f5;
+}
+
+.transaksi-content {
+    padding: 24px 32px;
+}
+
+.transaksi-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.transaksi-page-subtitle {
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.alert-transaksi {
+    font-size: 14px;
+}
+
+/* =========================================
+   Tabel Verifikasi Transaksi
+   ========================================= */
+.card-table-wrap {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 24px;
+}
+
+table.dataTable thead th {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 14px 15px;
+}
+
+table.dataTable tbody td {
+    vertical-align: middle;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 16px 15px;
+}
+
+.dataTables_wrapper .row:first-child {
+    align-items: center;
+    margin-bottom: 20px;
+}
+div.dataTables_filter { text-align: left !important; }
+div.dataTables_filter input { width: 250px; display: inline-block; margin-left: 0; margin-right: 10px; }
+div.dataTables_length { text-align: right !important; }
+div.dataTables_length select { width: auto; display: inline-block; margin: 0 8px; }
+
+.bukti-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.bukti-img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.transaksi-waktu {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 13px;
+}
+
+.transaksi-jam {
+    font-size: 11px;
+    color: #64748b;
+}
+
+.transaksi-kode {
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-family: monospace;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.transaksi-nama-pelanggan {
+    font-size: 12px;
+    color: #475569;
+    margin-top: 2px;
+}
+
+.transaksi-nominal {
+    font-weight: 700;
+    color: #10b981;
+    font-size: 15px;
+}
+
+.transaksi-metode {
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+.transaksi-metode-icon {
+    color: #64748b;
+}
+
+.transaksi-selesai-note {
+    font-size: 12px;
+    color: #94a3b8;
+    font-style: italic;
+}

@@ -1,0 +1,155 @@
+/* =========================================
+   Layout Umum Halaman Pengaturan admin
+   ========================================= */
+body.pengaturan-page {
+    background-color: #f8f7f5;
+}
+
+.pengaturan-content {
+    padding: 24px 32px;
+}
+
+.pengaturan-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--navy-dark);
+}
+
+.pengaturan-page-subtitle {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* =========================================
+   Card Pengaturan (Profil & Password)
+   ========================================= */
+.settings-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.settings-header {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-simpan-profil {
+    background-color: var(--navy-dark) !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.btn-simpan-profil:hover,
+.btn-simpan-profil:focus,
+.btn-simpan-profil:active {
+    background-color: var(--navy-dark) !important;
+    opacity: 0.85 !important;
+    color: #fff !important;
+}
+
+/* =========================================
+   Halaman Pengaturan Owner
+   ========================================= */
+.pengaturan-owner-content {
+    padding: 28px 32px;
+}
+
+.pengaturan-owner-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--navy-dark);
+    margin: 0;
+}
+
+.pengaturan-owner-page .setting-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+}
+
+.pengaturan-owner-page .setting-card h6 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.pengaturan-owner-page .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.pengaturan-owner-page .form-control {
+    font-size: 14px;
+    border-color: #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+.pengaturan-owner-page .form-control:focus {
+    border-color: var(--navy-dark);
+    box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+.pengaturan-owner-page .input-role-disabled {
+    background: #f8fafc;
+    color: #94a3b8;
+}
+
+.pengaturan-owner-page .btn-save {
+    background: var(--navy-dark);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.pengaturan-owner-page .btn-save:hover {
+    background: #0f172a;
+    color: #fff;
+}
+
+.pengaturan-owner-page .pw-toggle {
+    cursor: pointer;
+    border-left: none;
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #94a3b8;
+}
+
+.pengaturan-owner-page .pw-toggle:hover {
+    color: var(--navy-dark);
+}
+
+.pengaturan-owner-page .input-group .form-control {
+    border-right: none;
+}
+
+.pengaturan-owner-page .input-group .form-control:focus {
+    border-right: none;
+    box-shadow: none;
+}
+
+.pengaturan-owner-page .input-group:focus-within .form-control,
+.pengaturan-owner-page .input-group:focus-within .pw-toggle {
+    border-color: var(--navy-dark);
+}

@@ -220,3 +220,387 @@ div.dataTables_length select { width: auto; display: inline-block; margin: 0 8px
     opacity: 0.85 !important;
     color: #fff !important;
 }
+
+/* =========================================
+   Styling Khusus Halaman Detail Pesanan / Invoice
+   (pesanan_detail.php)
+   ========================================= */
+.invoice-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.invoice-card-wrap {
+    max-width: 850px;
+}
+
+.invoice-header {
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-label {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 15px;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.invoice-logo {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.invoice-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+.invoice-title {
+    font-weight: 700;
+    color: #334155;
+    margin: 0;
+}
+
+.invoice-kode {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ea580c;
+    font-family: monospace;
+}
+
+.invoice-phone {
+    font-size: 13px;
+    color: #475569;
+}
+
+.fs-13 { font-size: 13px; }
+.fs-14 { font-size: 14px; }
+.fs-16 { font-size: 16px; }
+
+.invoice-tgl-diminta {
+    font-size: 14px;
+    color: #0284c7;
+}
+
+.invoice-tgl-selesai {
+    font-size: 14px;
+}
+
+.invoice-placeholder-text {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.table-head-bg {
+    background-color: #f8fafc;
+}
+
+.invoice-item-nama {
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-size: 15px;
+}
+
+.invoice-item-desc {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.invoice-rincian-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+.invoice-rincian-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.invoice-massal-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: #161111;
+    margin-bottom: 4px;
+}
+
+.invoice-massal-li {
+    padding: 2px 0;
+}
+
+.invoice-text-dark-bold {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.badge-lg-pill {
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+.badge-promo {
+    background-color: #8b5cf6;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.badge-jahit-proses {
+    background-color: #3b82f6;
+}
+
+.badge-finishing-proses {
+    background-color: #6366f1;
+}
+
+.invoice-total-tagihan {
+    font-size: 16px;
+    color: var(--navy-dark);
+}
+
+.invoice-dp-value {
+    font-size: 15px;
+    color: #10b981;
+}
+
+.invoice-sisa-label {
+    font-size: 14px;
+    color: #ef4444;
+}
+
+.invoice-sisa-value {
+    font-size: 18px;
+    color: #ef4444;
+}
+
+.invoice-footer-note {
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 20px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.btn-cetak-nota {
+    background-color: var(--navy-dark) !important;
+    color: #fff !important;
+    border: none !important;
+    font-weight: 600;
+}
+
+.btn-cetak-nota:hover,
+.btn-cetak-nota:focus,
+.btn-cetak-nota:active {
+    background-color: var(--navy-dark) !important;
+    opacity: 0.85 !important;
+    color: #fff !important;
+}
+
+@media print {
+    body * { visibility: hidden; }
+    .invoice-card, .invoice-card * { visibility: visible; }
+    .invoice-card { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; padding: 20px; }
+    .btn-cetak-nota, .btn-kembali, .sidebar, .topbar { display: none !important; }
+    body { background-color: #fff !important; }
+}
+
+/* =========================================
+   Styling Khusus Halaman Detail Pesanan / Invoice
+   (pesanan_detail.php)
+   ========================================= */
+.invoice-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 40px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    max-width: 850px;
+}
+
+.invoice-header {
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-label {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 15px;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.detail-value-14 { font-size: 14px; }
+.detail-value-16 { font-size: 16px; }
+.text-diminta { color: #0284c7; }
+.text-italic-sm { font-size: 12px; font-style: italic; }
+
+.btn-cetak-nota {
+    background-color: var(--navy-dark) !important;
+    color: #fff !important;
+    border: none !important;
+    font-weight: 600;
+}
+
+.invoice-logo {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.invoice-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+.invoice-title {
+    font-weight: 700;
+    color: #334155;
+    margin: 0;
+}
+
+.invoice-kode {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ea580c;
+    font-family: monospace;
+}
+
+.invoice-nohp {
+    font-size: 13px;
+    color: #475569;
+}
+
+.invoice-thead {
+    background-color: #f8fafc;
+}
+
+.invoice-item-nama {
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-size: 15px;
+}
+
+.invoice-item-desc {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.invoice-label-xs {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+}
+
+.invoice-ukuran-box {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+
+.invoice-massal-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #161111;
+    margin-bottom: 4px;
+}
+
+.invoice-massal-list {
+    margin: 0;
+    padding-left: 16px;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.invoice-massal-item {
+    padding: 2px 0;
+}
+
+.invoice-ukuran-text {
+    color: #1e293b;
+    font-weight: 600;
+}
+
+.badge-status-lg {
+    font-size: 12px;
+    padding: 6px 12px;
+}
+
+.badge-promo {
+    background-color: #8b5cf6;
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.invoice-summary-label {
+    font-size: 13px;
+}
+
+.invoice-summary-total {
+    font-size: 16px;
+    color: var(--navy-dark);
+    width: 40%;
+}
+
+.invoice-summary-row-border {
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.invoice-summary-dp {
+    font-size: 15px;
+    color: #10b981;
+}
+
+.invoice-summary-sisa-label {
+    font-size: 14px;
+    color: #ef4444;
+}
+
+.invoice-summary-sisa-value {
+    font-size: 18px;
+    color: #ef4444;
+}
+
+.invoice-footer-note {
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 20px;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+@media print {
+    body * { visibility: hidden; }
+    .invoice-card, .invoice-card * { visibility: visible; }
+    .invoice-card { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; padding: 20px; }
+    .btn-cetak, .btn-kembali, .sidebar, .topbar { display: none !important; }
+    body { background-color: #fff !important; }
+}

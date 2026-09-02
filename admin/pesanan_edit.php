@@ -106,6 +106,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         if (mysqli_stmt_execute($stmt)) {
+            $baru_selesai = ($status === 'selesai' && $pesanan['status'] !== 'selesai');
+
+            if ($baru_selesai && !empty($pesanan['id_pelanggan'])) {
+                $uid_pelanggan = $pesanan['id_pelanggan'];
+                $kode          = $pesanan['kode_pesanan'];
+                $judul_notif   = 'Pesanan Selesai!';
+                $pesan_notif   = "Yeay! Pesanan Anda dengan kode $kode sudah selesai dikerjakan dan siap diambil. Silakan datang ke Jashit untuk mengambilnya ya!";
+                mysqli_query($koneksi, "INSERT INTO notifikasi (user_id, judul, pesan) VALUES ($uid_pelanggan, '$judul_notif', '$pesan_notif')");
+            }
+
             if ($status === 'selesai' && $status_pembayaran === 'lunas' && $pesanan['poin_diberikan'] == 0) {
                 $poin_didapat = floor($total_harga / 10000); 
                 

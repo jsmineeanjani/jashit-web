@@ -1,5 +1,5 @@
 /* =========================================
-   Bell Notifikasi - Topbar Pelanggan
+   Bell Notifikasi - Topbar Pelanggan (versi simpel)
    ========================================= */
 .notif-bell-wrap {
     position: relative;
@@ -105,6 +105,57 @@
 .notif-item-icon.icon-bayar { background: #dbeafe; color: #2563eb; }
 .notif-item-icon.icon-umum { background: #f1f5f9; color: #64748b; }
 
+/* =========================================
+   Halaman "Semua Notifikasi" (notifikasi.php)
+   ========================================= */
+.notif-page-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.notif-page-item {
+    text-decoration: none;
+    border-color: #f1f5f9 !important;
+}
+
+.notif-page-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.notif-page-icon.icon-promo { background: #fef08a; color: #ca8a04; }
+.notif-page-icon.icon-bayar { background: #dbeafe; color: #2563eb; }
+.notif-page-icon.icon-umum { background: #f1f5f9; color: #64748b; }
+
+.notif-page-title {
+    font-size: 14.5px;
+}
+
+.notif-page-time {
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.notif-page-desc {
+    font-size: 13px;
+}
+
+.notif-page-empty {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.notif-page-empty i {
+    font-size: 42px;
+}
+
 .notif-item-body {
     flex: 1;
     min-width: 0;
@@ -125,7 +176,6 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    line-clamp: 2;
 }
 
 .notif-item-time {
@@ -152,53 +202,4 @@
     font-weight: 700;
     color: var(--navy-dark);
     text-decoration: none;
-}
-
-/* =========================================
-   Halaman List Semua Notifikasi (notifikasi.php)
-   ========================================= */
-.notif-page-card {
-    background: #fff; 
-    border-radius: 8px; 
-    max-width: 800px; 
-    margin: 0 auto; 
-    overflow: hidden;
-}
-
-.notif-page-item {
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.notif-page-icon {
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    flex-shrink: 0; 
-    font-size: 18px;
-}
-
-.notif-page-title {
-    color: var(--navy-dark); 
-    font-size: 15px;
-}
-
-.notif-page-time {
-    font-size: 11px;
-}
-
-.notif-page-desc {
-    font-size: 13px; 
-    line-height: 1.5;
-}
-
-.notif-page-empty {
-    text-align: center;
-    padding: 3rem 0; 
-}
-
-.notif-page-empty i {
-    font-size: 40px;
 }

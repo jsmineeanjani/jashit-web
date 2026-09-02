@@ -83,11 +83,11 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
             if ($is_aksesoris) return '<span class="badge bg-primary">Penyiapan Aksesoris</span>';
             return '<span class="badge bg-primary">Proses Cutting</span>';
         case 'proses_jahit': 
-            if ($is_bahan || $is_aksesoris) return '<span class="badge" style="background-color:#3b82f6;">Penyiapan (Lanjutan)</span>';
-            return '<span class="badge" style="background-color:#3b82f6;">Proses Jahit</span>';
+            if ($is_bahan || $is_aksesoris) return '<span class="badge badge-jahit-proses">Penyiapan (Lanjutan)</span>';
+            return '<span class="badge badge-jahit-proses">Proses Jahit</span>';
         case 'proses_finishing': 
-            if ($is_bahan || $is_aksesoris) return '<span class="badge" style="background-color:#6366f1;">Penyiapan (Lanjutan)</span>';
-            return '<span class="badge" style="background-color:#6366f1;">Proses Finishing</span>';
+            if ($is_bahan || $is_aksesoris) return '<span class="badge badge-finishing-proses">Penyiapan (Lanjutan)</span>';
+            return '<span class="badge badge-finishing-proses">Proses Finishing</span>';
         case 'quality_check': 
             if ($is_bahan || $is_aksesoris) return '<span class="badge bg-warning text-dark">Penyiapan (Lanjutan)</span>';
             return '<span class="badge bg-warning text-dark">Quality Check (QC)</span>';
@@ -108,65 +108,52 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-    <style>
-        .invoice-card { background: #fff; border-radius: 10px; border: 1px solid #e2e8f0; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .invoice-header { border-bottom: 2px solid #f1f5f9; padding-bottom: 20px; margin-bottom: 20px; }
-        .detail-label { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .detail-value { font-size: 15px; color: #1e293b; font-weight: 600; }
-        
-        @media print {
-            body * { visibility: hidden; }
-            .invoice-card, .invoice-card * { visibility: visible; }
-            .invoice-card { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; padding: 20px; }
-            .btn-cetak, .btn-kembali, .sidebar, .topbar { display: none !important; }
-            body { background-color: #fff !important; }
-        }
-    </style>
+    <link href="<?= BASE_URL ?>/assets/css/pesanan_admin.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="pesanan-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_admin.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/layouts/topbar_admin.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content pesanan-content">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="page-title btn-kembali" style="font-size: 22px; font-weight: 700; margin: 0;">Detail Pesanan</h1>
+                <h1 class="pesanan-page-title btn-kembali">Detail Pesanan</h1>
                 <div>
                     <a href="pesanan.php" class="btn btn-outline-secondary btn-sm me-2 btn-kembali"><i class="bi bi-arrow-left"></i> Kembali</a>
-                    <button onclick="window.print()" class="btn btn-sm btn-cetak" style="background-color: var(--navy-dark); color: #fff; border: none; font-weight: 600;">
+                    <button onclick="window.print()" class="btn btn-sm btn-cetak-nota">
                         <i class="bi bi-printer me-1"></i> Cetak Nota
                     </button>
                 </div>
             </div>
 
-            <div class="invoice-card mx-auto" style="max-width: 850px;">
+            <div class="invoice-card invoice-card-wrap mx-auto">
                 <div class="invoice-header d-flex justify-content-between align-items-center">
                     <div>
-                          <img src="<?= BASE_URL ?>/assets/img/logo_jashit.png" alt="JASHIT Logo" style="max-width: 120px; height: auto; margin-bottom: 8px;">
-                        <div style="font-size: 13px; color: #64748b; margin-top: 5px;">Layanan Jahit Konveksi Profesional</div>
+                        <img src="<?= BASE_URL ?>/assets/img/logo_jashit.png" alt="JASHIT Logo" class="invoice-logo">
+                        <div class="invoice-subtitle">Layanan Jahit Konveksi Profesional</div>
                     </div>
                     <div class="text-end">
-                        <h4 style="font-weight: 700; color: #334155; margin: 0;">INVOICE</h4>
-                        <div style="font-size: 14px; font-weight: 600; color: #ea580c; font-family: monospace;"><?= htmlspecialchars($pesanan['kode_pesanan']) ?></div>
+                        <h4 class="invoice-title">INVOICE</h4>
+                        <div class="invoice-kode"><?= htmlspecialchars($pesanan['kode_pesanan']) ?></div>
                     </div>
                 </div>
 
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="detail-label mb-1">Ditagihkan Kepada:</div>
-                        <div class="detail-value" style="font-size: 16px;"><?= htmlspecialchars($nama_pelanggan_tampil) ?></div>
-                        <div style="font-size: 13px; color: #475569;"><i class="bi bi-telephone"></i> <?= htmlspecialchars($no_hp_tampil) ?></div>
+                        <div class="detail-value fs-16"><?= htmlspecialchars($nama_pelanggan_tampil) ?></div>
+                        <div class="invoice-phone"><i class="bi bi-telephone"></i> <?= htmlspecialchars($no_hp_tampil) ?></div>
                     </div>
                     <div class="col-md-6 text-md-end mt-3 mt-md-0">
                         <div class="row text-start text-md-end">
                             <div class="col-4 col-md-12 mb-2">
                                 <div class="detail-label">Tanggal Pesan</div>
-                                <div class="detail-value" style="font-size: 14px;"><?= date('d F Y', strtotime($pesanan['tanggal_pesan'])) ?></div>
+                                <div class="detail-value fs-14"><?= date('d F Y', strtotime($pesanan['tanggal_pesan'])) ?></div>
                             </div>
                             <div class="col-4 col-md-12 mb-2">
                                 <div class="detail-label">Tanggal Diminta</div>
-                                <div class="detail-value" style="font-size: 14px; color: #0284c7;">
+                                <div class="detail-value invoice-tgl-diminta">
                                     <?php 
                                     if (!empty($pesanan['tanggal_deadline']) && $pesanan['tanggal_deadline'] !== '0000-00-00' && $pesanan['tanggal_deadline'] !== '1970-01-01') {
                                         echo date('d F Y', strtotime($pesanan['tanggal_deadline']));
@@ -174,19 +161,19 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                                     elseif (!empty($pesanan['tanggal_selesai']) && !in_array($pesanan['status'], ['selesai', 'siap_kirim', 'diambil'])) {
                                         echo date('d F Y', strtotime($pesanan['tanggal_selesai']));
                                     } else {
-                                        echo '<span class="text-muted" style="font-size:12px; font-style:italic;">Tidak ada request</span>';
+                                        echo '<span class="text-muted invoice-placeholder-text">Tidak ada request</span>';
                                     }
                                     ?>
                                 </div>
                             </div>
                             <div class="col-4 col-md-12">
                                 <div class="detail-label">Tanggal Selesai Pesanan</div>
-                                <div class="detail-value text-danger" style="font-size: 14px;">
+                                <div class="detail-value text-danger invoice-tgl-selesai">
                                     <?php 
                                     if (!empty($pesanan['tanggal_selesai']) && $pesanan['tanggal_selesai'] !== '0000-00-00' && in_array($pesanan['status'], ['selesai', 'siap_kirim', 'diambil'])) {
                                         echo date('d F Y', strtotime($pesanan['tanggal_selesai']));
                                     } else {
-                                        echo '<span class="text-muted" style="font-size:12px; font-style:italic;">Belum Selesai</span>';
+                                        echo '<span class="text-muted invoice-placeholder-text">Belum Selesai</span>';
                                     }
                                     ?>
                                 </div>
@@ -197,7 +184,7 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
 
                 <div class="table-responsive mb-4">
                     <table class="table table-bordered mb-0">
-                        <thead style="background-color: #f8fafc;">
+                        <thead class="table-head-bg">
                             <tr>
                                 <th class="detail-label text-center" width="5%">No</th>
                                 <th class="detail-label" width="45%">Deskripsi Layanan / Item</th>
@@ -210,30 +197,30 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                             <tr>
                                 <td class="text-center align-middle">1</td>
                                 <td>
-                                    <div style="font-weight: 700; color: var(--navy-dark); font-size: 15px;"><?= htmlspecialchars($pesanan['jenis_pakaian']) ?></div>
-                                    <div style="font-size: 12px; color: #64748b; margin-top: 4px; font-style: italic;">
+                                    <div class="invoice-item-nama"><?= htmlspecialchars($pesanan['jenis_pakaian']) ?></div>
+                                    <div class="invoice-item-desc">
                                         "<?= htmlspecialchars($deskripsi_tampil ?: 'Tidak ada catatan tambahan') ?>"
                                     </div>
                                 </td>
-                                <td class="align-middle" style="font-size: 13px; color: #475569;">
-                                    <div class="mb-1 text-uppercase" style="font-size: 11px; font-weight: 700; color: #94a3b8;">Rincian Ukuran & Qty:</div>
-                                    <div class="p-2 mb-2" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                                <td class="align-middle fs-13" style="color: #475569;">
+                                    <div class="mb-1 text-uppercase invoice-rincian-label">Rincian Ukuran & Qty:</div>
+                                    <div class="p-2 mb-2 invoice-rincian-box">
                                         <?php 
                                         $ukuran_text = htmlspecialchars($pesanan['ukuran'] ?: '-');
                                         
                                         if (strpos($ukuran_text, '[PRODUKSI MASSAL]') !== false) {
                                             $ukuran_text = str_replace('[PRODUKSI MASSAL] ', '', $ukuran_text);
                                             $items = explode('|', $ukuran_text);
-                                            echo '<div style="font-size: 10px; font-weight: 700; color: #161111; margin-bottom: 4px;">[PRODUKSI MASSAL]</div>';
-                                            echo '<ul style="margin: 0; padding-left: 16px; color: #1e293b; font-weight: 600;">';
+                                            echo '<div class="invoice-massal-header">[PRODUKSI MASSAL]</div>';
+                                            echo '<ul style="margin: 0; padding-left: 16px;" class="invoice-text-dark-bold">';
                                             foreach ($items as $item) {
-                                                echo '<li style="padding: 2px 0;">' . trim($item) . '</li>';
+                                                echo '<li class="invoice-massal-li">' . trim($item) . '</li>';
                                             }
                                             echo '</ul>';
                                         } elseif (strpos($ukuran_text, ', ') !== false && strpos($ukuran_text, 'LD:') !== false) {
-                                            echo '<span style="color: #1e293b; font-weight: 600;">' . str_replace(', ', '<br>', $ukuran_text) . '</span>';
+                                            echo '<span class="invoice-text-dark-bold">' . str_replace(', ', '<br>', $ukuran_text) . '</span>';
                                         } else {
-                                            echo '<span style="color: #1e293b; font-weight: 600;">' . nl2br($ukuran_text) . '</span>';
+                                            echo '<span class="invoice-text-dark-bold">' . nl2br($ukuran_text) . '</span>';
                                         }
                                         ?>
                                     </div>
@@ -265,20 +252,20 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                             $transaksi_status = strtolower($pesanan['status_transaksi'] ?? '');
 
                             if($tot > 0 && $sisa <= 0): ?>
-                                <span class="badge bg-success" style="font-size: 12px; padding: 6px 12px;"><i class="bi bi-check-circle me-1"></i> LUNAS</span>
+                                <span class="badge bg-success badge-lg-pill"><i class="bi bi-check-circle me-1"></i> LUNAS</span>
                             <?php elseif($dp > 0 && $sisa > 0): ?>
-                                <span class="badge bg-info text-dark" style="font-size: 12px; padding: 6px 12px;">UANG MUKA (DP)</span>
+                                <span class="badge bg-info text-dark badge-lg-pill">UANG MUKA (DP)</span>
                             <?php elseif($transaksi_status == 'ditolak' || $transaksi_status == 'tidak valid'): ?>
-                                <span class="badge bg-danger" style="font-size: 12px; padding: 6px 12px;"><i class="bi bi-x-circle me-1"></i> BUKTI DITOLAK / TIDAK VALID</span>
+                                <span class="badge bg-danger badge-lg-pill"><i class="bi bi-x-circle me-1"></i> BUKTI DITOLAK / TIDAK VALID</span>
                             <?php else: ?>
-                                <span class="badge bg-danger" style="font-size: 12px; padding: 6px 12px;">BELUM BAYAR</span>
+                                <span class="badge bg-danger badge-lg-pill">BELUM BAYAR</span>
                             <?php endif; ?>
                         </div>
 
                         <?php if (!empty($pesanan['promo_dipakai'])): ?>
                             <div class="detail-label mb-2">Voucher / Promo Digunakan:</div>
                             <div>
-                                <span class="badge text-white" style="background-color: #8b5cf6; font-size: 12px; padding: 6px 12px; border-radius: 4px; font-weight: 600;">
+                                <span class="badge text-white badge-promo">
                                     <i class="bi bi-ticket-perforated me-1"></i> <?= htmlspecialchars($pesanan['promo_dipakai']) ?>
                                 </span>
                             </div>
@@ -288,24 +275,23 @@ function formatStatus($status, $is_bahan, $is_aksesoris) {
                     <div class="col-md-6">
                         <table class="table table-borderless table-sm mb-0">
                             <tr>
-                                <td class="text-end detail-label align-middle" style="font-size: 13px;">Total Tagihan :</td>
-                                <td class="text-end fw-bold" style="font-size: 16px; color: var(--navy-dark); width: 40%;">Rp <?= number_format($pesanan['total_harga'], 0, ',', '.') ?></td>
+                                <td class="text-end detail-label align-middle fs-13">Total Tagihan :</td>
+                                <td class="text-end fw-bold invoice-total-tagihan" style="width: 40%;">Rp <?= number_format($pesanan['total_harga'], 0, ',', '.') ?></td>
                             </tr>
                             <tr style="border-bottom: 2px solid #e2e8f0;">
-                                <td class="text-end detail-label align-middle" style="font-size: 13px;">Telah Dibayar (DP) :</td>
-                                <td class="text-end fw-bold" style="font-size: 15px; color: #10b981;">Rp <?= number_format($pesanan['dp_dibayar'], 0, ',', '.') ?></td>
+                                <td class="text-end detail-label align-middle fs-13">Telah Dibayar (DP) :</td>
+                                <td class="text-end fw-bold invoice-dp-value">Rp <?= number_format($pesanan['dp_dibayar'], 0, ',', '.') ?></td>
                             </tr>
                             <tr>
-                                <td class="text-end detail-label align-middle pt-2" style="font-size: 14px; color: #ef4444;">SISA TAGIHAN :</td>
-                                <td class="text-end fw-bold pt-2" style="font-size: 18px; color: #ef4444;">Rp <?= number_format($pesanan['sisa_tagihan'], 0, ',', '.') ?></td>
+                                <td class="text-end detail-label align-middle pt-2 invoice-sisa-label">SISA TAGIHAN :</td>
+                                <td class="text-end fw-bold pt-2 invoice-sisa-value">Rp <?= number_format($pesanan['sisa_tagihan'], 0, ',', '.') ?></td>
                             </tr>
                         </table>
                     </div>
                 </div>
                 
-                <div class="text-center mt-5" style="border-top: 1px dashed #cbd5e1; padding-top: 20px; font-size: 12px; color: #94a3b8;">
+                <div class="text-center mt-5 invoice-footer-note">
                     Terima kasih telah mempercayakan layanan jahit Anda kepada Jashit.<br>
-                    Harap bawa nota ini saat pengambilan barang.
                 </div>
             </div>
             

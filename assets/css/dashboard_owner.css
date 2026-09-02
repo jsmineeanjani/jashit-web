@@ -1,0 +1,139 @@
+/* =========================================
+   Layout Umum Dashboard Owner
+   ========================================= */
+body.dashboard-owner-page {
+    background: #f4f6f9;
+}
+
+.dashboard-owner-content {
+    padding: 24px 28px;
+}
+
+/* =========================================
+   Filter Bar (rentang tanggal)
+   ========================================= */
+.filter-bar {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-bar .date-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-bar input[type="date"] {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    background: #f8fafc;
+}
+
+.filter-bar input[type="date"]:focus {
+    outline: none;
+    border-color: #94a3b8;
+}
+
+.sep {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.btn-filter-apply {
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-filter-apply:hover {
+    background: #0f172a;
+}
+
+/* =========================================
+   Summary Cards
+   ========================================= */
+.stat-card {
+    background: #fff;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    padding: 20px 22px;
+    height: 100%;
+    transition: box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+}
+
+.stat-card .stat-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.stat-card .stat-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0;
+    line-height: 1;
+}
+
+.stat-card .stat-value.money {
+    font-size: 18px;
+}
+
+.stat-card .stat-sub {
+    font-size: 11px;
+    color: #b0bec5;
+    margin-top: 6px;
+}
+
+/* =========================================
+   Chart Cards
+   ========================================= */
+.chart-card {
+    background: #fff;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    padding: 22px 24px;
+    height: 100%;
+}
+
+.chart-card .chart-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 18px;
+}
+
+.chart-card .chart-canvas-wrap {
+    height: 280px;
+}
+
+.btn-export:hover {
+    background: #f8fafc;
+    color: #0f172a;
+    border-color: #94a3b8;
+}

@@ -1,0 +1,193 @@
+/* =========================================
+   Layout Umum Halaman Laporan
+   ========================================= */
+body.laporan-page {
+    background-color: #f8f7f5;
+}
+
+.laporan-content {
+    padding: 24px 32px;
+}
+
+.laporan-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--navy-dark);
+}
+
+.report-header {
+    display: none;
+}
+
+.card-table-wrap {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+table.table th {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 12px 10px;
+}
+
+table.table td {
+    vertical-align: top;
+    font-size: 13px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 12px 10px;
+}
+
+.metric-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+}
+
+.metric-val {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy-dark);
+}
+
+.metric-lbl {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Custom warna tombol */
+.btn-cari {
+    background-color: #1e293b;
+    border-color: #1e293b;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.btn-cari:hover {
+    background-color: #0f172a;
+    color: #f4d3c2;
+}
+
+.btn-cetak {
+    background-color: #f4d3c2;
+    border-color: #f4d3c2;
+    color: #1e293b;
+    transition: all 0.3s ease;
+}
+.btn-cetak:hover {
+    background-color: #e8b89e;
+    color: #0f172a;
+}
+
+/* =========================================
+   Elemen di dalam kop surat & tabel laporan
+   ========================================= */
+.laporan-logo {
+    max-width: 140px;
+    margin-bottom: 15px;
+}
+
+.laporan-judul {
+    margin: 0 0 5px 0;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.laporan-subjudul {
+    margin: 0 0 5px 0;
+    font-size: 13px;
+    color: #333;
+}
+
+.laporan-periode {
+    margin: 10px 0 0 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.laporan-kode {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.laporan-meta-xs {
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.laporan-rincian {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #475569;
+}
+
+.laporan-massal-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: #161111;
+    margin-bottom: 4px;
+}
+
+.laporan-massal-list {
+    margin: 0;
+    padding-left: 16px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.laporan-massal-li {
+    padding: 2px 0;
+}
+
+.laporan-text-dark {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.laporan-total-row {
+    background-color: #f8fafc;
+    color: #000;
+}
+
+.laporan-total-label {
+    font-size: 12px;
+    padding: 14px 10px;
+    border-top: 2px solid #1e293b;
+}
+
+.laporan-total-cell {
+    padding: 14px 10px;
+    border-top: 2px solid #1e293b;
+}
+
+.laporan-total-omset {
+    padding: 14px 10px;
+    font-size: 14px;
+    border-top: 2px solid #1e293b;
+}
+
+/* =========================================================================
+   CSS KHUSUS CETAK
+   ========================================================================= */
+@media print {
+    body { background: #fff !important; color: #000 !important; }
+    /* Tambahkan .topbar, header, dan nav agar menu atas benar-benar hilang */
+    .dashboard-sidebar, .topbar-wrapper, .topbar, header, nav, .filter-section, .page-title-wrap { display: none !important; }
+    .dashboard-main { padding: 0 !important; margin: 0 !important; width: 100% !important; }
+    .dashboard-content { padding: 0 !important; }
+    .card-table-wrap { border: none !important; padding: 0 !important; box-shadow: none !important; }
+    .report-header { display: block !important; text-align: center; margin-bottom: 30px; border-bottom: 3px double #000; padding-bottom: 15px; margin-top: 20px; }
+    .metric-box { border: 1px solid #000 !important; background: transparent !important; }
+    table.table th { background-color: #f1f5f9 !important; color: #000 !important; border-bottom: 2px solid #000 !important; }
+    table.table td { border-bottom: 1px solid #ccc !important; color: #000 !important; }
+}
