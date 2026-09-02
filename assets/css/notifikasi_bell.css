@@ -173,8 +173,9 @@
     margin-top: 2px;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
+     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
 }
 
