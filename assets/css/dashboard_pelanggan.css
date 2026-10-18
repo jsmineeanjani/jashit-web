@@ -1,0 +1,176 @@
+/* =========================================
+   Layout Umum Dashboard Pelanggan
+   ========================================= */
+body.dashboard-pelanggan-page {
+    background-color: #f8f7f5;
+}
+
+.dashboard-pelanggan-content {
+    padding: 24px 32px;
+}
+
+.dashboard-pelanggan-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--navy-dark);
+    margin: 0;
+}
+
+.dashboard-pelanggan-subtitle {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.section-heading {
+    font-weight: 800;
+    color: var(--navy-dark);
+    margin: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.link-lihat-semua {
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--navy-dark);
+}
+
+/* =========================================
+   Kartu Statistik
+   ========================================= */
+.stat-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .icon-bg {
+    position: absolute;
+    right: -10px;
+    bottom: -15px;
+    font-size: 90px;
+    opacity: 0.05;
+}
+
+.stat-card-total {
+    border-top: 4px solid var(--navy-dark);
+}
+
+.stat-card-proses {
+    border-top: 4px solid #3b82f6;
+}
+
+.stat-card-tagihan {
+    border-top: 4px solid #ef4444;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+.stat-value-total { color: var(--navy-dark); }
+.stat-value-proses { color: #3b82f6; }
+.stat-value-tagihan { color: #ef4444; }
+
+.icon-bg-total { color: var(--navy-dark); }
+.icon-bg-proses { color: #3b82f6; }
+.icon-bg-tagihan { color: #ef4444; }
+
+/* =========================================
+   Tabel Aktivitas Pesanan Terbaru
+   ========================================= */
+.card-table-wrap {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.table-head-row {
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.table-head-row th {
+    font-size: 11px;
+    color: #64748b;
+    padding: 15px;
+    font-weight: 700;
+}
+
+.badge-status {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 6px 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+.pesanan-kode {
+    font-weight: 800;
+    color: var(--navy-dark);
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.pesanan-tgl {
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.pesanan-jenis {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.pesanan-jumlah {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.tagihan-belum-lunas {
+    font-weight: 800;
+    color: #ef4444;
+    font-size: 14px;
+}
+
+.tagihan-lunas {
+    font-weight: 800;
+    color: #10b981;
+    font-size: 14px;
+}
+
+.badge-bukti-tidak-valid {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.btn-detail-pesanan {
+    font-size: 11px;
+    padding: 5px 12px;
+}
+
+.empty-state-pesanan {
+    color: #94a3b8;
+}

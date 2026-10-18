@@ -238,55 +238,22 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-<style>
-/* ===== KARTU LAYANAN ===== */
-.service-card {
-    border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;
-    background: #fff; transition: all 0.3s ease;
-    height: 100%; display: flex; flex-direction: column;
-}
-.service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); }
-.service-img { width:100%; height:200px; object-fit:cover; background:#f1f5f9; }
-.service-body { padding:20px; flex-grow:1; display:flex; flex-direction:column; }
-.service-price { font-size:18px; font-weight:800; color:#10b981; margin:8px 0 4px; }
-.service-meta  { font-size:12px; color:#64748b; margin-bottom:14px; display:flex; gap:14px; }
-.btn-pesan { margin-top:auto; background:var(--navy-dark); color:#fff; font-weight:600; border:none; border-radius:6px; padding:10px; transition:.2s; }
-.btn-pesan:hover { background:#1e293b; color:#fff; }
-
-/* ===== SEARCH ===== */
-.search-container { position:relative; max-width:450px; }
-.search-input { padding:10px 14px 10px 38px; border-radius:50px; border:1px solid #cbd5e1; font-size:14px; transition:.3s; }
-.search-input:focus { border-color:var(--navy-dark); box-shadow:0 0 0 .25rem rgba(15,23,42,.1); }
-.search-icon { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#94a3b8; font-size:14px; }
-.no-result-msg { display:none; text-align:center; padding:40px 20px; background:#fff; border-radius:12px; border:1px dashed #cbd5e1; margin-top:20px; }
-
-/* ===== TABEL GROSIR ===== */
-.tier-table td, .tier-table th { padding: 10px 12px; font-size: 14px; vertical-align: middle; }
-
-/* ===== PREVIEW ESTIMASI MASSAL ===== */
-#preview_estimasi {
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    border-radius: 10px; color: #fff; padding: 16px 20px;
-    font-size: 13px; transition: .3s;
-}
-#preview_estimasi .est-label { color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
-#preview_estimasi .est-value { font-weight: 700; font-size: 18px; }
-</style>
+<link href="<?= BASE_URL ?>/assets/css/katalog.css" rel="stylesheet">
 </head>
-<body style="background:#f8f7f5;">
+<body class="katalog-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     <div class="dashboard-main">
         <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
-        <div class="dashboard-content" style="padding:24px 32px;">
+        <div class="dashboard-content katalog-content">
 
             <!-- Header -->
             <div class="row align-items-center mb-4 g-3">
                 <div class="col-md-6">
-                    <h1 class="page-title" style="font-size:24px;font-weight:700;color:var(--navy-dark);margin:0;">
+                    <h1 class="katalog-page-title">
                         Katalog Layanan Jashit
                     </h1>
-                    <p class="text-muted" style="font-size:14px;margin-top:5px;margin-bottom:0;">
+                    <p class="text-muted katalog-page-subtitle">
                         Pilih layanan jahitan atau bahan yang Anda butuhkan
                     </p>
                 </div>
@@ -315,22 +282,22 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
                             <img src="<?= BASE_URL ?>/assets/img/layanan/<?= $lyr['gambar'] ?>"
                                  class="service-img" alt="<?= htmlspecialchars($lyr['nama_layanan']) ?>">
                         <?php else: ?>
-                            <div class="service-img d-flex align-items-center justify-content-center" style="color:#94a3b8;">
-                                <i class="bi bi-scissors" style="font-size:40px;"></i>
+                            <div class="service-img d-flex align-items-center justify-content-center text-secondary">
+                                <i class="bi bi-scissors fs-1"></i>
                             </div>
                         <?php endif; ?>
 
                         <div class="service-body">
-                            <span class="badge bg-light text-dark border mb-2 txt-kategori" style="width:fit-content;">
+                            <span class="badge bg-light text-dark border mb-2 txt-kategori badge-kategori-fit">
                                 <?= htmlspecialchars($lyr['kategori']) ?>
                             </span>
-                            <h5 class="txt-nama" style="font-size:16px;font-weight:700;color:#1e293b;margin-bottom:4px;line-height:1.4;">
+                            <h5 class="txt-nama katalog-nama-layanan">
                                 <?= htmlspecialchars($lyr['nama_layanan']) ?>
                             </h5>
 
                             <div class="service-price">
                                 Rp <?= number_format($lyr['harga'], 0, ',', '.') ?>
-                                <span style="font-size:12px;font-weight:600;color:#64748b;">
+                                <span class="katalog-satuan">
                                     <?= $lyr['kategori'] === 'Bahan/Material' ? '/ Meter' : '/ Pcs' ?>
                                 </span>
                             </div>
@@ -340,10 +307,10 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
                                 <span><i class="bi bi-clock"></i> Est. <?= htmlspecialchars($lyr['estimasi_hari']) ?> Hari</span>
                             </div>
                             <?php else: ?>
-                            <div class="service-meta"><span style="opacity:0;">-</span></div>
+                            <div class="service-meta"><span class="invisible">-</span></div>
                             <?php endif; ?>
 
-                            <p style="font-size:13px;color:#475569;margin-bottom:18px;line-height:1.5;flex-grow:1;">
+                            <p class="katalog-deskripsi">
                                 <?= htmlspecialchars(mb_substr($lyr['deskripsi'], 0, 80)) ?>...
                             </p>
 
@@ -381,23 +348,22 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
 <!-- MODAL PESAN -->
 <div class="modal fade" id="modalPesan" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-xl">
-    <div class="modal-content" style="border-radius:14px;border:none;">
-      <div class="modal-header" style="background:var(--navy-dark);color:#fff;border-radius:14px 14px 0 0;">
+    <div class="modal-content modal-content-katalog">
+      <div class="modal-header modal-header-katalog">
         <h5 class="modal-title fw-bold"><i class="bi bi-bag-plus me-2"></i>Buat Pesanan</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
 
-      <div class="modal-body p-4" style="background:#f8fafc;">
+      <div class="modal-body p-4 modal-body-katalog">
         <form action="" method="POST">
           <input type="hidden" name="buat_pesanan"    value="1">
           <input type="hidden" name="kategori_pesanan" id="kategori_pesanan" value="layanan">
 
           <!-- Item Terpilih -->
           <div class="mb-4">
-            <label class="form-label fw-bold small text-muted text-uppercase" style="letter-spacing:.5px;">Item Dipilih</label>
+            <label class="form-label fw-bold small text-muted text-uppercase label-uppercase-tight">Item Dipilih</label>
             <input type="text" name="jenis_pakaian" id="inputJenisPakaian"
-                   class="form-control form-control-lg fw-bold" readonly
-                   style="background:#e2e8f0;font-size:16px;">
+                   class="form-control form-control-lg fw-bold input-item-dipilih" readonly>
           </div>
 
           <!-- AREA LAYANAN JAHIT -->
@@ -418,8 +384,8 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
             </div>
 
             <!-- INDIVIDU -->
-            <div id="area_individu" class="p-3 mb-4" style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;">
-              <h6 class="fw-bold mb-3" style="color:var(--navy-dark);font-size:14px;">Rincian Pesanan Individu</h6>
+            <div id="area_individu" class="p-3 mb-4 katalog-subcard">
+              <h6 class="fw-bold mb-3 katalog-subcard-title">Rincian Pesanan Individu</h6>
               <div class="row mb-3">
                 <div class="col-md-4">
                   <label class="form-label fw-bold small">Jumlah (Pcs)</label>
@@ -453,7 +419,7 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
                     </div>
                   </div>
                   <div id="area_wa" class="d-none">
-                    <div class="alert py-2 mb-0" style="font-size:13px;background:#f1f5f9;border:1px solid #cbd5e1;">
+                    <div class="alert py-2 mb-0 alert-wa-info">
                       <i class="bi bi-whatsapp text-success me-1"></i> Konsultasikan detail ukuran via WhatsApp setelah memesan.
                     </div>
                   </div>
@@ -462,19 +428,19 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
             </div>
 
             <!-- PRODUKSI MASSAL -->
-            <div id="area_massal" class="d-none mb-4" style="border:2px solid #0f172a;border-radius:12px;overflow:hidden;">
-              <div style="background:var(--navy-dark);padding:14px 20px;color:#fff;">
+            <div id="area_massal" class="d-none mb-4 massal-wrapper">
+              <div class="massal-header">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
                     <span class="fw-bold" style="font-size:15px;"><i class="bi bi-boxes me-2"></i>Produksi Massal / Grosir</span>
-                    <div style="font-size:12px;color:#94a3b8;margin-top:2px;">Tingkatkan jumlah kuantitas untuk keperluan Bisnis Anda!</div>
+                    <div class="massal-header-sub">Tingkatkan jumlah kuantitas untuk keperluan Bisnis Anda!</div>
                   </div>
                 </div>
               </div>
 
-              <div class="p-3" style="background:#fff;">
+              <div class="p-3 massal-body">
                 <div class="mb-4">
-                  <p class="fw-bold small text-muted mb-2 text-uppercase" style="letter-spacing:.5px;">
+                  <p class="fw-bold small text-muted mb-2 text-uppercase label-uppercase-tight">
                     <i class="bi bi-tag me-1"></i> Daftar Harga per Kuantitas
                   </p>
                   <div class="table-responsive">
@@ -490,7 +456,7 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
                 </div>
 
                 <div class="mb-3">
-                  <p class="fw-bold small text-muted mb-2 text-uppercase" style="letter-spacing:.5px;">
+                  <p class="fw-bold small text-muted mb-2 text-uppercase label-uppercase-tight">
                     <i class="bi bi-list-columns me-1"></i> Rincian Ukuran & Warna
                   </p>
                   <div id="container_massal">
@@ -528,8 +494,8 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
           </div><!-- end area_layanan_jahit -->
 
           <!-- AREA BAHAN -->
-          <div id="area_bahan" class="d-none p-3 mb-4" style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;">
-            <h6 class="fw-bold mb-3" style="color:var(--navy-dark);font-size:14px;">Pembelian Bahan Kain</h6>
+          <div id="area_bahan" class="d-none p-3 mb-4 katalog-subcard">
+            <h6 class="fw-bold mb-3 katalog-subcard-title">Pembelian Bahan Kain</h6>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold small">Jumlah (Meter) <span class="text-danger">*</span></label>
@@ -543,8 +509,8 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
           </div>
 
           <!-- AREA AKSESORIS -->
-          <div id="area_aksesoris" class="d-none p-3 mb-4" style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;">
-            <h6 class="fw-bold mb-3" style="color:var(--navy-dark);font-size:14px;">Pembelian Aksesoris</h6>
+          <div id="area_aksesoris" class="d-none p-3 mb-4 katalog-subcard">
+            <h6 class="fw-bold mb-3 katalog-subcard-title">Pembelian Aksesoris</h6>
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold small">Jumlah (Pcs) <span class="text-danger">*</span></label>
@@ -590,8 +556,7 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
                       placeholder="Model, referensi gambar, warna detail, alamat kirim, dll..."></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm"
-                  style="background:var(--navy-dark);border:none;font-size:15px;border-radius:8px;">
+          <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow-sm btn-kirim-pesanan">
             <i class="bi bi-send me-2"></i> KIRIM PESANAN & TERBITKAN TAGIHAN
           </button>
 
@@ -603,144 +568,8 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-// Struktur Data Tier Harga (Multiplier / Faktor Pengali)
-// Mulai grosir ditarik mundur menjadi min 30 pcs
-const TIER_GROSIR = [
-    { min: 1,   max: 29,  multiplier: 1.00 },
-    { min: 30,  max: 49,  multiplier: 0.95 },
-    { min: 50,  max: 99,  multiplier: 0.90 },
-    { min: 100, max: 199, multiplier: 0.80 },
-    { min: 200, max: '∞', multiplier: 0.70 }
-];
 
-let hargaAktif = 0;
-
-function formatRp(n) {
-    return 'Rp ' + Math.round(n).toLocaleString('id-ID');
-}
-
-function generateTabelGrosir(hargaBase) {
-    let tableHTML = '';
-    // Loop untuk menampilkan dari kuantitas terkecil hingga terbesar
-    TIER_GROSIR.forEach(t => { 
-        let range = t.max === '∞' ? `≥ ${t.min} Pcs` : `${t.min} - ${t.max} Pcs`;
-        let price = hargaBase * t.multiplier;
-        
-        // Cek apakah ini harga normal atau harga grosir
-        let labelHarga = t.multiplier === 1.00 
-            ? `<span class="text-secondary">${formatRp(price)} / pcs (Harga Normal)</span>` 
-            : `<span class="fw-bold text-success">${formatRp(price)} / pcs</span>`;
-            
-        tableHTML += `<tr><td>${range}</td><td>${labelHarga}</td></tr>`;
-    });
-    document.getElementById('tabel_tier_body').innerHTML = tableHTML;
-}
-
-function getHargaPerPcs(qty, hargaBase) {
-    // Balik array untuk mencari dari kuantitas terbesar ke terkecil
-    const sortedTiers = [...TIER_GROSIR].reverse();
-    for (const t of sortedTiers) {
-        if (qty >= t.min) return hargaBase * t.multiplier;
-    }
-    return hargaBase;
-}
-
-function bukaModalPesan(nama, kategori, harga) {
-    hargaAktif = parseInt(harga) || 0;
-    document.getElementById('inputJenisPakaian').value = nama;
-
-    const isBahan     = kategori === 'Bahan/Material';
-    const isAksesoris = kategori === 'Aksesoris';
-
-    document.getElementById('kategori_pesanan').value =
-        isBahan ? 'bahan' : isAksesoris ? 'aksesoris' : 'layanan';
-
-    ['area_layanan_jahit','area_bahan','area_aksesoris','area_input_bahan'].forEach(id => {
-        document.getElementById(id).classList.add('d-none');
-    });
-
-    if (isBahan) {
-        document.getElementById('area_bahan').classList.remove('d-none');
-    } else if (isAksesoris) {
-        document.getElementById('area_aksesoris').classList.remove('d-none');
-    } else {
-        document.getElementById('area_layanan_jahit').classList.remove('d-none');
-        document.getElementById('area_input_bahan').classList.remove('d-none');
-        document.getElementById('tipe_individu').checked = true;
-        
-        generateTabelGrosir(hargaAktif); // Buat tabel grosir dinamis
-        toggleSkala();
-    }
-
-    resetEstimasi();
-    new bootstrap.Modal(document.getElementById('modalPesan')).show();
-}
-
-function toggleSkala() {
-    const tipe = document.querySelector('input[name="tipe_pesanan"]:checked').value;
-    document.getElementById('area_individu').classList.toggle('d-none', tipe !== 'individu');
-    document.getElementById('area_massal').classList.toggle('d-none',   tipe !== 'massal');
-    if (tipe === 'individu') ubahMetodeUkuran();
-}
-
-function ubahMetodeUkuran() {
-    const m = document.getElementById('metode_ukuran').value;
-    ['area_standar','area_custom','area_wa'].forEach(id =>
-        document.getElementById(id).classList.add('d-none'));
-    document.getElementById('area_' + m).classList.remove('d-none');
-}
-
-function tambahBarisMassal() {
-    const c   = document.getElementById('container_massal');
-    const row = document.createElement('div');
-    row.className = 'row g-1 mb-2 baris-massal';
-    row.innerHTML = `
-        <div class="col-4"><input type="text"   name="massal_ukuran[]" class="form-control form-control-sm" placeholder="Ukuran"></div>
-        <div class="col-4"><input type="text"   name="massal_warna[]"  class="form-control form-control-sm" placeholder="Warna"></div>
-        <div class="col-3"><input type="number" name="massal_qty[]"    class="form-control form-control-sm qty-massal" placeholder="Qty" min="1" oninput="updateEstimasi()"></div>
-        <div class="col-1"><button type="button" class="btn btn-sm btn-outline-danger w-100" onclick="hapusBarisMassal(this)"><i class="bi bi-trash"></i></button></div>
-    `;
-    c.appendChild(row);
-}
-
-function hapusBarisMassal(btn) {
-    btn.closest('.baris-massal').remove();
-    updateEstimasi();
-}
-
-function updateEstimasi() {
-    let totalQty = 0;
-    document.querySelectorAll('.qty-massal').forEach(i => totalQty += parseInt(i.value) || 0);
-
-    const hargaPerPcs = getHargaPerPcs(totalQty, hargaAktif);
-    const subTotal    = hargaPerPcs * totalQty;
-
-    // Panel estimasi
-    document.getElementById('est_qty').textContent       = totalQty + ' pcs';
-    document.getElementById('est_harga_pcs').textContent = totalQty > 0 ? formatRp(hargaPerPcs) : '—';
-    document.getElementById('est_total').textContent     = totalQty > 0 ? formatRp(subTotal) : '—';
-}
-
-function resetEstimasi() {
-    document.getElementById('est_qty').textContent       = '0 pcs';
-    document.getElementById('est_harga_pcs').textContent = '—';
-    document.getElementById('est_total').textContent     = '—';
-}
-
-function cariLayanan() {
-    const q     = document.getElementById('inputCari').value.toLowerCase();
-    const cards = document.getElementsByClassName('kartu-layanan');
-    let ada     = false;
-    for (const c of cards) {
-        const nama = c.querySelector('.txt-nama').innerText.toLowerCase();
-        const kat  = c.querySelector('.txt-kategori').innerText.toLowerCase();
-        const show = nama.includes(q) || kat.includes(q);
-        c.style.display = show ? '' : 'none';
-        if (show) ada = true;
-    }
-    document.getElementById('pesanKosong').style.display = ada ? 'none' : 'block';
-}
-</script>
+<!-- Custom Script -->
+<script src="<?= BASE_URL ?>/assets/js/katalog.js"></script>
 </body>
 </html>

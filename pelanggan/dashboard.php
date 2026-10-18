@@ -34,66 +34,60 @@ $result_pesanan = mysqli_query($koneksi, $query_pesanan);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-    <style>
-        .stat-card { background: #fff; border-radius: 10px; padding: 20px; border: 1px solid #e2e8f0; position: relative; overflow: hidden; transition: 0.3s; }
-        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        .stat-card .icon-bg { position: absolute; right: -10px; bottom: -15px; font-size: 90px; opacity: 0.05; }
-        .card-table-wrap { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; }
-        .badge-status { font-size: 10px; letter-spacing: 0.5px; padding: 6px 10px; text-transform: uppercase; font-weight: 700; border-radius: 4px; }
-    </style>
+    <link href="<?= BASE_URL ?>/assets/css/dashboard_pelanggan.css" rel="stylesheet">
 </head>
-<body style="background-color: #f8f7f5;">
+<body class="dashboard-pelanggan-page">
 <div class="dashboard-wrapper">
     <?php require_once '../includes/layouts/sidebar_pelanggan.php'; ?>
     
     <div class="dashboard-main">
         <?php require_once '../includes/layouts/topbar_pelanggan.php'; ?>
 
-        <div class="dashboard-content" style="padding: 24px 32px;">
+        <div class="dashboard-content dashboard-pelanggan-content">
             <div class="mb-4">
-                <h1 class="page-title" style="font-size: 24px; font-weight: 800; color: var(--navy-dark); margin: 0;">Halo, <?= htmlspecialchars($_SESSION['user_nama'] ?? 'Pelanggan') ?>!</h1>
-                <p class="text-muted" style="font-size: 14px; margin-top: 5px;">Pantau terus progres jahitanmu di sini.</p>
+                <h1 class="dashboard-pelanggan-title">Halo, <?= htmlspecialchars($_SESSION['user_nama'] ?? 'Pelanggan') ?>!</h1>
+                <p class="text-muted dashboard-pelanggan-subtitle">Pantau terus progres jahitanmu di sini.</p>
             </div>
 
             <div class="row mb-5">
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="stat-card shadow-sm" style="border-top: 4px solid var(--navy-dark);">
-                        <div class="text-muted" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Total Pesanan</div>
-                        <div style="font-size: 28px; font-weight: 800; color: var(--navy-dark); margin-top: 5px;"><?= $stat_total ?></div>
-                        <i class="bi bi-bag-check-fill icon-bg" style="color: var(--navy-dark);"></i>
+                    <div class="stat-card shadow-sm stat-card-total">
+                        <div class="text-muted stat-label">Total Pesanan</div>
+                        <div class="stat-value stat-value-total"><?= $stat_total ?></div>
+                        <i class="bi bi-bag-check-fill icon-bg icon-bg-total"></i>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="stat-card shadow-sm" style="border-top: 4px solid #3b82f6;">
-                        <div class="text-muted" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Sedang Diproses</div>
-                        <div style="font-size: 28px; font-weight: 800; color: #3b82f6; margin-top: 5px;"><?= $stat_aktif ?></div>
-                        <i class="bi bi-scissors icon-bg" style="color: #3b82f6;"></i>
+                    <div class="stat-card shadow-sm stat-card-proses">
+                        <div class="text-muted stat-label">Sedang Diproses</div>
+                        <div class="stat-value stat-value-proses"><?= $stat_aktif ?></div>
+                        <i class="bi bi-scissors icon-bg icon-bg-proses"></i>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="stat-card shadow-sm" style="border-top: 4px solid #ef4444;">
-                        <div class="text-muted" style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Belum Lunas</div>
-                        <div style="font-size: 28px; font-weight: 800; color: #ef4444; margin-top: 5px;"><?= $stat_tagihan ?></div>
-                        <i class="bi bi-wallet2 icon-bg" style="color: #ef4444;"></i>
+                    <div class="stat-card shadow-sm stat-card-tagihan">
+                        <div class="text-muted stat-label">Belum Lunas</div>
+                        <div class="stat-value stat-value-tagihan"><?= $stat_tagihan ?></div>
+                        <i class="bi bi-wallet2 icon-bg icon-bg-tagihan"></i>
                     </div>
                 </div>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5 style="font-weight: 800; color: var(--navy-dark); margin: 0; font-size: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Aktivitas Pesanan Terbaru</h5>
-                <a href="tracking.php" class="text-decoration-none fw-bold" style="font-size: 13px; color: var(--navy-dark);">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+                <h5 class="section-heading">Aktivitas Pesanan Terbaru</h5>
+                <a href="tracking.php" class="fw-bold link-lihat-semua">Lihat Semua <i class="bi bi-arrow-right"></i></a>
             </div>
 
             <div class="card-table-wrap shadow-sm">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0">
                         <thead>
-                            <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0;">
-                                <th style="font-size: 11px; color: #64748b; padding: 15px; font-weight: 700;">KODE & TGL</th>
-                                <th style="font-size: 11px; color: #64748b; padding: 15px; font-weight: 700;">PAKAIAN</th>
-                                <th style="font-size: 11px; color: #64748b; padding: 15px; font-weight: 700;">TAGIHAN & PEMBAYARAN</th>
-                                <th style="font-size: 11px; color: #64748b; padding: 15px; font-weight: 700;" class="text-center">STATUS PRODUKSI</th>
-                                <th style="font-size: 11px; color: #64748b; padding: 15px; font-weight: 700;" class="text-center">AKSI</th>
+                            <tr class="table-head-row">
+                                <th>KODE & TGL</th>
+                                <th>PAKAIAN</th>
+                                <th>TAGIHAN & PEMBAYARAN</th>
+                                <th class="text-center">STATUS PRODUKSI</th>
+                                <th class="text-center">AKSI</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,21 +109,21 @@ $result_pesanan = mysqli_query($koneksi, $query_pesanan);
                             ?>
                                 <tr>
                                     <td class="align-middle" style="padding: 15px;">
-                                        <div style="font-weight: 800; color: var(--navy-dark); font-family: monospace; font-size: 14px;"><?= $row['kode_pesanan'] ?></div>
-                                        <div style="font-size: 11px; color: #94a3b8; font-weight: 600;"><?= date('d M Y', strtotime($row['tanggal_pesan'])) ?></div>
+                                        <div class="pesanan-kode"><?= $row['kode_pesanan'] ?></div>
+                                        <div class="pesanan-tgl"><?= date('d M Y', strtotime($row['tanggal_pesan'])) ?></div>
                                     </td>
                                     <td class="align-middle">
-                                        <div style="font-size: 14px; font-weight: 700; color: #1e293b;"><?= htmlspecialchars($row['jenis_pakaian']) ?></div>
-                                        <div style="font-size: 12px; color: #64748b;">Jumlah: <?= $row['jumlah'] ?> Pcs</div>
+                                        <div class="pesanan-jenis"><?= htmlspecialchars($row['jenis_pakaian']) ?></div>
+                                        <div class="pesanan-jumlah">Jumlah: <?= $row['jumlah'] ?> Pcs</div>
                                     </td>
                                     <td class="align-middle">
                                         <?php if($transaksi_status === 'ditolak' || $transaksi_status === 'tidak valid'): ?>
-                                            <div style="font-weight: 800; color: #ef4444; font-size: 14px;">Rp <?= number_format($row['sisa_tagihan'], 0, ',', '.') ?></div>
-                                            <span class="badge bg-danger mt-1" style="font-size: 10px; letter-spacing: 0.5px;"><i class="bi bi-x-circle me-1"></i>BUKTI TIDAK VALID</span>
+                                            <div class="tagihan-belum-lunas">Rp <?= number_format($row['sisa_tagihan'], 0, ',', '.') ?></div>
+                                            <span class="badge bg-danger mt-1 badge-bukti-tidak-valid"><i class="bi bi-x-circle me-1"></i>BUKTI TIDAK VALID</span>
                                         <?php elseif($row['sisa_tagihan'] > 0): ?>
-                                            <div style="font-weight: 800; color: #ef4444; font-size: 14px;">Rp <?= number_format($row['sisa_tagihan'], 0, ',', '.') ?></div>
+                                            <div class="tagihan-belum-lunas">Rp <?= number_format($row['sisa_tagihan'], 0, ',', '.') ?></div>
                                         <?php else: ?>
-                                            <div style="font-weight: 800; color: #10b981; font-size: 14px;">LUNAS</div>
+                                            <div class="tagihan-lunas">LUNAS</div>
                                         <?php endif; ?>
                                     </td>
                                     <td class="align-middle text-center">
@@ -138,14 +132,14 @@ $result_pesanan = mysqli_query($koneksi, $query_pesanan);
                                         </span>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <a href="pesanan_detail.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-dark fw-bold" style="font-size: 11px; padding: 5px 12px;">
+                                        <a href="pesanan_detail.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-dark fw-bold btn-detail-pesanan">
                                             DETAIL
                                         </a>
                                     </td>
                                 </tr>
                             <?php endwhile; else: ?>
                                 <tr>
-                                    <td colspan="5" class="text-center py-5" style="color: #94a3b8;">
+                                    <td colspan="5" class="text-center py-5 empty-state-pesanan">
                                         <i class="bi bi-inbox fs-2 d-block mb-2"></i>
                                         Belum ada pesanan terdaftar.
                                     </td>

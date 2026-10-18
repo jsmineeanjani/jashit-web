@@ -1,0 +1,260 @@
+/* =========================================
+   Layout Umum Halaman Katalog
+   ========================================= */
+body.katalog-page {
+    background: #f8f7f5;
+}
+
+.katalog-content {
+    padding: 24px 32px;
+}
+
+.katalog-page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin: 0;
+}
+
+.katalog-page-subtitle {
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* =========================================
+   Kartu Layanan
+   ========================================= */
+.service-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.service-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background: #f1f5f9;
+}
+
+.service-body {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-kategori-fit {
+    width: fit-content;
+}
+
+.katalog-nama-layanan {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.service-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #10b981;
+    margin: 8px 0 4px;
+}
+
+.katalog-satuan {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.service-meta {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 14px;
+}
+
+.katalog-deskripsi {
+    font-size: 13px;
+    color: #475569;
+    margin-bottom: 18px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.btn-pesan {
+    margin-top: auto;
+    background: var(--navy-dark);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+.btn-pesan:hover {
+    background: #1e293b;
+    color: #fff;
+}
+
+/* =========================================
+   Search
+   ========================================= */
+.search-container {
+    position: relative;
+    max-width: 450px;
+}
+
+.search-input {
+    padding: 10px 14px 10px 38px;
+    border-radius: 50px;
+    border: 1px solid #cbd5e1;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.search-input:focus {
+    border-color: var(--navy-dark);
+    box-shadow: 0 0 0 .25rem rgba(15, 23, 42, .1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.no-result-msg {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px dashed #cbd5e1;
+    margin-top: 20px;
+}
+
+/* =========================================
+   Tabel Grosir
+   ========================================= */
+.tier-table td,
+.tier-table th {
+    padding: 10px 12px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/* =========================================
+   Preview Estimasi Massal
+   ========================================= */
+#preview_estimasi {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border-radius: 10px;
+    color: #fff;
+    padding: 16px 20px;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+#preview_estimasi .est-label {
+    color: #94a3b8;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+#preview_estimasi .est-value {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* =========================================
+   Modal Buat Pesanan
+   ========================================= */
+.modal-content-katalog {
+    border-radius: 14px;
+    border: none;
+}
+
+.modal-header-katalog {
+    background: var(--navy-dark);
+    color: #fff;
+    border-radius: 14px 14px 0 0;
+}
+
+.modal-body-katalog {
+    background: #f8fafc;
+}
+
+.label-uppercase-tight {
+    letter-spacing: .5px;
+}
+
+.input-item-dipilih {
+    background: #e2e8f0;
+    font-size: 16px;
+}
+
+.katalog-subcard {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.katalog-subcard-title {
+    color: var(--navy-dark);
+    font-size: 14px;
+}
+
+.massal-wrapper {
+    border: 2px solid #0f172a;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.massal-header {
+    background: var(--navy-dark);
+    padding: 14px 20px;
+    color: #fff;
+}
+
+.massal-header-sub {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+.massal-body {
+    background: #fff;
+}
+
+.alert-wa-info {
+    font-size: 13px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-kirim-pesanan {
+    background: var(--navy-dark);
+    border: none;
+    font-size: 15px;
+    border-radius: 8px;
+}
