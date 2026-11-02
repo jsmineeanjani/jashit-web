@@ -176,21 +176,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buat_pesanan'])) {
     // Kalkulasi Voucher (Hanya jika dipakai)
     $voucher_diskon = 0;
     $voucher_label  = '';
-    $id_voucher_dipilih = $_POST['id_promo'] ?? '';
+    $kode_redeem    = strtoupper(trim($_POST['kode_redeem'] ?? ''));
 
-    if ($id_voucher_dipilih === 'new_user' && $is_pengguna_baru) {
+    if ($kode_redeem !== '') {
+        // Redeem kode dari admin (dikirim via WhatsApp)
+        $stmt_k = mysqli_prepare($koneksi, "
+            SELECT judul, diskon_persen FROM informasi_diskon
+            WHERE kode_promo = ? AND status = 'aktif'
+              AND (tgl_mulai IS NULL OR tgl_mulai <= ?)
+              AND (tgl_selesai IS NULL OR tgl_selesai >= ?)
+            LIMIT 1
+        ");
+        mysqli_stmt_bind_param($stmt_k, 'sss', $kode_redeem, $sekarang, $sekarang);
+        mysqli_stmt_execute($stmt_k);
+        $promo_kode = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt_k));
+        mysqli_stmt_close($stmt_k);
+
+        if ($promo_kode) {
+            $voucher_diskon = (int)$promo_kode['diskon_persen'];
+            $voucher_label  = "Voucher '{$promo_kode['judul']}' ({$kode_redeem})";
+        } else {
+            $error = 'Kode voucher tidak valid atau sudah kedaluwarsa.';
+        }
+    } elseif (($_POST['id_promo'] ?? '') === 'new_user' && $is_pengguna_baru) {
         $voucher_diskon = 10;
         $voucher_label  = 'Voucher Pengguna Baru';
-    } elseif (!empty($id_voucher_dipilih) && $id_voucher_dipilih !== 'new_user') {
-        $id_promo_db         = (int)$id_voucher_dipilih;
-        $judul_promo_dipilih = 'Voucher Spesial';
-        foreach ($promo_list as $pr) {
-            if ($pr['id'] == $id_promo_db) { $judul_promo_dipilih = $pr['judul']; break; }
-        }
-        $voucher_diskon = 10;
-        $voucher_label  = "Voucher '{$judul_promo_dipilih}'";
     }
-
     // Terapkan Diskon Voucher ke Total Harga
     if ($voucher_diskon > 0) {
         $total_harga = $total_harga_awal - ($total_harga_awal * ($voucher_diskon / 100));
@@ -202,7 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buat_pesanan'])) {
     $status_pembayaran = 'belum_bayar';
     $status            = 'menunggu_konfirmasi';
 
-    if (empty($jenis_pakaian)) {
+    if ($error !== '') {
+    // kode voucher tidak valid, pesanan tidak dibuat
+    } elseif (empty($jenis_pakaian)) {
         $error = 'Jenis pakaian / bahan tidak valid.';
     } else {
         $query = "INSERT INTO pesanan (user_id, kode_pesanan, jenis_pakaian, jumlah, ukuran, warna, bahan, deskripsi, promo_dipakai, total_harga, dp_dibayar, sisa_tagihan, status_pembayaran, status, tanggal_pesan, tanggal_deadline) 
@@ -525,20 +538,19 @@ $r_layanan = mysqli_query($koneksi, $q_layanan);
 
           <!-- BARIS BAWAH: VOUCHER + BAHAN + TANGGAL + CATATAN -->
           <div class="row mb-3">
-            <div class="col-md-6 mb-3">
-              <label class="form-label fw-bold small">
-                <i class="bi bi-ticket-perforated me-1"></i> Gunakan Voucher (Opsional)
-              </label>
-              <select name="id_promo" id="selectVoucher" class="form-select border-secondary" onchange="updateEstimasi()">
-                <?php if ($is_pengguna_baru): ?>
-                  <option value="new_user" selected>Voucher Pengguna Baru — Diskon 10%</option>
-                <?php endif; ?>
-                <option value="" <?= $is_pengguna_baru ? '' : 'selected' ?>>Tanpa Voucher</option>
-                <?php foreach ($promo_list as $pr): ?>
-                  <option value="<?= $pr['id'] ?>"><?= htmlspecialchars($pr['judul']) ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
+           <div class="col-md-6 mb-3">
+            <label class="form-label fw-bold small">
+              <i class="bi bi-ticket-perforated me-1"></i> Kode Voucher
+            </label>
+            <input type="text" name="kode_redeem" class="form-control text-uppercase"
+                  placeholder="Masukkan Kode Voucher Disini" autocomplete="off">
+            <?php if ($is_pengguna_baru): ?>
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" name="id_promo" value="new_user" id="chkNewUser" checked>
+                <label class="form-check-label small" for="chkNewUser">Anda Sedang Menggunakan Voucher Pengguna Baru (Diskon 10%)</label>
+              </div>
+            <?php endif; ?>
+          </div>
             <div class="col-md-6 mb-3" id="area_input_bahan">
               <label class="form-label fw-bold small">Bahan Kain Keseluruhan</label>
               <input type="text" name="bahan" class="form-control" placeholder="Katun, Linen, Sifon, dll.">

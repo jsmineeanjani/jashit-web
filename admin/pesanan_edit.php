@@ -229,7 +229,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <input type="number" name="jumlah" class="form-control" value="<?= htmlspecialchars($pesanan['jumlah']) ?>" min="1">
                                     </div>
                                     <div class="col-md-8">
-                                        <label class="form-label fw-bold small text-primary">Data Ukuran (Dapat Diedit Bebas)</label>
+                                        <label class="form-label fw-bold small text-primary">Data Ukuran</label>
                                         <?php 
                                         $ukuran_edit = str_replace(' | ', "\n", $pesanan['ukuran']); 
                                         ?>
